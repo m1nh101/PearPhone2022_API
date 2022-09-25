@@ -19,6 +19,8 @@ public static class Db
       .AddDefaultTokenProviders()
       .AddEntityFrameworkStores<AppDbContext>();
 
+    services.Migration();
+
     return services;
   }
 
