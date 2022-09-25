@@ -1,5 +1,11 @@
+.vs
+.vscode
+
 **/**/obj
 **/**/bin
+
+src/API/appsettings.json
+
 src/ui/node_modules
 src/ui/.pnp
 .pnp.js
