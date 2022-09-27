@@ -5,7 +5,7 @@
 **/**/bin
 
 src/API/appsettings.json
-
+src/Infrastructure/Migrations
 src/ui/node_modules
 src/ui/.pnp
 .pnp.js

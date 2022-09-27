@@ -8,7 +8,7 @@ public partial class User : IdentityUser
   /// <summary>
   /// get or set status of user
   /// </summary>
-  public bool Active { get; set; }
+  public bool Active { get; private set; }
 
   /// <summary>
   /// get or set avatar photos url
