@@ -8,40 +8,47 @@ namespace Infrastructure.Database;
 
 public static class DatabaseMigration
 {
-  public static IServiceCollection Migration(this IServiceCollection services)
+  public static IServiceCollection Migration(this IServiceCollection services, IConfiguration configuration)
   {
     var context = services.BuildServiceProvider().GetRequiredService<AppDbContext>();
 
-    if (!context.Database.CanConnect())
+    var pendingMigrations = context.Database.GetPendingMigrations();
+
+    if (pendingMigrations.Any())
     {
       context.Database.Migrate();
-
-      //insert default admin and role to db
-      GenerateDefaultRoleAndAdminUser(services);
-    }
+      MigrateDefaultRoleAndAdminUserToDb(services, configuration);
+    }  
 
     return services;
   }
 
-  private static void GenerateDefaultRoleAndAdminUser(IServiceCollection services)
+  private static void MigrateDefaultRoleAndAdminUserToDb(IServiceCollection services, IConfiguration configuration)
   {
     UserManager<User> _userManager = services.BuildServiceProvider().GetRequiredService<UserManager<User>>();
     RoleManager<IdentityRole> _roleManager = services.BuildServiceProvider().GetRequiredService<RoleManager<IdentityRole>>();
 
-    User user = new()
+    if (!_userManager.Users.Any())
     {
-      UserName = "admin",
-      FirstName = "Admin",
-      LastName = "Root"
-    };
+      string rootUsername = configuration["root"] ?? "admin";
+      string rootPassword = configuration["rootPwd"] ?? "admin@1234";
+      const string adminRoleName = "admin";
 
-    IdentityRole role = new("admin");
+      User user = new()
+      {
+        UserName = rootUsername,
+        FirstName = "Admin",
+        LastName = "Root"
+      };
 
-    Task.Run(async () =>
-    {
-      await _userManager.CreateAsync(user, "admin@1234");
-      await _roleManager.CreateAsync(role);
-      await _userManager.AddToRoleAsync(user, "admin");
-    });
+      IdentityRole role = new(adminRoleName);
+
+      Task.Run(async () =>
+      {
+        await _userManager.CreateAsync(user, rootPassword);
+        await _roleManager.CreateAsync(role);
+        await _userManager.AddToRoleAsync(user, adminRoleName);
+      });
+    }
   }
 }
