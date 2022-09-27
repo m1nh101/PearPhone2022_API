@@ -1,6 +1,5 @@
 ﻿using Core.Entities.Users;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,29 +9,40 @@ public static class DatabaseMigration
 {
   public static IServiceCollection Migration(this IServiceCollection services, IConfiguration configuration)
   {
-    var context = services.BuildServiceProvider().GetRequiredService<AppDbContext>();
+    MigrateDefaultRole(services);
 
-    var pendingMigrations = context.Database.GetPendingMigrations();
-
-    if (pendingMigrations.Any())
-    {
-      context.Database.Migrate();
-      MigrateDefaultRoleAndAdminUserToDb(services, configuration);
-    }  
+    MigrateDefaultAdminUser(services, configuration);
 
     return services;
   }
 
-  private static void MigrateDefaultRoleAndAdminUserToDb(IServiceCollection services, IConfiguration configuration)
+  private static void MigrateDefaultRole(IServiceCollection services)
+  {
+    RoleManager<IdentityRole> _roleManager = services.BuildServiceProvider().GetRequiredService<RoleManager<IdentityRole>>();
+
+    if (!_roleManager.Roles.Any())
+    {
+      IdentityRole role = new("admin");
+      IdentityRole staffRole = new("staff");
+      IdentityRole customerRole = new("customer");
+
+      Task.Run(async () =>
+      {
+        await _roleManager.CreateAsync(role);
+        await _roleManager.CreateAsync(staffRole);
+        await _roleManager.CreateAsync(customerRole);
+      });
+    }
+  }
+
+  private static void MigrateDefaultAdminUser(IServiceCollection services, IConfiguration configuration)
   {
     UserManager<User> _userManager = services.BuildServiceProvider().GetRequiredService<UserManager<User>>();
-    RoleManager<IdentityRole> _roleManager = services.BuildServiceProvider().GetRequiredService<RoleManager<IdentityRole>>();
 
     if (!_userManager.Users.Any())
     {
-      string rootUsername = configuration["root"] ?? "admin";
-      string rootPassword = configuration["rootPwd"] ?? "admin@1234";
-      const string adminRoleName = "admin";
+      string rootUsername = configuration["ROOT_CREDENTIAL:UID"] ?? "admin";
+      string rootPassword = configuration["ROOT_CREDENTIAL:PWD"] ?? "admin@1234";
 
       User user = new()
       {
@@ -41,13 +51,10 @@ public static class DatabaseMigration
         LastName = "Root"
       };
 
-      IdentityRole role = new(adminRoleName);
-
       Task.Run(async () =>
       {
         await _userManager.CreateAsync(user, rootPassword);
-        await _roleManager.CreateAsync(role);
-        await _userManager.AddToRoleAsync(user, adminRoleName);
+        await _userManager.AddToRoleAsync(user, "admin");
       });
     }
   }

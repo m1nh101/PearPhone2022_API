@@ -1,13 +1,14 @@
 ﻿using Core.Entities.Users;
+using Core.Validators.Customize;
 using Infrastructure.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Configurations;
 
-public static class Db
+public static class DatabaseConfiguration
 {
-  public static IServiceCollection DbConfiguration(this IServiceCollection services, IConfiguration configuration)
+  public static IServiceCollection ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
   {
     services.AddDbContext<AppDbContext>(options =>
     {
@@ -17,6 +18,7 @@ public static class Db
 
     services.AddIdentity<User, IdentityRole>()
       .AddDefaultTokenProviders()
+      .AddErrorDescriber<AuthErrorDescriber>()
       .AddEntityFrameworkStores<AppDbContext>();
 
     services.Migration(configuration);
@@ -34,7 +36,7 @@ public static class Db
       var port = configuration["PORT"] ?? "1433";
       var UID = configuration["UID"] ?? "sa";
       var PWD = configuration["PWD"] ?? string.Empty;
-      var database = configuration["DBName"] ?? "phoneDb";
+      var database = configuration["DBName"] ?? "PhoneDb";
 
       return $"Server={server},{port};Database={database};UID={UID};PWD={PWD}";
     }
