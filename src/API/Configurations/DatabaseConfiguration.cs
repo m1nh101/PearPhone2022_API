@@ -1,4 +1,5 @@
-﻿using Core.Entities.Users;
+﻿using API.Helpers;
+using Core.Entities.Users;
 using Core.Interfaces;
 using Core.Validators.Customize;
 using Infrastructure.Database;
@@ -16,6 +17,8 @@ public static class DatabaseConfiguration
       options.UseSqlServer(GetConnection(configuration),
         x => x.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName));
     });
+
+    services.AddScoped<ICurrentUser, CurrentUser>();
 
     services.AddIdentity<User, IdentityRole>()
       .AddDefaultTokenProviders()

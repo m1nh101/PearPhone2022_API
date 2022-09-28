@@ -5,14 +5,17 @@ using Core.Interfaces;
 using Infrastructure.Database.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Shared.Bases;
 
 namespace Infrastructure.Database;
 
 public class AppDbContext : IdentityDbContext<User>, IAppDbContext
 {
+  private readonly ICurrentUser _user;
 
-  public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
+  public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUser user) : base(options)
   {
+    _user = user;
   }
 
   protected override void OnModelCreating(ModelBuilder builder)
@@ -33,6 +36,23 @@ public class AppDbContext : IdentityDbContext<User>, IAppDbContext
 
   public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
   {
+    foreach(var entry in ChangeTracker.Entries<ModifierEntity>())
+    {
+      if(entry.State == EntityState.Added)
+      {
+        entry.Entity.CreatedBy = _user.Id;
+        entry.Entity.UpdatedBy = _user.Id;
+        entry.Entity.CreatedAt = DateTime.Now;
+        entry.Entity.UpdatedAt = DateTime.Now;
+      }
+
+      if(entry.State == EntityState.Modified)
+      {
+        entry.Entity.UpdatedBy = _user.Id;
+        entry.Entity.UpdatedAt = DateTime.Now;
+      }
+    }
+
     return base.SaveChangesAsync(cancellationToken);
   }
 

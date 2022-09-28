@@ -23,8 +23,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddScoped<ICurrentUser, CurrentUser>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
