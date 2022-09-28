@@ -1,5 +1,7 @@
 using API.Configurations;
+using API.Helpers;
 using Core;
+using Core.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,10 @@ builder.Services.ConfigureCoreServices();
 builder.Services.ConfigureAuthentication(builder.Configuration);
 
 builder.Services.AddControllers();
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 
 var app = builder.Build();
 
