@@ -3,7 +3,6 @@ using Core.Entities.Stocks;
 using Core.Entities.Users;
 using Core.Interfaces;
 using Infrastructure.Database.Configurations;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +31,13 @@ public class AppDbContext : IdentityDbContext<User>, IAppDbContext
     base.OnModelCreating(builder);
   }
 
+  public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+  {
+    return base.SaveChangesAsync(cancellationToken);
+  }
+
+  public Task<int> Commit() => SaveChangesAsync();
+
   /// <summary>
   /// get Order collection
   /// </summary>
@@ -40,5 +46,7 @@ public class AppDbContext : IdentityDbContext<User>, IAppDbContext
   /// <summary>
   /// get stock collection
   /// </summary>
-  public DbSet<Stock> Stocks => throw new NotImplementedException();
+  public DbSet<Stock> Stocks => Set<Stock>();
+
+  public DbSet<Branch> Branches => Set<Branch>();
 }

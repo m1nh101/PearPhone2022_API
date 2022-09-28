@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Users;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,9 +10,14 @@ public static class DatabaseMigration
 {
   public static IServiceCollection Migration(this IServiceCollection services, IConfiguration configuration)
   {
-    MigrateDefaultRole(services);
+    var context = services.BuildServiceProvider().GetRequiredService<AppDbContext>();
 
-    MigrateDefaultAdminUser(services, configuration);
+    if (context.Database.CanConnect())
+    {
+      MigrateDefaultRole(services);
+
+      MigrateDefaultAdminUser(services, configuration);
+    }
 
     return services;
   }
