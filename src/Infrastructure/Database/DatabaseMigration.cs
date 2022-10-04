@@ -1,6 +1,7 @@
 ﻿using Core.Entities.Users;
-using Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,8 +13,9 @@ public static class DatabaseMigration
   {
     var context = services.BuildServiceProvider().GetRequiredService<AppDbContext>();
 
-    if (context.Database.CanConnect())
+    if((context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator)!.Exists())
     {
+
       MigrateDefaultRole(services);
 
       MigrateDefaultAdminUser(services, configuration);
