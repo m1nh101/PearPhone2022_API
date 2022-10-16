@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Core.CQRS.Auth.Handlers;
 
-public class AuthenticateUserRequestHandler : IRequestHandler<AuthenticateUserRequest, CommonResponse<AuthenticationResponse>>
+public class AuthenticateUserRequestHandler
+  : IRequestHandler<AuthenticateUserRequest, CommonResponse<AuthenticationResponse>>
 {
   private readonly JwtHelper _jwt;
   private readonly UserManager<User> _userManager;
@@ -35,7 +36,10 @@ public class AuthenticateUserRequestHandler : IRequestHandler<AuthenticateUserRe
         {
           Data = new AuthenticationResponse
           {
-            Token = token.Result
+            Token = token.Result,
+            Fullname = user.GetFullName(),
+            Email = user.Email,
+            Username = user.UserName
           },
           Message = "Đăng nhập thành công",
           StatusCode = System.Net.HttpStatusCode.OK
