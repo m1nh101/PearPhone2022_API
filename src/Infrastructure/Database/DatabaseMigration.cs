@@ -1,5 +1,7 @@
 ﻿using Core.Entities.Users;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,9 +11,15 @@ public static class DatabaseMigration
 {
   public static IServiceCollection Migration(this IServiceCollection services, IConfiguration configuration)
   {
-    MigrateDefaultRole(services);
+    var context = services.BuildServiceProvider().GetRequiredService<AppDbContext>();
 
-    MigrateDefaultAdminUser(services, configuration);
+    if((context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator)!.Exists())
+    {
+
+      MigrateDefaultRole(services);
+
+      MigrateDefaultAdminUser(services, configuration);
+    }
 
     return services;
   }

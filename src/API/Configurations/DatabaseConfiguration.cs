@@ -1,4 +1,6 @@
-﻿using Core.Entities.Users;
+﻿using API.Helpers;
+using Core.Entities.Users;
+using Core.Interfaces;
 using Core.Validators.Customize;
 using Infrastructure.Database;
 using Microsoft.AspNetCore.Identity;
@@ -16,12 +18,16 @@ public static class DatabaseConfiguration
         x => x.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName));
     });
 
+    services.AddScoped<ICurrentUser, CurrentUser>();
+
     services.AddIdentity<User, IdentityRole>()
       .AddDefaultTokenProviders()
       .AddErrorDescriber<AuthErrorDescriber>()
       .AddEntityFrameworkStores<AppDbContext>();
 
     services.Migration(configuration);
+
+    services.AddScoped<IAppDbContext, AppDbContext>();
 
     return services;
   }
