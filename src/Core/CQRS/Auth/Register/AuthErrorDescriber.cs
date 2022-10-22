@@ -2,7 +2,7 @@
 
 namespace Core.Validators.Customize;
 
-public class AuthErrorDescriber : IdentityErrorDescriber
+public class IdentityValidator : IdentityErrorDescriber
 {
   public override IdentityError DuplicateEmail(string email)
   {

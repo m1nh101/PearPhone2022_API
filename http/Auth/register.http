@@ -1,0 +1,12 @@
+POST https://localhost:7236/api/auth
+Content-Type: application/json
+
+{
+  "firstName": "User",
+  "lastName": "Test",
+  "middleName": "",
+  "username": "test",
+  "password": "test@2002",
+  "repeatPassword": "test@2002",
+  "email": "test@gmail.com",
+}

@@ -1,4 +1,5 @@
-﻿using Core.CQRS.Auth.Requests;
+﻿using Core.CQRS.Auth.Login;
+using Core.CQRS.Auth.Register;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ public class AuthController : ControllerBase
 
   [HttpPost]
   [Route("register")]
-  public async Task<IActionResult> Register([FromBody] RegisterNewUser register)
+  public async Task<IActionResult> Register([FromBody] RegisterRequest register)
   {
     var response = await _mediator.Send(register);
     if(response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -28,13 +29,14 @@ public class AuthController : ControllerBase
 
   [HttpPost]
   [Route("login")]
-  public async Task<IActionResult> Login([FromBody] AuthenticateUserRequest request)
+  public async Task<IActionResult> Login([FromBody] LoginRequest request)
   {
     var response = await _mediator.Send(request);
 
     if(response.StatusCode == System.Net.HttpStatusCode.OK)
     {
-      Response.Cookies.Append("token", response.Data!.Token);
+      var data = (SuccessLoginResponse) response.Data!;
+      Response.Cookies.Append("token", data.Token);
       return Ok(response);
     }
 

@@ -52,12 +52,7 @@ public static class DatabaseMigration
       string rootUsername = configuration["ROOT_CREDENTIAL:UID"] ?? "admin";
       string rootPassword = configuration["ROOT_CREDENTIAL:PWD"] ?? "admin@1234";
 
-      User user = new()
-      {
-        UserName = rootUsername,
-        FirstName = "Admin",
-        LastName = "Root"
-      };
+      User user = new("Admin", "Root", rootUsername, "admin@admin.com");
 
       Task.Run(async () =>
       {

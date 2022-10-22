@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Users;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace Core.Helpers;
 
-public class JwtHelper
+public class JwtHelper : IJwtHelper
 {
   private readonly UserManager<User> _userManager;
   private readonly IConfiguration _configuration;
@@ -20,12 +21,11 @@ public class JwtHelper
     _configuration = configuration;
   }
 
-  private User _user = new();
+  private User _user = User.Empty();
 
-  public JwtHelper SetUser(User user)
+  public void SetUser(User user)
   {
     _user = user;
-    return this;
   }
 
   private Claim GetUsernameClaim() => new(ClaimTypes.Name, _user.UserName);

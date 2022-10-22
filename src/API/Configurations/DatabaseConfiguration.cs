@@ -22,7 +22,7 @@ public static class DatabaseConfiguration
 
     services.AddIdentity<User, IdentityRole>()
       .AddDefaultTokenProviders()
-      .AddErrorDescriber<AuthErrorDescriber>()
+      .AddErrorDescriber<IdentityValidator>()
       .AddEntityFrameworkStores<AppDbContext>();
 
     services.Migration(configuration);
