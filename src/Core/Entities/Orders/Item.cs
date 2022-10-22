@@ -1,42 +1,57 @@
 ﻿using Core.Entities.Stocks;
+using Core.Exceptions;
+using Core.Helpers;
 using Shared.Bases;
 
 namespace Core.Entities.Orders;
 
 public class Item : ModifierEntity
 {
-    /// <summary>
-    /// get or set quantity
-    /// </summary>
-    public int Quantity { get; set; }
+	private Func<int, double, double> TotalItemPriceCalculate;
 
-    /// <summary>
-    /// get or set price of product
-    /// </summary>
-    public double Price { get; set; }
+	private Item()
+	{
+		TotalItemPriceCalculate = Calculator.TotalPrice;
+	}
 
-    /// <summary>
-    /// get or set total price of item
-    /// </summary>
-    public double Total { get; set; }
+  public Item(Phone phone)
+  {
+		Phone = phone;
+		TotalItemPriceCalculate = Calculator.TotalPrice;
+  }
 
-    /// <summary>
-    /// get or set order id
-    /// </summary>
-    public int OrderId { get; set; }
+  /// <summary>
+  /// get  quantity
+  /// </summary>
+  public int Quantity { get; private set; }
 
-    /// <summary>
-    /// get or set phone id
-    /// </summary>
-    public int PhoneId { get; set; }
+  public double UpdateQuantity(int quantity)
+  {
+    if (quantity <= 0)
+      throw new InvalidNumberException($"{quantity} is invalid, value must be greater than zero");
 
-    /// <summary>
-    /// get or set order object
-    /// </summary>
-    public virtual Order? Order { get; set; }
+    Quantity = quantity;
 
-    /// <summary>
-    /// get or set phone object
-    /// </summary>
-    public virtual Phone? Phone { get; set; }
+		return TotalItemPriceCalculate(quantity, Phone.Price);
+  }
+
+  /// <summary>
+  /// get or set order id
+  /// </summary>
+  public int OrderId { get; private set; }
+
+  /// <summary>
+  /// get or set phone id
+  /// </summary>
+  public int PhoneId { get; private set; }
+
+  /// <summary>
+  /// get or set order object
+  /// </summary>
+  public virtual Order Order { get; private set; } = null!;
+
+  /// <summary>
+  /// get or set phone object
+  /// </summary>
+  public virtual Phone Phone { get; private set; } = null!;
 }

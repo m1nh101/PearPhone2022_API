@@ -8,10 +8,10 @@ public partial class Order : ModifierEntity
     /// <summary>
     /// get or set total price of order
     /// </summary>
-    public double Total { get; set; }
+    public double Total { get; private set; }
 
     /// <summary>
     /// get or set status of order
     /// </summary>
-    public Status Status { get; set; } = Status.None;
+    public Status Status { get; private set; } = Status.None;
 }
