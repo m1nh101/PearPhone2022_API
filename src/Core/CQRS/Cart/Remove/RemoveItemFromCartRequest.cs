@@ -8,5 +8,6 @@ using MediatR;
 namespace Core.CQRS.Cart.Remove;
 
 public sealed record RemoveItemFromCartRequest(
-	int ItemId
+	int ItemId,
+	int ProductId
 ) : IRequest<ActionResponse>;

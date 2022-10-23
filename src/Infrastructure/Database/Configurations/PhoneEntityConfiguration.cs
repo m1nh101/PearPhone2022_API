@@ -10,9 +10,6 @@ public class PhoneEntityConfiguration : BaseModifierConfiguration<Phone>
   {
     builder.ToTable("Phones");
 
-    builder.Property(e => e.Price)
-      .HasColumnType("money");
-
     builder.Property(e => e.Name)
       .HasMaxLength(1000)
       .HasColumnType("nvarchar")

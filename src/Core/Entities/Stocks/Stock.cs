@@ -8,7 +8,9 @@ public partial class Stock : ModifierEntity
   /// <summary>
   /// get or set quantity of product in stock
   /// </summary>
-  public int Quantity { get; set; }
+  public int Quantity { get; private set; }
 
-  public Status Status { get; set; } = Status.None;
+  public double Price { get; private set; }
+
+  public Status Status { get; private set; } = Status.None;
 }

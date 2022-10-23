@@ -14,9 +14,9 @@ public class Item : ModifierEntity
 		TotalItemPriceCalculate = Calculator.TotalPrice;
 	}
 
-  public Item(Phone phone)
+  public Item(Stock stock)
   {
-		Phone = phone;
+		Stock = stock;
 		TotalItemPriceCalculate = Calculator.TotalPrice;
   }
 
@@ -32,7 +32,7 @@ public class Item : ModifierEntity
 
     Quantity = quantity;
 
-		return TotalItemPriceCalculate(quantity, Phone.Price);
+		return TotalItemPriceCalculate(quantity, Stock.Price);
   }
 
   /// <summary>
@@ -43,7 +43,7 @@ public class Item : ModifierEntity
   /// <summary>
   /// get or set phone id
   /// </summary>
-  public int PhoneId { get; private set; }
+  public int StockId { get; private set; }
 
   /// <summary>
   /// get or set order object
@@ -51,7 +51,7 @@ public class Item : ModifierEntity
   public virtual Order Order { get; private set; } = null!;
 
   /// <summary>
-  /// get or set phone object
+  /// get stock of phone object
   /// </summary>
-  public virtual Phone Phone { get; private set; } = null!;
+  public virtual Stock Stock { get; private set; } = null!;
 }

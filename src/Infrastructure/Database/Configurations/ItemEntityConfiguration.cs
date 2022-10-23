@@ -14,9 +14,9 @@ public class ItemEntityConfiguration : BaseModifierConfiguration<Item>
       .WithMany(e => e.Items)
       .HasForeignKey(e => e.OrderId);
 
-    builder.HasOne(e => e.Phone)
+    builder.HasOne(e => e.Stock)
       .WithMany(e => e.Items)
-      .HasForeignKey(e => e.PhoneId);
+      .HasForeignKey(e => e.StockId);
     
     base.Configure(builder);
   }

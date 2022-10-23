@@ -9,5 +9,6 @@ namespace Core.CQRS.Cart.Update;
 
 public sealed record UpdateItemQuantityRequest(
 	int ItemId,
+	int ProductId,
 	int Quantity
 ) : IRequest<ActionResponse>;

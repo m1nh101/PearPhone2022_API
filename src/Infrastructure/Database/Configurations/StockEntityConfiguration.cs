@@ -24,6 +24,9 @@ public class StockEntityConfiguration : BaseModifierConfiguration<Stock>
       .WithMany(e => e.Stocks)
       .HasForeignKey(e => e.PhoneId);
 
+    builder.Property(e => e.Price)
+      .HasColumnType<double>("money");
+
     base.Configure(builder);
   }
 }

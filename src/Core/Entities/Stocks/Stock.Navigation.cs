@@ -1,4 +1,6 @@
-﻿namespace Core.Entities.Stocks;
+﻿using Core.Entities.Orders;
+
+namespace Core.Entities.Stocks;
 
 public partial class Stock
 {
@@ -19,4 +21,6 @@ public partial class Stock
   /// </summary>
   public int ColorId { get; set; }
   public virtual Color? Color { get; set; }
+
+  public virtual ICollection<Item> Items { get; private set; } = null!;
 }

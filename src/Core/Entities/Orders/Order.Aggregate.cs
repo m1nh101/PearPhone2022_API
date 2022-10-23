@@ -13,14 +13,14 @@ public partial class Order : IAggregateRoot
     TotalPriceCalculate = Calculator.TotalPrice;
   }
 
-  public double AddItem(int quantity, Phone phone)
+  public double AddItem(int quantity, Stock phoneStock)
   {
     double totalItemPrice = 0;
-    Item? itemInOrder = _items.FirstOrDefault(e => e.PhoneId == phone.Id);
+    Item? itemInOrder = _items.FirstOrDefault(e => e.StockId == phoneStock.Id);
 
     if(itemInOrder == null)
     {
-      Item item = new(phone);
+      Item item = new(phoneStock);
       totalItemPrice = item.UpdateQuantity(quantity);
     } else
       totalItemPrice = itemInOrder.UpdateQuantity(quantity);
@@ -30,7 +30,7 @@ public partial class Order : IAggregateRoot
     return Total;
   }
 
-  public double RemoveItem(int id, int price)
+  public double RemoveItem(int id, double price)
   {
     Item? item = _items.FirstOrDefault(e => e.Id == id);
 

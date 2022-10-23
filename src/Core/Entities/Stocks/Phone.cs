@@ -11,11 +11,6 @@ public class Phone : ModifierEntity
   /// </summary>
   public string Name { get; set; } = string.Empty;
 
-  /// <summary>
-  /// get or set price of phone
-  /// </summary>
-  public double Price { get; set; }
-
   //navigation and foreign key
   private readonly List<Image> _images = new();
   public IReadOnlyCollection<Image> Images => _images.AsReadOnly();
