@@ -1,4 +1,4 @@
-﻿using Core.Entities.Stocks;
+﻿using Core.Entities.Phones;
 using Shared.Bases;
 using Shared.Enums;
 

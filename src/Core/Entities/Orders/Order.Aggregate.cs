@@ -1,4 +1,4 @@
-﻿using Core.Entities.Stocks;
+﻿using Core.Entities.Phones;
 using Core.Helpers;
 using Shared.Interfaces;
 
