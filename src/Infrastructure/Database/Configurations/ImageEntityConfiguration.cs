@@ -1,4 +1,4 @@
-﻿using Core.Entities.Stocks;
+﻿using Core.Entities.Phones;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shared.Bases;

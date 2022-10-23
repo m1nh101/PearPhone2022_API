@@ -1,5 +1,5 @@
 ﻿using Core.Entities.Orders;
-using Core.Entities.Stocks;
+using Core.Entities.Phones;
 using Core.Entities.Users;
 using Core.Interfaces;
 using Infrastructure.Database.Configurations;
