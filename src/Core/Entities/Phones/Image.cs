@@ -1,6 +1,6 @@
 ﻿using Shared.Bases;
 
-namespace Core.Entities.Stocks;
+namespace Core.Entities.Phones;
 
 public class Image : Entity
 {

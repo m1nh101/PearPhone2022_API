@@ -1,5 +1,5 @@
 ﻿using Core.Entities.Orders;
-using Core.Entities.Stocks;
+using Core.Entities.Phones;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.Interfaces;

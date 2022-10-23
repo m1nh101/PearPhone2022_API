@@ -1,7 +1,7 @@
-POST https://localhost:7236/api/auth
+POST https://localhost:7236/api/auth/login
 
 Content-Type: application/json
 {
-  "username": "test",
-  "password": "test@2002"
+  "username": "admin",
+  "password": ""
 }

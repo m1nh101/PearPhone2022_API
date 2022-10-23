@@ -1,9 +1,20 @@
 ﻿using Core.Entities.Orders;
+using Shared.Bases;
+using Shared.Enums;
 
-namespace Core.Entities.Stocks;
+namespace Core.Entities.Phones;
 
-public partial class Stock
+public partial class Stock : ModifierEntity
 {
+  /// <summary>
+  /// get or set quantity of product in stock
+  /// </summary>
+  public int Quantity { get; private set; }
+
+  public double Price { get; private set; }
+
+  public Status Status { get; private set; } = Status.None;
+
   /// <summary>
   /// get or set phone id
   /// </summary>

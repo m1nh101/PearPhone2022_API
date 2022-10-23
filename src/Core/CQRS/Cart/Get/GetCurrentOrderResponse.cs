@@ -9,7 +9,6 @@ public sealed record ItemInCart
 	public double Total { get; init; }
 }
 
-
 public sealed record GetCurrentOrderResponse(
 	double Total,
 	IEnumerable<ItemInCart> Items

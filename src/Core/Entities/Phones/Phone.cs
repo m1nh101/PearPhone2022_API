@@ -2,9 +2,9 @@
 using Shared.Bases;
 using Shared.Enums;
 
-namespace Core.Entities.Stocks;
+namespace Core.Entities.Phones;
 
-public class Phone : ModifierEntity
+public partial class Phone : ModifierEntity
 {
   /// <summary>
   /// get or set name of phone
@@ -21,10 +21,11 @@ public class Phone : ModifierEntity
   public int SaleId { get; set; }
   public virtual Sale? Sale { get; set; }
 
-  public virtual ICollection<Stock>? Stocks { get; set; }
-
   public int BranchId { get; set; }
   public virtual Branch? Branch { get; set; }
 
   public virtual ICollection<Item>? Items { get; set; }
+
+  private readonly List<Stock> _stocks = new();
+  public IReadOnlyCollection<Stock> Stocks => _stocks.AsReadOnly();
 }
