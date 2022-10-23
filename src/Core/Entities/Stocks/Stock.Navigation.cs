@@ -8,7 +8,7 @@ public partial class Stock
   /// get or set phone id
   /// </summary>
   public int PhoneId { get; set; }
-  public virtual Phone? Phone { get; set; }
+  public virtual Phone Phone { get; private set; } = null!;
   
   /// <summary>
   /// get or set phone detail id
