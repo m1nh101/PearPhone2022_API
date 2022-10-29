@@ -60,4 +60,27 @@ public partial class Stock : ModifierEntity
   public virtual Color? Color { get; set; }
 
   public virtual ICollection<Item> Items { get; private set; } = null!;
+
+  public int ReduceQuantity(int value)
+  {
+    if(value <= 0)
+      throw new ArgumentOutOfRangeException($"{nameof(value)} cannot be negative");
+
+    if(value > Quantity)
+      throw new ArgumentOutOfRangeException($"{nameof(value)} cannot be greater than current quantity");
+
+    Quantity -= value;
+
+    return Quantity;
+  }
+
+  public int IncreaseQuantity(int value)
+  {
+    if(value <= 0)
+      throw new ArgumentOutOfRangeException($"{nameof(value)} cannot be negative");
+
+    Quantity += value;
+
+    return Quantity;
+  }
 }
