@@ -9,5 +9,6 @@ public interface IAppDbContext
   DbSet<Order> Orders { get; }
   DbSet<Stock> Stocks { get; }
   DbSet<Branch> Branches { get; }
+  DbSet<Phone> Phones { get; }
   Task<int> Commit();
 }
