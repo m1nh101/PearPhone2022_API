@@ -8,7 +8,7 @@ public partial class Stock : ModifierEntity
 {
   private Stock() {}
 
-  public Stock(int quantity, double price, int ram, int capacity, int colorId)
+  public Stock(int quantity, double price, int ram, int capacity, int colorId, int detailId)
   {
     Quantity = quantity;
     Price = price;
@@ -18,7 +18,7 @@ public partial class Stock : ModifierEntity
     ColorId = colorId;
   }
 
-  public Stock(int quantity, double price, int ram, int capacity, Color color)
+  public Stock(int quantity, double price, int ram, int capacity, Color color, PhoneDetail detail)
   {
     Quantity = quantity;
     Price = price;

@@ -16,8 +16,10 @@ public partial class Phone : IAggregateRoot
     //     existStock.IncreaseQuantity(stock.Quantity);
     //   }
     // }
-
+    //return this;
+    _stocks.AddRange(stocks);
     return this;
+
   }
 
   public Phone AddImage(IEnumerable<Image> images)
