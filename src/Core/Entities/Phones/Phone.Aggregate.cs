@@ -27,4 +27,9 @@ public partial class Phone : IAggregateRoot
     _images.AddRange(images);
     return this;
   }
+  public Phone AddImage(IEnumerable<string> images)
+  {
+      _images.AddRange(images.Select(c=> new Image(c)));
+      return this;
+  }
 }

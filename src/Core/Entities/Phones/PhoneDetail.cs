@@ -4,6 +4,14 @@ namespace Core.Entities.Phones;
 
 public class PhoneDetail : Entity
 {
+    public PhoneDetail( 
+        string bettery,
+        string screen,
+        string os,
+        string charger,
+        string camera,
+        string audio,
+        string security) {}
     /// <summary>
     /// get or set battery of phone
     /// </summary>
