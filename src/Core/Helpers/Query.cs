@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Core.Helpers;
 
@@ -20,8 +21,8 @@ public static class Query
 
         result = result.Where(spec.Criteria);
 
-        _ = spec.Includes.Aggregate(result, (current, expression) => 
-            current.Include(expression));
+        result = spec.Includes.Aggregate(result, (current, expression) => 
+            expression(current));
 
         if(spec.OrderBy != null)
             result = result.OrderBy(spec.OrderBy);
@@ -39,7 +40,7 @@ public static class Query
     {
         IQueryable<T> data = Source(source, asNoTracking);
 
-        _ = spec.Includes.Aggregate(data, (current, expr) => current.Include(expr));
+        _ = spec.Includes.Aggregate(data, (current, expr) => expr(current));
 
         var result = data.FirstOrDefault(spec.Criteria);
         
