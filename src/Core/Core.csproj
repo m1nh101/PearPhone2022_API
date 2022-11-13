@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CQRS\Phones\Remove\" />
+    <Folder Include="CQRS\Phones\Update\" />
     <Folder Include="Model\" />
     <Folder Include="Services\" />
   </ItemGroup>

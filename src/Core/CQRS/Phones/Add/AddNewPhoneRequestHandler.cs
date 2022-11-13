@@ -39,15 +39,16 @@ public sealed record AddNewPhoneRequest(
 public sealed class AddNewPhoneRequestHandler:IRequestHandler<AddNewPhoneRequest, ActionResponse>
 {
     private readonly IAppDbContext _context;
-
+    
     public AddNewPhoneRequestHandler(IAppDbContext context)
     {
         _context = context;
     }
-
+    
     public async Task<ActionResponse> Handle(AddNewPhoneRequest request, CancellationToken cancellationToken)
     {
-        var stocks = request.Stocks.Select(e => new Stock(e.Quantity, e.Price, e.RAM, e.Capacity, e.Color.Id, e.Detail.Id) {
+        var stocks = request.Stocks.Select(e => new Stock(
+            e.Quantity, e.Price, e.RAM, e.Capacity,e.Color.Id, e.Detail.Id) {
             ColorId = e.Color.Id,
             PhoneDetailId = e.Detail.Id
         });
