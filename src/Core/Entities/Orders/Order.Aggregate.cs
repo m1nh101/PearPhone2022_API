@@ -13,6 +13,7 @@ public partial class Order : IAggregateRoot
     TotalPriceCalculate = Calculator.TotalPrice;
   }
 
+  
   public double AddItem(int quantity, Stock phoneStock)
   {
     double totalItemPrice = 0;
@@ -64,4 +65,4 @@ public partial class Order : IAggregateRoot
 
     return Total;
   }
-}
+} 

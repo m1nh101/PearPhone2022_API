@@ -4,6 +4,7 @@ using Core.Interfaces;
 using Core.Helpers.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Core.CQRS.Cart.Specification;
 
 namespace Core.CQRS.Cart.Add;
 
@@ -23,12 +24,7 @@ public sealed class AddItemToCartRequestHandler
   {
     var order = await _context.Orders.CurrentOrder(_user.Id);
 
-    var phoneStock = await _context.Stocks.FirstOrDefaultAsync(e => e.Id == request.ProductId);
-
-    bool validRequestParameter = order == null || phoneStock == null;
-      
-    if(!validRequestParameter)
-      throw new NullReferenceException();
+    var phoneStock = Query.Get(_context.Stocks, new PhoneStockSpecification(request.ProductId));
 
     Item item = new(phoneStock!);
 
