@@ -1,6 +1,5 @@
 ﻿using Core.Entities.Phones;
 using Core.Interfaces;
-using Core.Interfaces;
 using MediatR;
 
 namespace Core.CQRS.Phones.Add;
@@ -11,8 +10,7 @@ public sealed record ColorPayload(
 );
 
 public sealed record DetailPayload(
-    int Id,
-    string Bettery,
+    string Battery,
     string Screen,
     string OS,
     string Charger,
@@ -22,7 +20,6 @@ public sealed record DetailPayload(
 );
 public sealed record StockPayload(
     ColorPayload Color,
-    DetailPayload Detail,
     int RAM,
     int Quantity,
     double Price,
@@ -33,6 +30,7 @@ public sealed record AddNewPhoneRequest(
     string Name,
     string CPU,
     IEnumerable<StockPayload> Stocks,
+    DetailPayload Detail,
     IEnumerable<string> Images
 ) : IRequest<ActionResponse>;
 
@@ -47,16 +45,25 @@ public sealed class AddNewPhoneRequestHandler:IRequestHandler<AddNewPhoneRequest
     
     public async Task<ActionResponse> Handle(AddNewPhoneRequest request, CancellationToken cancellationToken)
     {
+<<<<<<< HEAD
         var stocks = request.Stocks.Select(e => new Stock(
             e.Quantity, e.Price, e.RAM, e.Capacity,e.Color.Id, e.Detail.Id) {
             ColorId = e.Color.Id,
             PhoneDetailId = e.Detail.Id
         });
+=======
+        var detail = new PhoneDetail(request.Detail.Battery, request.Detail.Screen, request.Detail.OS,
+            request.Detail.Charger, request.Detail.Camera, request.Detail.Audio, request.Detail.Security);
+        var stocks = request.Stocks
+            .Select(e => new Stock(e.Quantity, e.Price, e.RAM, e.Capacity, new Color(e.Color.Name, e.Color.RGB), detail));
+>>>>>>> 467a00dd11a74820d9166cc9a7f7324c7e7e8bb1
 
         var phone = new Phone
         {
             Name = request.Name
-        }.AddStock(stocks);
+        }
+        .WithStocks(stocks)
+        .WithImages(request.Images);
 
         await _context.Phones.AddAsync(phone);
 

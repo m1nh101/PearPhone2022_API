@@ -8,17 +8,18 @@ public partial class Stock : ModifierEntity
 {
   private Stock() {}
 
-  public Stock(int quantity, double price, int ram, int capacity, int colorId, int detailId)
-  {
-    Quantity = quantity;
-    Price = price;
-    RAM = ram;
-    Capacity = capacity;
-    Status = Status.Active;
-    ColorId = colorId;
-  }
+    public Stock(int quantity, double price, int ram, int capacity, int colorId, int detailId)
+    {
+        Quantity = quantity;
+        Price = price;
+        RAM = ram;
+        Capacity = capacity;
+        Status = Status.Active;
+        ColorId = colorId;
+        PhoneDetailId = detailId;
+    }
 
-  public Stock(int quantity, double price, int ram, int capacity, Color color, PhoneDetail detail)
+    public Stock(int quantity, double price, int ram, int capacity, Color color, PhoneDetail detail)
   {
     Quantity = quantity;
     Price = price;
@@ -26,6 +27,7 @@ public partial class Stock : ModifierEntity
     RAM = ram;
     Capacity = capacity;
     Status = Status.Active;
+    Detail = detail;
   }
 
   /// <summary>

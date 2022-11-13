@@ -26,9 +26,28 @@ public partial class Phone : IAggregateRoot
     {
         return this;
     }
+
     public Phone AddImage(IEnumerable<Image> images)
     {
         _images.AddRange(images);
+        return this;
+    }
+
+    public Phone WithStocks(IEnumerable<Stock> stocks)
+    {
+        _stocks.AddRange(stocks);
+        return this;
+    }
+
+    public Phone WithImages(IEnumerable<Image> images)
+    {
+        _images.AddRange(images);
+        return this;
+    }
+
+    public Phone WithImages(IEnumerable<string> images)
+    {
+        _images.AddRange(images.Select(c => new Image(c)));
         return this;
     }
 }
