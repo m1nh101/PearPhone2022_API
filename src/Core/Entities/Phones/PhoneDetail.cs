@@ -64,4 +64,18 @@ public class PhoneDetail : Entity
 
     //navigation and foreign key
     public virtual ICollection<Stock> Stocks { get; private set; } = null!;
+
+    public void Update(PhoneDetail phoneDetail)
+    {
+        Battery = phoneDetail.Battery;
+        Screen = phoneDetail.Screen;
+        OS = phoneDetail.OS;
+        Charger = phoneDetail.Charger;
+        CPU = phoneDetail.CPU;
+        RAM = phoneDetail.RAM;
+        Camera = phoneDetail.Camera;
+        Audio = phoneDetail.Audio;
+        Security = phoneDetail.Security;
+        Connection = phoneDetail.Connection;
+    }
 }

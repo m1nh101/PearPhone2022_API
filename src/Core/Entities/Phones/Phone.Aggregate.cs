@@ -1,32 +1,31 @@
+using Shared.Enums;
 using Shared.Interfaces;
 
 namespace Core.Entities.Phones;
 
 public partial class Phone : IAggregateRoot
 {
-    public Phone AddStock(IEnumerable<Stock> stocks)
+    public Phone UpdateStock(IEnumerable<Stock> stock)
     {
-        // foreach(var stock in stocks)
-        // {
-        //   if(stock.Id == 0)
-        //     _stocks.Add(stock);
-        //   else
-        //   {
-        //     var existStock = _stocks.First(e => e.Capacity == stock.Capacity);
-        //     existStock.IncreaseQuantity(stock.Quantity);
-        //   }
-        // }
-        //return this;
-        _stocks.AddRange(stocks);
-        return this;
-
-    }
-
-    public Phone UpdateStock(IEnumerable<Stock> stocks)
-    {
+        foreach (var x in stock)
+        {
+            if (x.Id == 0)
+              _stocks.Add(x);
+            else
+            {
+              var existStock = _stocks.First(e => e.Id == x.Id);
+              existStock.IncreaseQuantity(x.Quantity);
+              existStock.Detail.Update(x.Detail);
+            }
+        }
         return this;
     }
 
+    public void DeleteStock()
+    {
+        Status = Status.Inactive;
+    }
+    
     public Phone AddImage(IEnumerable<Image> images)
     {
         _images.AddRange(images);

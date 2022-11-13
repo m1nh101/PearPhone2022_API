@@ -10,6 +10,7 @@ public partial class Phone : ModifierEntity
   /// get or set name of phone
   /// </summary>
   public string Name { get; set; } = string.Empty;
+  public Status Status { get; set; }
 
   //navigation and foreign key
   private readonly List<Image> _images = new();
