@@ -1,3 +1,4 @@
+using Core.CQRS.Cart.Specification;
 using Core.Helpers;
 using Core.Helpers.Extensions;
 using Core.Interfaces;
@@ -22,11 +23,7 @@ public sealed class UpdateItemQuantityRequestHandler
   {
     var order = await _context.Orders.CurrentOrder(_user.Id);
 
-    var phoneStock = await _context.Stocks.AsNoTracking()
-      .FirstOrDefaultAsync(e => e.Id == request.ProductId);
-
-    if(phoneStock == null)
-      throw new NullReferenceException();
+    var phoneStock = Query.Get(_context.Stocks, new PhoneStockSpecification(request.ProductId));
 
     double totalItemPrice = Calculator.TotalPrice(request.Quantity, phoneStock.Price);
     double totalOrderPrice = order.UpdateItemInCart(request.ItemId, request.Quantity, phoneStock.Price);
