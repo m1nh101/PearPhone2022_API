@@ -15,7 +15,7 @@ public partial class Phone : IAggregateRoot
             {
               var existStock = _stocks.First(e => e.Id == x.Id);
               existStock.IncreaseQuantity(x.Quantity);
-              existStock.Detail.Update(x.Detail);
+              existStock.Detail!.Update(x.Detail!);
             }
         }
         return this;

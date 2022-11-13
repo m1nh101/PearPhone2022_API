@@ -2,20 +2,6 @@ using Core.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-public sealed record GetListPhoneRequest(
-  string? Branch,
-  int RAM,
-  string Capacity,
-  int pageIndex = 1
-) : IRequest<ActionResponse>;
-
-public sealed record GetListResponse(
-  int Id,
-  string Name,
-  double Price,
-  string Image
-);
-
 public sealed class GetListPhoneRequestHandler
   : IRequestHandler<GetListPhoneRequest, ActionResponse>
 {
