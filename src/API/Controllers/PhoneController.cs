@@ -21,8 +21,8 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPhone()
         {
-            //var request = new GetListPhoneRequest();
-            //var response = await _mediator.Send(request);
+            // var request = new GetListPhoneRequest();
+            // var response = await _mediator.Send(request);
             return Ok();
         }
 
