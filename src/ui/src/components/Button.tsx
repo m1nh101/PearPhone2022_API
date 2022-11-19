@@ -1,11 +1,11 @@
 import React from "react";
 
 interface PropButton {
-  backgroundColor: string;
-  size: string;
-  animate: boolean;
-  children: string;
-  icon: string;
+  backgroundColor?: string;
+  size?: string;
+  animate?: boolean;
+  children?: string;
+  icon?: string;
 }
 
 const Button: React.FC<PropButton> = (props: PropButton): JSX.Element => {
