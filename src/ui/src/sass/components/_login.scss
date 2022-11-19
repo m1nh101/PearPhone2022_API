@@ -1,0 +1,33 @@
+.LoginBody {
+  height: 100vh;
+  display: flex;
+  align-items: center; //1 cái là center mí 1 cái là baseline
+  justify-content: center;
+}
+.login {
+  width: 500px;
+  height: min-content;
+  padding: 20px;
+  border-radius: 12px;
+  h1 {
+    font-size: 36px;
+    margin-bottom: 25px;
+  }
+  form {
+    font-size: 20px;
+    .form-group {
+      margin-bottom: 12px;
+    }
+  }
+  &_input {
+    width: 100%;
+  }
+  &_check {
+    padding-left: 7px;
+  }
+  button {
+    margin: auto;
+    font-size: larger;
+    display: block;
+  }
+}
