@@ -1,6 +1,5 @@
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace Core.Helpers;
 

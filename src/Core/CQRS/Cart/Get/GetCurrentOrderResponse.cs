@@ -7,6 +7,7 @@ public sealed record ItemInCart
 	public int ProductId { get; init; }
 	public string ProductName { get; init; } = null!;
 	public double Total { get; init; }
+	public string ProductImage { get; init; } = null!;
 }
 
 public sealed record GetCurrentOrderResponse(
