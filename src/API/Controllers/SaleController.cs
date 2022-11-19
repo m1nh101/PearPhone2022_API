@@ -1,5 +1,7 @@
 ﻿using Core.CQRS.Sales.Add;
 using Core.CQRS.Sales.Get;
+using Core.CQRS.Sales.Remove;
+using Core.CQRS.Sales.Update;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +28,20 @@ namespace API.Controllers
 
         [HttpPost]
         public async Task<IActionResult> AddSale([FromBody] AddSaleRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateSale([FromBody] UpdateSaleRequest request, int id)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteSale([FromBody] RemoveSaleRequest request, int id)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

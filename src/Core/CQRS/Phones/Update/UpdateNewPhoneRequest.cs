@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Core.CQRS.Phones.Update
 {
-  public sealed record UpdateNewPhoneRequest(
+    public sealed record UpdateNewPhoneRequest(
         int PhoneId,
         string Name,
         string CPU,
