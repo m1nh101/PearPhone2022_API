@@ -1,4 +1,6 @@
-﻿using Core.Entities.Orders;
+﻿using Core.Entities;
+using Core.Entities.Orders;
+using Core.Entities.Payments;
 using Core.Entities.Phones;
 using Core.Entities.Users;
 using Core.Interfaces;
@@ -30,6 +32,7 @@ public class AppDbContext : IdentityDbContext<User>, IAppDbContext
     builder.ApplyConfiguration(new ReceiptEntityConfiguration());
     builder.ApplyConfiguration(new ItemEntityConfiguration());
     builder.ApplyConfiguration(new ImageEntityConfiguration());
+    builder.ApplyConfiguration(new VoucherEntityConfiguration());
 
     base.OnModelCreating(builder);
   }
@@ -58,17 +61,11 @@ public class AppDbContext : IdentityDbContext<User>, IAppDbContext
 
   public Task<int> Commit() => SaveChangesAsync();
 
-  /// <summary>
-  /// get Order collection
-  /// </summary>
   public DbSet<Order> Orders => Set<Order>();
-
-  /// <summary>
-  /// get stock collection
-  /// </summary>
   public DbSet<Stock> Stocks => Set<Stock>();
-
   public DbSet<Branch> Branches => Set<Branch>();
-
   public DbSet<Phone> Phones => Set<Phone>();
+  public DbSet<Voucher> Vouchers => Set<Voucher>();
+  public DbSet<Receipt> Receipts => Set<Receipt>();
+  public DbSet<Sale> Sales => Set<Sale>();
 }

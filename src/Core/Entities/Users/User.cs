@@ -57,4 +57,6 @@ public partial class User : IdentityUser
   /// MiddleName is optional
   /// </value>
   public string? MiddleName { get; private set; }
+
+  public bool IsReceiveNotification { get; private set; }
 }

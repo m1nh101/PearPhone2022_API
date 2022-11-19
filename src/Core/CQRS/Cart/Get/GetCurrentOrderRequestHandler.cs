@@ -29,7 +29,8 @@ public sealed class GetCurrentOrderRequestHandler
           ItemId = d.Id,
           Quanttiy = d.Quantity,
           Total = Calculator.TotalPrice(d.Quantity, d.Stock.Price),
-          ProductName = d.Stock.Phone.Name
+          ProductName = d.Stock.Phone.Name,
+          ProductImage = d.Stock!.Phone!.Images.First()!.Url
         })))
       .AsNoTracking();
     
