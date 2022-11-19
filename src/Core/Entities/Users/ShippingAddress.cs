@@ -1,4 +1,5 @@
-﻿using Shared.Bases;
+﻿using Core.Entities.Payments;
+using Shared.Bases;
 using Shared.Enums;
 
 namespace Core.Entities.Users;

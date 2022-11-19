@@ -1,10 +1,10 @@
 ﻿using Core.Entities.Orders;
-using Core.Entities.Payments;
 using Core.Entities.Users;
+using Core.Exceptions;
 using Shared.Bases;
 using Shared.Enums;
 
-namespace Core.Entities;
+namespace Core.Entities.Payments;
 
 public class Receipt : ModifierEntity
 {
@@ -12,6 +12,7 @@ public class Receipt : ModifierEntity
   /// get or set user who sell product
   /// </summary>
   public string Seller { get; set; } = string.Empty;
+  public double Total { get; private set; }
 
   /// <summary>
   /// get or set of receipt
@@ -35,4 +36,23 @@ public class Receipt : ModifierEntity
 
   public int VoucherId { get; private set; }
   public virtual Voucher? Voucher { get; private set; }
+
+  public void ApplyVoucher(Voucher voucher)
+  {
+    Voucher.Validate(voucher);
+
+    if(voucher.VoucherType == VoucherType.Percent)
+    {
+      var discount = Total * voucher.Value;
+
+      if(discount > voucher.MaxDiscount)
+        Total -= voucher.MaxDiscount;
+      else
+        Total -= discount;
+    }
+    else
+      Total -= voucher.MaxDiscount;
+    
+    Voucher = voucher;
+  }
 }

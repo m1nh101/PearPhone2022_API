@@ -1,4 +1,5 @@
-﻿using Core.Entities.Users;
+﻿using Core.Entities.Payments;
+using Core.Entities.Users;
 
 namespace Core.Entities.Orders;
 
