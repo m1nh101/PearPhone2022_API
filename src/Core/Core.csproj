@@ -22,7 +22,6 @@
   <ItemGroup>
     <Folder Include="CQRS\Phones\Remove\" />
     <Folder Include="CQRS\Phones\Update\" />
-    <Folder Include="CQRS\Sales\Add\" />
     <Folder Include="CQRS\Sales\Get\" />
     <Folder Include="CQRS\Sales\Remove\" />
     <Folder Include="CQRS\Sales\Update\" />

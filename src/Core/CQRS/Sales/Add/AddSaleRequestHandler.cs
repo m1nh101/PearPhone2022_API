@@ -5,38 +5,29 @@ using MediatR;
 
 namespace Core.CQRS.Sales.Add;
 
-public sealed record AddSaleReques(
-    int Id,
+public sealed record AddSaleRequest(
+    IEnumerable<int> Products,
     DateTime Effective,
     DateTime Expired,
-    double Discount,
-    DateTime CreateAt,
-    DateTime UpdateAt,
-    string CreateBy,
-    string UpdateBy
+    double Discount
 ) : IRequest<ActionResponse>;
 
-public class AddtSaleRequestHandler : IRequestHandler<AddSaleReques, ActionResponse>
+public class AddSaleRequestHandler : IRequestHandler<AddSaleRequest, ActionResponse>
 {
     public readonly IAppDbContext _context;
 
-    public AddtSaleRequestHandler(IAppDbContext context)
+    public AddSaleRequestHandler(IAppDbContext context)
     {
         _context = context;
     }
 
-    public async Task<ActionResponse> Handle(AddSaleReques request, CancellationToken cancellationToken)
+    public async Task<ActionResponse> Handle(AddSaleRequest request, CancellationToken cancellationToken)
     {
-        
         var sale = new Sale
         {
             Effective = request.Effective,
             Expired = request.Expired,
-            Discount = request.Discount,
-            CreatedAt = request.CreateAt,
-            UpdatedAt = request.UpdateAt,
-            CreatedBy = request.CreateBy,
-            UpdatedBy = request.UpdateBy
+            Discount = request.Discount
         };
         await _context.Sales.AddAsync(sale);
         await _context.Commit();
