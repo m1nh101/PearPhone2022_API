@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Orders;
+using Core.Entities.Payments;
 using Core.Entities.Users;
 using Shared.Bases;
 using Shared.Enums;
@@ -32,4 +33,6 @@ public class Receipt : ModifierEntity
   public int AddressId { get; set; }
   public virtual ShippingAddress? Address { get; set; }
 
+  public int VoucherId { get; private set; }
+  public virtual Voucher? Voucher { get; private set; }
 }
