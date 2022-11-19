@@ -14,6 +14,14 @@ public class Item : ModifierEntity
 		TotalItemPriceCalculate = Calculator.TotalPrice;
 	}
 
+  public Item(Stock stock, int quantity)
+  {
+    StockId = stock.Id;
+    Quantity = quantity;
+    Price = stock.Price;
+    TotalItemPriceCalculate = Calculator.TotalPrice;
+  }
+
   public Item(Stock stock)
   {
 		Stock = stock;
@@ -24,6 +32,8 @@ public class Item : ModifierEntity
   /// get  quantity
   /// </summary>
   public int Quantity { get; private set; }
+
+  public double Price { get; private set; }
 
   public double UpdateQuantity(int quantity)
   {

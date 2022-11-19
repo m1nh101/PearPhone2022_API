@@ -19,6 +19,10 @@ public class ReceiptEntityConfiguration : BaseModifierConfiguration<Receipt>
       .HasForeignKey<Receipt>(e => e.OrderId)
       .OnDelete(DeleteBehavior.NoAction);
 
+    builder.HasOne(e => e.Voucher)
+      .WithMany(e => e.Receipts)
+      .HasForeignKey(e => e.VoucherId);
+
     base.Configure(builder);
   }
 }
