@@ -25,7 +25,7 @@ public class AppDbContext : IdentityDbContext<User>, IAppDbContext
     builder.ApplyConfiguration(new ShippingAddressEntityConfiguration());
     builder.ApplyConfiguration(new SaleEntityConfiguration());
     builder.ApplyConfiguration(new ColorEntityConfiguration());
-    builder.ApplyConfiguration(new BranchEntityConfiguration());
+    // builder.ApplyConfiguration(new BranchEntityConfiguration());
     builder.ApplyConfiguration(new PhoneEntityConfiguration());
     builder.ApplyConfiguration(new PhoneDetailEntityConfiguration());
     builder.ApplyConfiguration(new OrderEntityConfiguration());
@@ -63,8 +63,9 @@ public class AppDbContext : IdentityDbContext<User>, IAppDbContext
 
   public DbSet<Order> Orders => Set<Order>();
   public DbSet<Stock> Stocks => Set<Stock>();
-
   public DbSet<Branch> Branches => Set<Branch>();
+  public DbSet<Phone> Phones => Set<Phone>();
   public DbSet<Voucher> Vouchers => Set<Voucher>();
   public DbSet<Receipt> Receipts => Set<Receipt>();
+  public DbSet<Sale> Sales => Set<Sale>();
 }
