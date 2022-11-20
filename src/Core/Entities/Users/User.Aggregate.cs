@@ -9,4 +9,6 @@ public partial class User : IAggregateRoot
 
   public void CancelReceiveNotification() => IsReceiveNotification = false;
   public void RegisterReceiveNotification() => IsReceiveNotification = true;
+
+  public void CreateEmptyOrder() => _orders.Add(new Entities.Orders.Order());
 }

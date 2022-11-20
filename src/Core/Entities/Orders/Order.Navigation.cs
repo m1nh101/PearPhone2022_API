@@ -18,5 +18,5 @@ public partial class Order
   /// </summary>
   public IReadOnlyCollection<Item> Items => _items.AsReadOnly();
 
-  public virtual Receipt? Receipt { get; set; }
+  public virtual Receipt? Receipt { get; private set; }
 }
