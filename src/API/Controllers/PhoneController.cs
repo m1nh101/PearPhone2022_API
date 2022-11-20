@@ -2,12 +2,14 @@
 using Core.CQRS.Phones.Remove;
 using Core.CQRS.Phones.Update;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [Route("api/phones")]
 [ApiController]
+[Authorize(Roles = "admin")]
 public class PhoneController : ControllerBase
 {
   private readonly IMediator _mediator;
@@ -18,6 +20,7 @@ public class PhoneController : ControllerBase
   }
 
   [HttpGet]
+  [AllowAnonymous]
   public async Task<IActionResult> GetPhone([FromBody] GetListPhoneRequest request)
   {
     var response = await _mediator.Send(request);
