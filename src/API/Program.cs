@@ -1,4 +1,5 @@
 using API.Configurations;
+using API.Middlewares;
 using Core;
 using Core.Helpers;
 using Core.Interfaces;
@@ -55,5 +56,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<CommonMiddleware>();
 
 app.Run();

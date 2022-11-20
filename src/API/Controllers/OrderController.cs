@@ -1,4 +1,5 @@
 using Core.CQRS.Cart.Add;
+using Core.CQRS.Cart.ApplyVoucher;
 using Core.CQRS.Cart.Get;
 using Core.CQRS.Cart.Remove;
 using Core.CQRS.Cart.Update;
@@ -49,6 +50,15 @@ public class OrderController : ControllerBase
 	public async Task<IActionResult> RemoveItem([FromRoute] int productId,
 		[FromBody] RemoveItemFromCartRequest request)
 	{
+		var response = await _mediator.Send(request);
+		return Ok(response);
+	}
+
+	[HttpPost]
+	[Route("apply")]
+	public async Task<IActionResult> ApplyVoucher([FromQuery] string code)
+	{
+		var request = new ApplyVoucherRequest(code);
 		var response = await _mediator.Send(request);
 		return Ok(response);
 	}
