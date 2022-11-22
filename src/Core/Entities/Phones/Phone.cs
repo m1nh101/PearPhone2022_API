@@ -10,6 +10,7 @@ public partial class Phone : ModifierEntity
   /// get or set name of phone
   /// </summary>
   public string Name { get; set; } = string.Empty;
+  public Status Status { get; set; }
 
   //navigation and foreign key
   private readonly List<Image> _images = new();
@@ -21,8 +22,8 @@ public partial class Phone : ModifierEntity
   public int SaleId { get; set; }
   public virtual Sale? Sale { get; set; }
 
-  public int BranchId { get; set; }
-  public virtual Branch? Branch { get; set; }
+  // public int BranchId { get; set; }
+  // public virtual Branch? Branch { get; set; }
 
   public virtual ICollection<Item>? Items { get; set; }
 

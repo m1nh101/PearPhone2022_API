@@ -10,6 +10,8 @@ public class VoucherEntityConfiguration : BaseModifierConfiguration<Voucher>
   {
     builder.ToTable("Vouchers");
 
+    builder.HasIndex(e => e.Code).IsUnique();
+
     base.Configure(builder);
   }
 }

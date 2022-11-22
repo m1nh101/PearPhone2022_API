@@ -11,6 +11,7 @@ public partial class Order : IAggregateRoot
   public Order()
   {
     TotalPriceCalculate = Calculator.TotalPrice;
+    Status = Shared.Enums.Status.Inprocess;
   }
 
   

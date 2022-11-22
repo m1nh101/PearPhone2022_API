@@ -3,7 +3,6 @@ using Core.Helpers;
 using Core.Interfaces;
 using Core.Helpers.Extensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Core.CQRS.Cart.Specification;
 
 namespace Core.CQRS.Cart.Add;

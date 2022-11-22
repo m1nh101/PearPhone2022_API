@@ -9,6 +9,7 @@ public static class OrderExtension
 	{
 		var order = await orders
       .Include(e => e.Items)
+			.Include(e => e.Receipt)
       .Where(e => e.UserId == userId)
       .Where(e => e.Status == Shared.Enums.Status.None)
       .Take(1)
