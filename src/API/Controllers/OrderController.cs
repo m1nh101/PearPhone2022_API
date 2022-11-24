@@ -27,7 +27,7 @@ public class OrderController : ControllerBase
     private readonly IAppDbContext _appDbContext;
     private readonly string _clientId;
     private readonly string _secretKey;
-    public double TyGiaUSD = 23300;//store in Database
+    public double TyGiaUSD = 24938;//store in Database
 
     public OrderController(IMediator mediator, IConfiguration configuration, IAppDbContext appDbContext)
     {
@@ -105,10 +105,10 @@ public class OrderController : ControllerBase
         {
             itemList.Items.Add(new Item()
             {
-                //Name = item.Items.ProductName,
-                //Currency = "USD",
-                //Price = Math.Round(item.Items.Price / TyGiaUSD, 2).ToString(),
-                //Quantity = item.Quantity.ToString(),
+                Name = item.Items.First().ProductName,
+                Currency = "USD",
+                Price = Math.Round(item.Items.First().Price / TyGiaUSD, 2).ToString(),
+                Quantity = item.Items.First().Quanttiy.ToString(),
                 Sku = "sku",
                 Tax = "0"
             });
@@ -169,7 +169,7 @@ public class OrderController : ControllerBase
                 }
             }
 
-            return Redirect(paypalRedirectUrl);
+            return Ok(paypalRedirectUrl);
         }
         catch (HttpException httpException)
         {
