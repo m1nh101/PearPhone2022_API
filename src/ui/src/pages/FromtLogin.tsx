@@ -2,21 +2,32 @@ import { useState } from "react";
 import axios from "axios";
 import { Api } from "./../assets/datarouter/apirouter";
 import { Link } from "react-router-dom";
+import { get } from "../utils/cookie";
+import { login } from "../api/Auth";
+
 const BasicExample: React.FC = (): JSX.Element => {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
+  const loginClick = async () => {
+    // gọi thẳng axios thì nhận
+    // const res = await axios.post(`${Api.login}`, {
+    //   Username: "test",
+    //   Password: "test@2002",
+    // });
+    // alert(res.data.message);
 
-  const login = async (): Promise<any> => {
-    const res = await axios.post(`${Api.login}`, {
-      Username: Username,
-      Password: Password,
-    });
-    alert(res.data.message);
+    //
+    const data = {
+      Username: "test",
+      Password: "test@2002",
+    };
+    const response = await login(data);
+    console.log(response.data);
   };
   return (
     <div className="LoginBody">
       <div className="login">
-        <h1>Hello Again!</h1>
+        <h1>Hello Again! </h1>
         <form className="needs-validation">
           <div className="form-group was-validated">
             <label className="form-label" htmlFor="email">
@@ -61,7 +72,11 @@ const BasicExample: React.FC = (): JSX.Element => {
           </div>
         </form>
         <div className="login_btn">
-          <button onClick={login} className={"custome_btn-4"} type="submit">
+          <button
+            onClick={loginClick}
+            className={"custome_btn-4"}
+            type="submit"
+          >
             <span>submit</span>
           </button>
         </div>

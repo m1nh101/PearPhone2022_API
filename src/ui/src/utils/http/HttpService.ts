@@ -7,13 +7,12 @@ const AuthService = axios.create({
 
 // Request interceptor
 AuthService.interceptors.request.use(
-  async (configs: any) => {
-    configs.headers.post["Content-Type"] = "application/json";
+  async (configs) => {
     return configs;
   },
   (error) => {
     console.log(error.response);
-    return Promise.reject(error);
+    return error;
   }
 );
 
@@ -23,9 +22,7 @@ AuthService.interceptors.response.use(
     return response;
   },
   (error) => {
-    return Promise.reject(
-      error !== undefined ? error.response : "Network error"
-    );
+    return error;
   }
 );
 export default AuthService;
