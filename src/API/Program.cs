@@ -72,7 +72,7 @@ if(app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors();
+app.UseCors("cors");
 
 app.UseCookiePolicy();
 
