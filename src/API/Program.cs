@@ -1,7 +1,6 @@
 using API.Configurations;
 using API.Middlewares;
 using Core;
-using Core.Helpers;
 using Core.Interfaces;
 using Infrastructure.Email;
 
@@ -13,8 +12,6 @@ builder.Services.ConfigureCookies();
 
 builder.Services.ConfigureCors(builder.Configuration);
 
-builder.Services.ConfigureIdentity();
-
 builder.Services.ConfigureDatabase(builder.Configuration);
 
 builder.Services.ConfigureCoreServices();
@@ -22,8 +19,6 @@ builder.Services.ConfigureCoreServices();
 builder.Services.ConfigureAuthentication(builder.Configuration);
 
 builder.Services.AddTransient<IEmailSender, SendEmail>();
-
-builder.Services.AddScoped<IJwtHelper, JwtHelper>();
 
 builder.Services.AddControllers();
 
@@ -49,7 +44,7 @@ if(app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors();
+app.UseCors("cors");
 
 app.UseCookiePolicy();
 

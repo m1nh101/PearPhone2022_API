@@ -23,6 +23,7 @@ public sealed class RegisterRequestHandler
 
     if(register.Succeeded)
     {
+      user.CreateEmptyOrder();
       await _userManager.AddToRoleAsync(user, "customer");
       return new(HttpStatusCode.OK, "Đăng ký thành công", default, default);
     }

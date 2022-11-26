@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using API.Helpers;
+using Core.Helpers;
+using Core.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -8,6 +12,13 @@ public static class AuthConfiguration
 {
   public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
   {
+    services.Configure<IdentityOptions>(options =>
+    {
+      options.Password.RequireNonAlphanumeric = false;
+      options.Password.RequireUppercase = false;
+      options.Password.RequiredLength = 6;
+    });
+
     services.AddAuthentication(options =>
     {
       options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -38,6 +49,9 @@ public static class AuthConfiguration
         }
       };
     });
+
+    services.AddScoped<ICurrentUser, CurrentUser>();
+    services.AddScoped<IJwtHelper, JwtHelper>();
 
     return services;
   }

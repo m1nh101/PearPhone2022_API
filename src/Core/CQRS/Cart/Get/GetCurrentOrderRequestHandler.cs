@@ -17,13 +17,15 @@ public sealed class GetCurrentOrderRequestHandler
     _user = user;
   }
 
-  public Task<ActionResponse> Handle(GetCurrentOrderRequest request, CancellationToken cancellationToken)
+  public async Task<ActionResponse> Handle(GetCurrentOrderRequest request, CancellationToken cancellationToken)
   {
-    var cart = _context.Orders
+    var cart = await _context.Orders
       .Include(e => e.Items)
       .ThenInclude(e => e.Stock)
       .ThenInclude(e => e.Phone)
       .ThenInclude(e => e.Images)
+      .Where(e => e.Status == Shared.Enums.Status.Inprocess)
+      .Where(e => e.UserId == _user.Id)
       .Select(e => new GetCurrentOrderResponse(e.Total,
         e.Items.Select(d => new ItemInCart {
           ItemId = d.Id,
@@ -32,10 +34,11 @@ public sealed class GetCurrentOrderRequestHandler
           ProductName = d.Stock.Phone.Name,
           ProductImage = d.Stock!.Phone!.Images.First()!.Url
         })))
-      .AsNoTracking();
+      .AsNoTracking()
+      .FirstOrDefaultAsync();
     
     var response = new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công", cart, default);
     
-    return Task.FromResult<ActionResponse>(response);
+    return response;
   }
 }
