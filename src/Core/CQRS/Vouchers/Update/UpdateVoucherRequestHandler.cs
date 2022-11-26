@@ -1,4 +1,5 @@
 using AutoMapper;
+using Core.CQRS.Vouchers.Create;
 using Core.Helpers;
 using Core.Interfaces;
 using Core.Specifications;
@@ -28,7 +29,9 @@ public sealed class UpdateVoucherRequestHandler
 
     await _context.Commit();
 
+    var response = _mapper.Map<CreatedVoucherResponse>(voucher);
+
     return new ActionResponse(System.Net.HttpStatusCode.OK, "Thay đổi thành công")
-      .WithData(request);
+      .WithData(response);
   }
 }

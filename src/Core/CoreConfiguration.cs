@@ -1,5 +1,4 @@
-﻿using Core.Helpers;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -13,8 +12,6 @@ public static class CoreConfiguration
 
     services.AddAutoMapper(currentAssembly);
     services.AddMediatR(currentAssembly);
-
-    services.AddScoped<JwtHelper>();
 
     return services;
   }

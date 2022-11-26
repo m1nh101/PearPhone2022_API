@@ -27,7 +27,7 @@ public sealed class AddShippingAddressRequestHandler
 
     var address = new ShippingAddress(request.Address, request.Type);
 
-    _ = user.AddShippingAddress(address);
+    user.AddShippingAddress(address);
 
     await _userManager.UpdateAsync(user);
 
