@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import { Api } from "./../assets/datarouter/apirouter";
 import { Link } from "react-router-dom";
-import { get } from "../utils/cookie";
 import { login } from "../api/Auth";
 
 const BasicExample: React.FC = (): JSX.Element => {

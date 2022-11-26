@@ -13,8 +13,8 @@ const RouterApps = () => {
       <Route path="/" element={<Home />} />
       <Route path="/catalog" element={<Catalog />} />
       <Route path="/catalog/:slug" element={<Product />} />
-      <Route path="login" element={<Login />} />
-      <Route path="cart" element={<Cart />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/cart" element={<Cart />} />
     </Routes>
   );
 };

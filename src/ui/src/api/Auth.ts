@@ -1,4 +1,3 @@
-import AuthService from "../utils/http/Request";
 import HttpService from "../utils/http/HttpService";
 import { Login, Register } from "../helpers/Request/Auth";
 
@@ -7,13 +6,6 @@ export function login(data: Login) {
     url: "/auth/login",
     method: "post",
     data,
-  });
-}
-
-export function logout() {
-  return AuthService({
-    url: "/auth/logout",
-    method: "post",
   });
 }
 

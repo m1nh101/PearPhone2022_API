@@ -15,6 +15,7 @@ export interface Product {
 
 const ProductView: React.FC<Product> = (products: Product): JSX.Element => {
   const [descriptionExpand, setDescriptionExpand] = useState(false);
+  if (products === undefined) products = {};
   const [color, setColor] = useState<string>();
   const [size, setSize] = useState<string>();
   const [quantity, setQuantity] = useState(1);
