@@ -13,6 +13,9 @@ public class ImageEntityConfiguration : BaseEntityConfiguration<Image>
     builder.Property(e => e.Url)
       .IsRequired();
 
+    builder.Property(e => e.ColorId)
+      .IsRequired(true);
+
     builder.HasOne(e => e.Phone)
       .WithMany(e => e.Images)
       .HasForeignKey(e => e.PhoneId);

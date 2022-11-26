@@ -14,7 +14,7 @@ public class Image : Entity
   /// get or set url of image
   /// </summary>
   public string Url { get; private set; } = string.Empty;
-  public int ColorId { get; private set; }
+  public int? ColorId { get; private set; }
   public virtual Color? Color { get; private set; }
 
   /// <summary>
