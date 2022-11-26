@@ -1,4 +1,5 @@
 using API.Configurations;
+using API.Helpers;
 using API.Middlewares;
 using Core;
 using Core.Helpers;
@@ -23,8 +24,6 @@ builder.Services.ConfigureCoreServices();
 builder.Services.ConfigureAuthentication(builder.Configuration);
 
 builder.Services.AddTransient<IEmailSender, SendEmail>();
-
-builder.Services.AddScoped<IJwtHelper, JwtHelper>();
 
 builder.Services.AddControllers();
 
