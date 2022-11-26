@@ -1,7 +1,6 @@
 ﻿using Core.Entities.Phones;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Shared.Bases;
 
 namespace Infrastructure.Database.Configurations;
 
@@ -17,6 +16,10 @@ public class ImageEntityConfiguration : BaseEntityConfiguration<Image>
     builder.HasOne(e => e.Phone)
       .WithMany(e => e.Images)
       .HasForeignKey(e => e.PhoneId);
+
+    builder.HasOne(e => e.Color)
+      .WithMany(e => e.Images)
+      .HasForeignKey(e => e.ColorId);
 
     base.Configure(builder);
   }
