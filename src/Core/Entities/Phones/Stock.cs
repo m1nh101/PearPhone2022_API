@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Orders;
+using Core.Exceptions;
 using Shared.Bases;
 using Shared.Enums;
 
@@ -10,6 +11,18 @@ public partial class Stock : ModifierEntity
 
   public Stock(int quantity, double price, int ram, int capacity, int colorId, int detailId)
   {
+    if(quantity < 0)
+      throw new InvalidNumberException("Số lượng không thể nhỏ hơn 0");
+
+    if(price < 0)
+      throw new InvalidNumberException("Giá tiền không thể nhỏ hơn 0");
+    
+    if(ram < 0)
+      throw new InvalidNumberException("Dung lượng ram không thể nhỏ hơn 0");
+    
+    if(capacity < 0)
+      throw new InvalidNumberException("Dung lượng bộ nhớ không thể nhỏ hơn 0");
+
     Quantity = quantity;
     Price = price;
     RAM = ram;
@@ -21,6 +34,24 @@ public partial class Stock : ModifierEntity
 
   public Stock(int quantity, double price, int ram, int capacity, Color color, PhoneDetail detail)
   {
+    if(quantity < 0)
+      throw new InvalidNumberException("Số lượng không thể nhỏ hơn 0");
+
+    if(price < 0)
+      throw new InvalidNumberException("Giá tiền không thể nhỏ hơn 0");
+    
+    if(ram < 0)
+      throw new InvalidNumberException("Dung lượng ram không thể nhỏ hơn 0");
+    
+    if(capacity < 0)
+      throw new InvalidNumberException("Dung lượng bộ nhớ không thể nhỏ hơn 0");
+
+    if(color == null)
+      throw new ArgumentNullException(nameof(color), "Màu của sản phẩm không được trống");
+
+    if(detail == null)
+      throw new ArgumentNullException(nameof(detail), "Chi tiết sản phẩm không được trống");
+
     Quantity = quantity;
     Price = price;
     Color = color;
@@ -46,20 +77,20 @@ public partial class Stock : ModifierEntity
   /// <summary>
   /// get or set phone id
   /// </summary>
-  public int PhoneId { get; set; }
+  public int PhoneId { get; private set; }
   public virtual Phone Phone { get; private set; } = null!;
 
   /// <summary>
   /// get or set phone detail id
   /// </summary>
-  public int PhoneDetailId { get; set; }
-  public virtual PhoneDetail? Detail { get; set; }
+  public int PhoneDetailId { get; private set; }
+  public virtual PhoneDetail? Detail { get; private set; }
 
   /// <summary>
   /// get or set color id
   /// </summary>
-  public int ColorId { get; set; }
-  public virtual Color? Color { get; set; }
+  public int ColorId { get; private set; }
+  public virtual Color? Color { get; private set; }
 
   public virtual ICollection<Item> Items { get; private set; } = null!;
 

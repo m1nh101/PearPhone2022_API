@@ -7,6 +7,9 @@ public class Image : Entity
   private Image() { }
   public Image(string url)
   {
+    if(string.IsNullOrEmpty(url))
+      throw new ArgumentNullException("đường dẫn ảnh không được trống");
+
     Url = url;
   }
 

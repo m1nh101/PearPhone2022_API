@@ -5,10 +5,6 @@ using Shared.Enums;
 
 namespace Core.CQRS.Sales.Remove;
 
-public sealed record RemoveSaleRequest(
-    int saleId
-) : IRequest<ActionResponse>;
-
 public class RemoveSaleRequestHandler : IRequestHandler<RemoveSaleRequest, ActionResponse>
 {
     private readonly IAppDbContext _context;
@@ -19,13 +15,14 @@ public class RemoveSaleRequestHandler : IRequestHandler<RemoveSaleRequest, Actio
     }
     public async Task<ActionResponse> Handle(RemoveSaleRequest request, CancellationToken cancellationToken)
     {
-        var sale = await _context.Sales.FirstOrDefaultAsync(c => c.Id == request.saleId);
-        if (sale == null) throw new NullReferenceException();
+        // var sale = await _context.Sales.FirstOrDefaultAsync(c => c.Id == request.saleId);
+        // if (sale == null) throw new NullReferenceException();
 
-        sale.Status = Status.Inactive;
+        // sale.Status = Status.Inactive;
 
-        _context.Sales.Update(sale);
-        await _context.Commit();
+        // _context.Sales.Update(sale);
+        // await _context.Commit();
+
         return new ActionResponse(System.Net.HttpStatusCode.OK, "Xóa thành công");
     }
 }

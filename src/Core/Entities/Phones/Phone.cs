@@ -10,6 +10,12 @@ public partial class Phone : ModifierEntity
 
   public Phone(string name, string branch)
   {
+    if(string.IsNullOrEmpty(name))
+      throw new ArgumentNullException(nameof(name), "Tên điện thoại không được trống");
+
+    if(string.IsNullOrEmpty(branch))
+      throw new ArgumentNullException(nameof(branch), "Tên hãng điện thoại không được trống");
+
     Name = name;
     Branch = branch;
     Status = Status.Active;

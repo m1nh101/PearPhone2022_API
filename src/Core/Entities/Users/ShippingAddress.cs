@@ -10,6 +10,9 @@ public class ShippingAddress : ModifierEntity
 
   public ShippingAddress(string address, AddressType type)
   {
+    if(string.IsNullOrEmpty(address))
+      throw new ArgumentNullException(nameof(address), "Địa chỉ không được trống");
+
     Address = address;
     Type = type;
   }

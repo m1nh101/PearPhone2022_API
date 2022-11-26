@@ -11,6 +11,15 @@ public class Voucher : ModifierEntity
   public Voucher(string name, DateTime effectiveDate, DateTime expiredDate,
     int timesRemain, VoucherType type)
   {
+    if(string.IsNullOrEmpty(name))
+      throw new ArgumentNullException(nameof(name), "tên không thể để trống");
+
+    if(timesRemain <= 0)
+      throw new InvalidNumberException($"số lần sử dụng là {timesRemain} không hợp lệ");
+
+    if(expiredDate <= effectiveDate)
+      throw new InvalidTimeExeption("ngày hiệu lực không thể sau ngày kết thúc");
+
     Name = name;
     EffectiveDate = effectiveDate;
     ExpiredDate = expiredDate;

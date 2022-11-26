@@ -13,8 +13,33 @@ public class PhoneDetail : Entity
       string charger,
       string camera,
       string audio,
-      string security)
+      string security,
+      string connection)
   {
+    if(string.IsNullOrEmpty(battery))
+      throw new ArgumentNullException(nameof(battery), "Thông tin PIN không được để trống");
+
+    if(string.IsNullOrEmpty(screen))
+      throw new ArgumentNullException(nameof(screen), "Thông tin màn hình không được trống");
+
+    if(string.IsNullOrEmpty(os))
+      throw new ArgumentNullException(nameof(os), "Thông tin hệ điều hành không được trống");
+
+    if(string.IsNullOrEmpty(charger))
+      throw new ArgumentNullException(nameof(charger), "Thông tin sạc không được để trống");
+
+    if(string.IsNullOrEmpty(camera))
+      throw new ArgumentNullException(nameof(camera), "Thông tin camera không được để trống");
+
+    if(string.IsNullOrEmpty(audio))
+      throw new ArgumentNullException(nameof(audio), "Thông tin loa không được để trống");
+
+    if(string.IsNullOrEmpty(security))
+      throw new ArgumentNullException(nameof(security), "Thông tin mở khóa không được để trống");
+
+    if(string.IsNullOrEmpty(connection))
+      throw new ArgumentNullException(nameof(connection), "Thông tin kết nối không được để trống");
+
     Battery = battery;
     Screen = screen;
     OS = os;
