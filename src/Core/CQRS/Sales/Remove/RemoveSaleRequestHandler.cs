@@ -26,6 +26,6 @@ public class RemoveSaleRequestHandler : IRequestHandler<RemoveSaleRequest, Actio
 
         _context.Sales.Update(sale);
         await _context.Commit();
-        return new ActionResponse(System.Net.HttpStatusCode.OK, "Xóa thành công", sale, default);
+        return new ActionResponse(System.Net.HttpStatusCode.OK, "Xóa thành công");
     }
 }

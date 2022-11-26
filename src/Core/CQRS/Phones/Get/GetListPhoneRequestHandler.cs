@@ -27,7 +27,8 @@ public sealed class GetListPhoneRequestHandler
       .Select(e => new GetListResponse(e.Id, e.Name, e.Stocks.First().Price, e.Images.First().Url))
       .AsNoTracking();
 
-    var response = new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công", query, default);
+    var response = new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công")
+      .WithData(query);
 
     return Task.FromResult(response);
   }

@@ -20,7 +20,9 @@ public class CommonMiddleware
     }
     catch(Exception ex)
     {
-      var response = new ActionResponse(System.Net.HttpStatusCode.BadRequest, ex.Message, null, ex.Data);
+      var response = new ActionResponse(System.Net.HttpStatusCode.BadRequest, ex.Message)
+        .WithError(ex.Data);
+        
       await http.Response.WriteAsJsonAsync(response);
     }
   }

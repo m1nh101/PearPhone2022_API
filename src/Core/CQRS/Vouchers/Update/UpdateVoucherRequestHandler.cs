@@ -1,7 +1,7 @@
 using AutoMapper;
-using Core.CQRS.Vouchers.Specs;
 using Core.Helpers;
 using Core.Interfaces;
+using Core.Specifications;
 using MediatR;
 
 namespace Core.CQRS.Vouchers.Update;
@@ -28,6 +28,7 @@ public sealed class UpdateVoucherRequestHandler
 
     await _context.Commit();
 
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Thay đổi thành công", request, null);
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Thay đổi thành công")
+      .WithData(request);
   }
 }

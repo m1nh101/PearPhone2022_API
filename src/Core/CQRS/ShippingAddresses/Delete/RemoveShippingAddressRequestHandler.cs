@@ -28,6 +28,6 @@ public sealed class RemoveShippingAddressRequestHandler
 
     await _userManager.UpdateAsync(user);
 
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Xóa thành công", null, null);
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Xóa thành công");
   }
 }

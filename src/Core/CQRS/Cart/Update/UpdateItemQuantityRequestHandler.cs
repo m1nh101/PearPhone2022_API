@@ -1,9 +1,8 @@
-using Core.CQRS.Cart.Specification;
 using Core.Helpers;
 using Core.Helpers.Extensions;
 using Core.Interfaces;
+using Core.Specifications;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Core.CQRS.Cart.Update;
 
@@ -34,6 +33,7 @@ public sealed class UpdateItemQuantityRequestHandler
 
     var response = new UpdatedItemQuantityResponse(totalItemPrice, totalOrderPrice, request.Quantity);
 
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Cập nhật giỏ hàng thành công", response, default);
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Cập nhật giỏ hàng thành công")
+      .WithData(response);
   }
 }

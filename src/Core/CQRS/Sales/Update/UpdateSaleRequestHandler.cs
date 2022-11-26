@@ -1,16 +1,8 @@
-﻿using Core.Entities;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.CQRS.Sales.Update;
-
-public sealed record UpdateSaleRequest(
-    int saleId,
-    DateTime Effective,
-    DateTime Expired,
-    double Discount
-) : IRequest<ActionResponse>;
 
 public class UpdateSaleRequestHandler : IRequestHandler<UpdateSaleRequest, ActionResponse>
 {
@@ -32,7 +24,7 @@ public class UpdateSaleRequestHandler : IRequestHandler<UpdateSaleRequest, Actio
 
         _context.Sales.Update(sale);
         await _context.Commit();
-        return new ActionResponse(System.Net.HttpStatusCode.OK, "Sửa thành công", sale,
-            default);
+        
+        return new ActionResponse(System.Net.HttpStatusCode.OK, "Sửa thành công");
     }
 }

@@ -29,7 +29,7 @@ public sealed class UpdateNewPhoneRequestHandler :
 
     _context.Phones.Update(phone);
     await _context.Commit();
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Sửa thành công", phone,
-    default);
+    
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Sửa thành công");
   }
 }

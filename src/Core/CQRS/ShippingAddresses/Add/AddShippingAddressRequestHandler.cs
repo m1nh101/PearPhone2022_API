@@ -31,6 +31,6 @@ public sealed class AddShippingAddressRequestHandler
 
     await _userManager.UpdateAsync(user);
 
-    return new ActionResponse(HttpStatusCode.OK, "Thêm địa chỉ thành công", address, null);
+    return new ActionResponse(HttpStatusCode.OK, "Thêm địa chỉ thành công");
   }
 }

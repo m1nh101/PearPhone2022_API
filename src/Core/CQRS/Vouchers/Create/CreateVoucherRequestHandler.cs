@@ -27,6 +27,7 @@ public sealed class CreateVoucherRequestHandler
 
     var data = _mapper.Map<CreatedVoucherResponse>(voucher);
 
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Tạo voucher thành công", data, null);
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Tạo voucher thành công")
+      .WithData(data);
   }
 }

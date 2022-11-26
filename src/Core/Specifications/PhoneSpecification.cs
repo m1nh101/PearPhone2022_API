@@ -1,7 +1,8 @@
 using Core.Entities.Orders;
+using Core.Entities.Phones;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.CQRS.Cart.Specification;
+namespace Core.Specifications;
 
 public class GetCurrentOrderSpecification : Interfaces.Specification<Order>
 {
@@ -14,5 +15,13 @@ public class GetCurrentOrderSpecification : Interfaces.Specification<Order>
       .ThenInclude(d => d.Images.First()));
 
     SetOrderBy(d => d.UpdatedAt);
+  }
+}
+
+public class PhoneStockSpecification : Interfaces.Specification<Stock>
+{
+  public PhoneStockSpecification(int id)
+    : base(e => e.PhoneId == id)
+  {
   }
 }

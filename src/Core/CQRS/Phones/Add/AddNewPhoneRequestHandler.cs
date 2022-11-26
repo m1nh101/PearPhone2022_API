@@ -31,7 +31,7 @@ public sealed class AddNewPhoneRequestHandler : IRequestHandler<AddNewPhoneReque
 
     await _context.Commit();
 
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Thêm thành công", phone,
-        default);
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Thêm thành công")
+      .WithData(request);
   }
 }
