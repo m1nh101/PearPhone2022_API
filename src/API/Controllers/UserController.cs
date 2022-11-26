@@ -1,3 +1,4 @@
+using Core.CQRS.Auth.UpdatePassword;
 using Core.CQRS.ShippingAddresses.Add;
 using Core.CQRS.ShippingAddresses.Delete;
 using Core.CQRS.ShippingAddresses.Get;
@@ -57,4 +58,12 @@ public class UserController : ControllerBase
     return Ok(response);
   }
   #endregion
+
+  [HttpPost]
+  [Route("update-password")]
+  public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordRequest request)
+  {
+    var response = await _mediator.Send(request);
+    return Ok(response);
+  }
 }
