@@ -1,11 +1,8 @@
 using API.Configurations;
-using API.Helpers;
 using API.Middlewares;
 using Core;
-using Core.Helpers;
 using Core.Interfaces;
 using Infrastructure.Email;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureCookies();
 
 builder.Services.ConfigureCors(builder.Configuration);
-
-builder.Services.ConfigureIdentity();
 
 builder.Services.ConfigureDatabase(builder.Configuration);
 
