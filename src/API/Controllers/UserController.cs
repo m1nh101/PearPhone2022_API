@@ -1,3 +1,4 @@
+using Core.CQRS.Auth.DisableUser;
 using Core.CQRS.Auth.UpdatePassword;
 using Core.CQRS.ShippingAddresses.Add;
 using Core.CQRS.ShippingAddresses.Delete;
@@ -64,6 +65,19 @@ public class UserController : ControllerBase
   public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordRequest request)
   {
     var response = await _mediator.Send(request);
+    return Ok(response);
+  }
+
+  [HttpDelete]
+  [Route("deactive")]
+  public async Task<IActionResult> DeactiveAccount()
+  {
+    var request = new DisableUserRequest();
+    var response = await _mediator.Send(request);
+
+    if(response.StatusCode == System.Net.HttpStatusCode.OK)
+      Response.Cookies.Delete("token");
+
     return Ok(response);
   }
 }

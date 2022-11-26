@@ -26,7 +26,7 @@ public sealed class LoginRequestHandler
 
     var validUserCrendential = await _userManager.CheckPasswordAsync(user, request.Password);
 
-		if(validUserCrendential)
+		if(validUserCrendential && user.Active)
 		{
       _jwt.SetUser(user);
       var token = await _jwt.GenerateJwtToken();
