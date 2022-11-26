@@ -29,29 +29,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddSwaggerGen(config => {
-  config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-  {
-    Name = "Authorization",
-    Scheme = "Bearer",
-    BearerFormat = "JWT",
-    In = ParameterLocation.Header
-  });
-
-  config.AddSecurityRequirement(new OpenApiSecurityRequirement
-  {
-    {
-      new OpenApiSecurityScheme {
-      Reference = new OpenApiReference
-      {
-        Type = ReferenceType.SecurityScheme,
-        Id = "Bearer"
-      }
-    },
-      new string[] {}
-    }
-  });
-});
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
