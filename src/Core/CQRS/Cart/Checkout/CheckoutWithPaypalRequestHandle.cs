@@ -3,16 +3,6 @@ using BraintreeHttp;
 using Core.Helpers.Extensions;
 using Core.Interfaces;
 using MediatR;
-using Core.CQRS.Cart.Add;
-using Core.CQRS.Cart.ApplyVoucher;
-using Core.CQRS.Cart.Get;
-using Core.CQRS.Cart.Remove;
-using Core.CQRS.Cart.Update;
-using Core.Interfaces;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PayPal.Core;
 using PayPal.v1.Payments;
@@ -51,7 +41,7 @@ public class CheckoutWithPaypalRequestHandle:IRequestHandler<CheckoutWithPaypalR
         {
             itemList.Items.Add(new Item()
             {
-                Name = "Sản phẩm",
+                Name = item.Stock.Phone.Name,
                 Currency = "USD",
                 Price = Math.Round(item.Price / UsdRate, 2).ToString(),
                 Quantity = item.Quantity.ToString(),
@@ -61,7 +51,7 @@ public class CheckoutWithPaypalRequestHandle:IRequestHandler<CheckoutWithPaypalR
         }
         #endregion
         var paypalOrderId = DateTime.Now.Ticks;
-        var hostname = $"Https://localhost:7236";
+        var hostname = $"https://localhost:7236";
         var payment = new Payment()
         {
             Intent = "sale",
