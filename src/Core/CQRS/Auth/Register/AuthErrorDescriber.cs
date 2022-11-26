@@ -31,15 +31,6 @@ public class IdentityValidator : IdentityErrorDescriber
     return error;
   }
 
-  public override IdentityError PasswordMismatch()
-  {
-    var error = base.PasswordMismatch();
-
-    error.Description = "Mật khẩu nhắc lại không khớp";
-
-    return error;
-  }
-
   public override IdentityError InvalidEmail(string email)
   {
     var error = base.InvalidEmail(email);

@@ -20,12 +20,9 @@ public sealed class AddNewPhoneRequestHandler : IRequestHandler<AddNewPhoneReque
     var stocks = request.Stocks
         .Select(e => new Stock(e.Quantity, e.Price, e.RAM, e.Capacity, new Color(e.Color.Name, e.Color.RGB), detail));
 
-    var phone = new Phone
-    {
-      Name = request.Name
-    }
-    .WithStocks(stocks)
-    .WithImages(request.Images);
+    var phone = new Phone(request.Name, request.Branch)
+      .WithStocks(stocks)
+      .WithImages(request.Images);
 
     await _context.Phones.AddAsync(phone);
 

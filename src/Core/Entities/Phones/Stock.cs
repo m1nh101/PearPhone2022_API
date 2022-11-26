@@ -6,20 +6,20 @@ namespace Core.Entities.Phones;
 
 public partial class Stock : ModifierEntity
 {
-  private Stock() {}
+  private Stock() { }
 
-    public Stock(int quantity, double price, int ram, int capacity, int colorId, int detailId)
-    {
-        Quantity = quantity;
-        Price = price;
-        RAM = ram;
-        Capacity = capacity;
-        Status = Status.Active;
-        ColorId = colorId;
-        PhoneDetailId = detailId;
-    }
+  public Stock(int quantity, double price, int ram, int capacity, int colorId, int detailId)
+  {
+    Quantity = quantity;
+    Price = price;
+    RAM = ram;
+    Capacity = capacity;
+    Status = Status.Active;
+    ColorId = colorId;
+    PhoneDetailId = detailId;
+  }
 
-    public Stock(int quantity, double price, int ram, int capacity, Color color, PhoneDetail detail)
+  public Stock(int quantity, double price, int ram, int capacity, Color color, PhoneDetail detail)
   {
     Quantity = quantity;
     Price = price;
@@ -48,7 +48,7 @@ public partial class Stock : ModifierEntity
   /// </summary>
   public int PhoneId { get; set; }
   public virtual Phone Phone { get; private set; } = null!;
-  
+
   /// <summary>
   /// get or set phone detail id
   /// </summary>
@@ -65,10 +65,10 @@ public partial class Stock : ModifierEntity
 
   public int ReduceQuantity(int value)
   {
-    if(value <= 0)
+    if (value <= 0)
       throw new ArgumentOutOfRangeException($"{nameof(value)} cannot be negative");
 
-    if(value > Quantity)
+    if (value > Quantity)
       throw new ArgumentOutOfRangeException($"{nameof(value)} cannot be greater than current quantity");
 
     Quantity -= value;
@@ -78,7 +78,7 @@ public partial class Stock : ModifierEntity
 
   public int IncreaseQuantity(int value)
   {
-    if(value <= 0)
+    if (value <= 0)
       throw new ArgumentOutOfRangeException($"{nameof(value)} cannot be negative");
 
     Quantity += value;

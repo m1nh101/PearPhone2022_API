@@ -27,5 +27,5 @@ public class Sale : ModifierEntity
   /// </summary>
   public Status Status { get; set; } = Status.None;
 
-  public ICollection<Phone>? Phones { get; set; }
+  public ICollection<Phone>? Phones { get; private set; }
 }

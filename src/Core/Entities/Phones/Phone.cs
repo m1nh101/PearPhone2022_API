@@ -6,11 +6,21 @@ namespace Core.Entities.Phones;
 
 public partial class Phone : ModifierEntity
 {
+  private Phone() {}
+
+  public Phone(string name, string branch)
+  {
+    Name = name;
+    Branch = branch;
+    Status = Status.Active;
+  }
+
   /// <summary>
   /// get or set name of phone
   /// </summary>
-  public string Name { get; set; } = string.Empty;
-  public Status Status { get; set; }
+  public string Name { get; private set; } = string.Empty;
+  public string Branch { get; private set; } = string.Empty;
+  public Status Status { get; private set; }
 
   //navigation and foreign key
   private readonly List<Image> _images = new();
@@ -19,11 +29,8 @@ public partial class Phone : ModifierEntity
   /// <summary>
   /// get or set sale id
   /// </summary>
-  public int SaleId { get; set; }
-  public virtual Sale? Sale { get; set; }
-
-  // public int BranchId { get; set; }
-  // public virtual Branch? Branch { get; set; }
+  public int? SaleId { get; private set; }
+  public virtual Sale? Sale { get; private set; }
 
   public virtual ICollection<Item>? Items { get; set; }
 

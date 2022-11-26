@@ -19,9 +19,8 @@ public class PhoneEntityConfiguration : BaseModifierConfiguration<Phone>
       .WithMany(e => e.Phones)
       .HasForeignKey(e => e.SaleId);
 
-    // builder.HasOne(e => e.Branch)
-    //   .WithMany(e => e.Phones)
-    //   .HasForeignKey(e => e.BranchId);
+    builder.Property(e => e.SaleId)
+      .IsRequired(false);
 
     base.Configure(builder);
   }

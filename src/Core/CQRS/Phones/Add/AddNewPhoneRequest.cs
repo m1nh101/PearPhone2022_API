@@ -6,6 +6,7 @@ namespace Core.CQRS.Phones.Add;
 public sealed record AddNewPhoneRequest(
     string Name,
     string CPU,
+    string Branch,
     IEnumerable<StockPayload> Stocks,
     DetailPayload Detail,
     IEnumerable<string> Images
