@@ -75,17 +75,10 @@ public class OrderController : ControllerBase
 		return Ok(response);
 	}
 
-    public async Task<ActionResponse> Carts()
-    {
-        var request = new GetCurrentOrderRequest();
-        var response = await _mediator.Send(request);
-        return response;
-    }   
-
     #region Paypal checkout
 
     [Authorize, HttpPost]
-    [Route("checkout")]
+    [Route("checkoutPaypal")]
     public async Task<IActionResult> PaypalCheckOut()
     {
         var request = new CheckoutWithPaypalRequest();
@@ -95,17 +88,5 @@ public class OrderController : ControllerBase
 
     #endregion
 
-    [HttpPost]
-    public async Task<IActionResult> CheckOutFail()
-    {
-        return Ok();
-    }
 
-    [HttpPost]
-    public async Task<IActionResult> CheckOutSuccess()
-    {
-        return Ok();
-    }
-
-    
 }
