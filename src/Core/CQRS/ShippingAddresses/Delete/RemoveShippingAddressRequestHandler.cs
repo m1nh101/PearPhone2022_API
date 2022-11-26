@@ -22,7 +22,7 @@ public sealed class RemoveShippingAddressRequestHandler
 
   public async Task<ActionResponse> Handle(RemoveShippingAddressRequest request, CancellationToken cancellationToken)
   {
-    var user = Query.Get(_userManager.Users, new UserSpecification(_user.Id), true);
+    var user = Query.Get(_userManager.Users, new UserSpecification(_user.Id), false);
 
     user.RemoveAddShippingAddress(request.Id);
 

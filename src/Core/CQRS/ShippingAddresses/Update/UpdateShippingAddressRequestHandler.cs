@@ -25,7 +25,7 @@ public class UpdateShippingAddressRequestHandler
 
     var address = new ShippingAddress(request.Address, request.Type);
 
-    user.UpdateShippingAddress(address);
+    user.UpdateShippingAddress(request.Id, address);
 
     await _userManager.UpdateAsync(user);
 

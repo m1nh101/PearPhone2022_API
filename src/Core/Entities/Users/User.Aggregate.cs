@@ -18,9 +18,9 @@ public partial class User : IAggregateRoot
     return address;
   }
 
-  public ShippingAddress UpdateShippingAddress(ShippingAddress payload)
+  public ShippingAddress UpdateShippingAddress(int id, ShippingAddress payload)
   {
-    var address = _addresses.FirstOrDefault(e => e.Id == payload.Id);
+    var address = _addresses.FirstOrDefault(e => e.Id == id);
 
     if(address == null)
       throw new NullReferenceException("address not found");

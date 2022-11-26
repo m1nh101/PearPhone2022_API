@@ -23,7 +23,9 @@ public sealed record GetShippingAddressRequestHandler
   {
     var user = Query.Get(_userManager.Users, new UserSpecification(_user.Id));
 
-    var data = user.Addresses.Select(e => new ShippingAddressResponse(e.Id, e.Address, e.Type));
+    var data = user.Addresses
+            .Where(e => e.Status == Shared.Enums.Status.Active)
+            .Select(e => new ShippingAddressResponse(e.Id, e.Address, e.Type));
 
     return Task.FromResult(new ActionResponse(System.Net.HttpStatusCode.OK, "Ok").WithData(data));
   }
