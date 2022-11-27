@@ -52,6 +52,8 @@ public class Voucher : ModifierEntity
     return this;
   }
 
+  public void ApplySucceed() => TimesRemain--;
+
   public static void Validate(Voucher voucher)
   {
     if(voucher.TimesRemain == 0)
