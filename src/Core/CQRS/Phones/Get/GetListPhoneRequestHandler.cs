@@ -35,14 +35,14 @@ public sealed class GetListPhoneRequestHandler
 
   public IQueryable<Phone> QueryPhone(GetListPhoneRequest request, IQueryable<Phone> source)
   {
-    if(!string.IsNullOrEmpty(request.Name))
-      source = source.Where(e => e.Name.Contains(request.Name));
+    // if(!string.IsNullOrEmpty(request.Name))
+    //   source = source.Where(e => e.Name.Contains(request.Name));
     
-    if(request.RAM == 0)
-      source = source.Where(e => e.Stocks.Any(e => e.RAM == request.RAM));
+    // if(request.RAM == 0)
+    //   source = source.Where(e => e.Stocks.Any(e => e.RAM == request.RAM));
 
-    if(request.Capacity == 0)
-      source = source.Where(e => e.Stocks.Any(e => e.Capacity == request.Capacity));
+    // if(request.Capacity == 0)
+    //   source = source.Where(e => e.Stocks.Any(e => e.Capacity == request.Capacity));
 
     return source;
   }

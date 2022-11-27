@@ -62,7 +62,6 @@ public partial class Stock : ModifierEntity
 
   public Status Status { get; private set; } = Status.None;
 
-
   public int Capacity { get; private set; }
 
   /// <summary>
