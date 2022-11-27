@@ -10,6 +10,10 @@ public class PhoneDetailEntityConfiguration : BaseEntityConfiguration<PhoneDetai
   {
     builder.ToTable("PhoneDetails");
 
+    builder.HasOne(e => e.Phone)
+      .WithOne(e => e.Detail)
+      .HasForeignKey<PhoneDetail>(d => d.PhoneId);
+
     base.Configure(builder);
   }
 }

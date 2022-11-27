@@ -9,7 +9,7 @@ public partial class Stock : ModifierEntity
 {
   private Stock() { }
 
-  public Stock(int quantity, double price, int capacity, int colorId, int detailId)
+  public Stock(int quantity, double price, int capacity, int colorId)
   {
     if(quantity < 0)
       throw new InvalidNumberException("Số lượng không thể nhỏ hơn 0");
@@ -25,10 +25,9 @@ public partial class Stock : ModifierEntity
     Capacity = capacity;
     Status = Status.Active;
     ColorId = colorId;
-    PhoneDetailId = detailId;
   }
 
-  public Stock(int quantity, double price, int capacity, Color color, PhoneDetail detail)
+  public Stock(int quantity, double price, int capacity, Color color)
   {
     if(quantity < 0)
       throw new InvalidNumberException("Số lượng không thể nhỏ hơn 0");
@@ -42,15 +41,11 @@ public partial class Stock : ModifierEntity
     if(color == null)
       throw new ArgumentNullException(nameof(color), "Màu của sản phẩm không được trống");
 
-    if(detail == null)
-      throw new ArgumentNullException(nameof(detail), "Chi tiết sản phẩm không được trống");
-
     Quantity = quantity;
     Price = price;
     Color = color;
     Capacity = capacity;
     Status = Status.Active;
-    Detail = detail;
   }
 
   /// <summary>
@@ -69,12 +64,6 @@ public partial class Stock : ModifierEntity
   /// </summary>
   public int PhoneId { get; private set; }
   public virtual Phone Phone { get; private set; } = null!;
-
-  /// <summary>
-  /// get or set phone detail id
-  /// </summary>
-  public int PhoneDetailId { get; private set; }
-  public virtual PhoneDetail? Detail { get; private set; }
 
   /// <summary>
   /// get or set color id
@@ -105,5 +94,11 @@ public partial class Stock : ModifierEntity
     Quantity += value;
 
     return Quantity;
+  }
+
+  public Stock WithId(int id)
+  {
+    Id = id;
+    return this;
   }
 }

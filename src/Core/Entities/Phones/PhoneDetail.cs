@@ -105,8 +105,8 @@ public class PhoneDetail : Entity
   /// </summary>
   public string Connection { get; private set; } = string.Empty;
 
-  //navigation and foreign key
-  public virtual ICollection<Stock> Stocks { get; private set; } = null!;
+  public int PhoneId { get; private set; }
+  public virtual Phone Phone { get; private set; } = null!;
 
   public void Update(PhoneDetail phoneDetail)
   {
