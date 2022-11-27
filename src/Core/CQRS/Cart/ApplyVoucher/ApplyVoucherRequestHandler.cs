@@ -32,8 +32,6 @@ public sealed class ApplyVoucherRequestHandler
 
     var discount = receipt.ApplyVoucher(voucher);
 
-    _context.Orders.Update(order);
-
     await _context.Commit();
 
     var data = new ApplyVoucherResponse(discount, receipt.Total);
