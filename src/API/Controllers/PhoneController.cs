@@ -31,6 +31,7 @@ public class PhoneController : ControllerBase
 
   [HttpGet]
   [Route("{id:int}")]
+  [AllowAnonymous]
   public async Task<IActionResult> GetPhoneDetail([FromRoute] int id)
   {
     var request = new GetPhoneDetailRequest(id);
