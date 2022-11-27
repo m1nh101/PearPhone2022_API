@@ -88,6 +88,8 @@ public class Receipt : ModifierEntity
     else
       Total -= voucher.MaxDiscount;
     
+    voucher.ApplySucceed();
+    
     return voucher.MaxDiscount;
   }
 }

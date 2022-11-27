@@ -1,8 +1,8 @@
-using Core.CQRS.Vouchers.Specs;
 using Core.Entities.Payments;
 using Core.Helpers;
 using Core.Helpers.Extensions;
 using Core.Interfaces;
+using Core.Specifications;
 using MediatR;
 
 namespace Core.CQRS.Cart.ApplyVoucher;
@@ -32,12 +32,10 @@ public sealed class ApplyVoucherRequestHandler
 
     var discount = receipt.ApplyVoucher(voucher);
 
-    _context.Orders.Update(order);
-
     await _context.Commit();
 
     var data = new ApplyVoucherResponse(discount, receipt.Total);
 
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Ok", null, null);
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Ok").WithData(data);
   }
 }

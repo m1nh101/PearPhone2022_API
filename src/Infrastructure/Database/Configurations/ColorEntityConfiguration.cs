@@ -15,8 +15,8 @@ public class ColorEntityConfiguration : BaseEntityConfiguration<Color>
       .HasColumnType("varchar")
       .IsRequired();
 
-    builder.Property(e => e.RGB)
-      .HasMaxLength(50)
+    builder.Property(e => e.Url)
+      .HasMaxLength(300)
       .HasColumnType("varchar")
       .IsRequired();
 

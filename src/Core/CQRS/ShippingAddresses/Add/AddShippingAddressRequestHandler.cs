@@ -27,10 +27,10 @@ public sealed class AddShippingAddressRequestHandler
 
     var address = new ShippingAddress(request.Address, request.Type);
 
-    _ = user.AddShippingAddress(address);
+    user.AddShippingAddress(address);
 
     await _userManager.UpdateAsync(user);
 
-    return new ActionResponse(HttpStatusCode.OK, "Thêm địa chỉ thành công", address, null);
+    return new ActionResponse(HttpStatusCode.OK, "Thêm địa chỉ thành công");
   }
 }

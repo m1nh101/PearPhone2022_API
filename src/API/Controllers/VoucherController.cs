@@ -9,8 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 [ApiController]
-[Route("api/vouchers")]
+[Route("api/voucher")]
 [Authorize(Roles = "admin")]
+
 public class VoucherController : ControllerBase
 {
   private readonly IMediator _mediator;
@@ -21,7 +22,7 @@ public class VoucherController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<IActionResult> Get()
+  public async Task<IActionResult> GetVouchers()
   {
     var request = new GetVouchersRequest();
     var response = await _mediator.Send(request);
@@ -29,24 +30,21 @@ public class VoucherController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<IActionResult> Create([FromBody] CreateVoucherRequest request)
+  public async Task<IActionResult> AddPhone([FromBody] CreateVoucherRequest request)
   {
     var response = await _mediator.Send(request);
     return Ok(response);
   }
 
-  [HttpPatch]
-  [Route("{id:int}")]
-  public async Task<IActionResult> Update([FromRoute] int id,
-    [FromBody] UpdateVoucherRequest request)
+  [HttpPut("{id:int}")]
+  public async Task<IActionResult> UpdatePhone([FromBody] UpdateVoucherRequest request, int id)
   {
     var response = await _mediator.Send(request);
     return Ok(response);
   }
 
-  [HttpDelete]
-  [Route("{id:int}")]
-  public async Task<IActionResult> Delete([FromRoute] int id)
+  [HttpDelete("{id:int}")]
+  public async Task<IActionResult> DeletePhone([FromRoute] int id)
   {
     var request = new DeleteVoucherRequest(id);
     var response = await _mediator.Send(request);

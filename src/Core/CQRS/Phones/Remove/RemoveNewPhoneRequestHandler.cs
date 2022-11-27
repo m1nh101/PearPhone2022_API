@@ -16,9 +16,7 @@ public sealed class RemoveNewPhoneRequestHandler : IRequestHandler<RemoveNewPhon
     if (phone == null) throw new NullReferenceException();
 
     phone.DeleteStock();
-    _context.Phones.Update(phone);
     await _context.Commit();
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Xóa thành công", phone,
-        default);
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Xóa thành công");
   }
 }

@@ -1,7 +1,8 @@
 ﻿using Core.Entities.Phones;
+using Core.Helpers;
 using Core.Interfaces;
+using Core.Specifications;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Core.CQRS.Phones.Update;
 
@@ -17,19 +18,23 @@ public sealed class UpdateNewPhoneRequestHandler :
 
   public async Task<ActionResponse> Handle(UpdateNewPhoneRequest request, CancellationToken cancellationToken)
   {
-    var phone = await _context.Phones.FirstOrDefaultAsync(c => c.Id == request.PhoneId);
-    if (phone == null) throw new NullReferenceException();
+    var phone = Query.Get(_context.Phones, new PhoneSpecification(request.Id), false);
+    
+    var detail = new PhoneDetail(request.Detail.Battery, request.Detail.Screen, request.Detail.OS, request.Detail.RAM,
+        request.Detail.Charger, request.Detail.Camera, request.Detail.Audio, request.Detail.Security, request.Detail.Connection);
+    
+    var stocks = from color in request.Colors
+                 let colors = new Color(color.Name, color.Url)
+                 from item in color.Stocks
+                 let stock = new Stock(item.Quantity, item.Price, item.Capacity, colors).WithId(item.Id)
+                 select stock;
 
-    var detail = new PhoneDetail(request.Detail.Battery, request.Detail.Screen, request.Detail.OS,
-        request.Detail.Charger, request.Detail.Camera, request.Detail.Audio, request.Detail.Security);
-    var stocks = request.Stocks
-        .Select(e => new Stock(e.Quantity, e.Price, e.RAM, e.Capacity, new Color(e.Color.Name, e.Color.RGB), detail));
-
-    phone.UpdateStock(stocks);
-
-    _context.Phones.Update(phone);
+    phone.Update(request.Name, request.Branch).UpdateDetail(detail)
+      .UpdateStock(stocks);
+    
     await _context.Commit();
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Sửa thành công", phone,
-    default);
+    
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Sửa thành công")
+      .WithData(request);
   }
 }

@@ -1,6 +1,6 @@
-using Core.CQRS.Vouchers.Specs;
 using Core.Helpers;
 using Core.Interfaces;
+using Core.Specifications;
 using MediatR;
 
 namespace Core.CQRS.Vouchers.Delete;
@@ -21,10 +21,8 @@ public sealed class DeleteVoucherRequestHandler
 
     voucher.Delete();
 
-    _context.Vouchers.Update(voucher);
-
     await _context.Commit();
 
-    return new ActionResponse(System.Net.HttpStatusCode.NoContent, "Xóa thành công", null, null);
+    return new ActionResponse(System.Net.HttpStatusCode.NoContent, "Xóa thành công");
   }
 }

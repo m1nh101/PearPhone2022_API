@@ -1,7 +1,9 @@
 using AutoMapper;
-using Core.CQRS.Vouchers.Specs;
+using Core.CQRS.Vouchers.Create;
+using Core.Entities.Payments;
 using Core.Helpers;
 using Core.Interfaces;
+using Core.Specifications;
 using MediatR;
 
 namespace Core.CQRS.Vouchers.Update;
@@ -22,12 +24,13 @@ public sealed class UpdateVoucherRequestHandler
   {
     var voucher = Query.Get(_context.Vouchers, new VoucherDetailSpecification(request.Id), false);
 
-    _mapper.Map(request, voucher);
+    var payload = new Voucher(request.Name, request.EffectiveDate, request.ExpiredDate, request.TimesUse, request.Type);
 
-    _context.Vouchers.Update(voucher);
+    voucher.Update(payload);
 
     await _context.Commit();
 
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Thay đổi thành công", request, null);
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Thay đổi thành công")
+      .WithData(request);
   }
 }

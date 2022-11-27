@@ -26,14 +26,15 @@ public sealed class LoginRequestHandler
 
     var validUserCrendential = await _userManager.CheckPasswordAsync(user, request.Password);
 
-		if(validUserCrendential)
+		if(validUserCrendential && user.Active)
 		{
       _jwt.SetUser(user);
       var token = await _jwt.GenerateJwtToken();
       var userData = new SuccessLoginResponse(user.UserName, user.Email, user.GetFullName(), token);
-      return new ActionResponse(HttpStatusCode.OK, "Đăng nhập thành công", userData, default);
+      return new ActionResponse(HttpStatusCode.OK, "Đăng nhập thành công")
+        .WithData(userData);
     }
 
-		return new ActionResponse(HttpStatusCode.Unauthorized, "Sai tên tài khoản hoặc mật khẩu", default, default);
+		return new ActionResponse(HttpStatusCode.Unauthorized, "Sai tên tài khoản hoặc mật khẩu");
   }
 }

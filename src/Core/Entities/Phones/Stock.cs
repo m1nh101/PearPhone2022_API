@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Orders;
+using Core.Exceptions;
 using Shared.Bases;
 using Shared.Enums;
 
@@ -6,28 +7,45 @@ namespace Core.Entities.Phones;
 
 public partial class Stock : ModifierEntity
 {
-  private Stock() {}
+  private Stock() { }
 
-    public Stock(int quantity, double price, int ram, int capacity, int colorId, int detailId)
-    {
-        Quantity = quantity;
-        Price = price;
-        RAM = ram;
-        Capacity = capacity;
-        Status = Status.Active;
-        ColorId = colorId;
-        PhoneDetailId = detailId;
-    }
-
-    public Stock(int quantity, double price, int ram, int capacity, Color color, PhoneDetail detail)
+  public Stock(int quantity, double price, int capacity, int colorId)
   {
+    if(quantity < 0)
+      throw new InvalidNumberException("Số lượng không thể nhỏ hơn 0");
+
+    if(price < 0)
+      throw new InvalidNumberException("Giá tiền không thể nhỏ hơn 0");
+
+    if(capacity < 0)
+      throw new InvalidNumberException("Dung lượng bộ nhớ không thể nhỏ hơn 0");
+
+    Quantity = quantity;
+    Price = price;
+    Capacity = capacity;
+    Status = Status.Active;
+    ColorId = colorId;
+  }
+
+  public Stock(int quantity, double price, int capacity, Color color)
+  {
+    if(quantity < 0)
+      throw new InvalidNumberException("Số lượng không thể nhỏ hơn 0");
+
+    if(price < 0)
+      throw new InvalidNumberException("Giá tiền không thể nhỏ hơn 0");
+
+    if(capacity < 0)
+      throw new InvalidNumberException("Dung lượng bộ nhớ không thể nhỏ hơn 0");
+
+    if(color == null)
+      throw new ArgumentNullException(nameof(color), "Màu của sản phẩm không được trống");
+
     Quantity = quantity;
     Price = price;
     Color = color;
-    RAM = ram;
     Capacity = capacity;
     Status = Status.Active;
-    Detail = detail;
   }
 
   /// <summary>
@@ -39,36 +57,28 @@ public partial class Stock : ModifierEntity
 
   public Status Status { get; private set; } = Status.None;
 
-  public int RAM { get; private set; }
-
   public int Capacity { get; private set; }
 
   /// <summary>
   /// get or set phone id
   /// </summary>
-  public int PhoneId { get; set; }
+  public int PhoneId { get; private set; }
   public virtual Phone Phone { get; private set; } = null!;
-  
-  /// <summary>
-  /// get or set phone detail id
-  /// </summary>
-  public int PhoneDetailId { get; set; }
-  public virtual PhoneDetail? Detail { get; set; }
 
   /// <summary>
   /// get or set color id
   /// </summary>
-  public int ColorId { get; set; }
-  public virtual Color? Color { get; set; }
+  public int ColorId { get; private set; }
+  public virtual Color? Color { get; private set; }
 
   public virtual ICollection<Item> Items { get; private set; } = null!;
 
   public int ReduceQuantity(int value)
   {
-    if(value <= 0)
+    if (value <= 0)
       throw new ArgumentOutOfRangeException($"{nameof(value)} cannot be negative");
 
-    if(value > Quantity)
+    if (value > Quantity)
       throw new ArgumentOutOfRangeException($"{nameof(value)} cannot be greater than current quantity");
 
     Quantity -= value;
@@ -78,11 +88,17 @@ public partial class Stock : ModifierEntity
 
   public int IncreaseQuantity(int value)
   {
-    if(value <= 0)
+    if (value <= 0)
       throw new ArgumentOutOfRangeException($"{nameof(value)} cannot be negative");
 
     Quantity += value;
 
     return Quantity;
+  }
+
+  public Stock WithId(int id)
+  {
+    Id = id;
+    return this;
   }
 }
