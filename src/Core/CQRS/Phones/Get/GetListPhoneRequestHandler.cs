@@ -19,30 +19,45 @@ public sealed class GetListPhoneRequestHandler
   {
     int skipRecord = recordPerPage * (request.pageIndex - 1);
 
-    var query = _context.Phones
-      .Include(e => e.Images.First())
-      .Include(e => e.Stocks.First())
-      .Skip(skipRecord)
-      .Take(recordPerPage)
-      .Select(e => new GetListResponse(e.Id, e.Name, e.Stocks.First().Price, e.Images.First().Url))
+    var rawQuery = _context.Phones
+      .Include(e => e.Images.Take(1))
+      .Include(e => e.Stocks.Take(1))
       .AsNoTracking();
 
+    var filter = QueryPhone(request, rawQuery);
+
+    var pagination = filter
+      .Skip(skipRecord)
+      .Take(recordPerPage)
+      .Select(e => new GetListResponse(e.Id, e.Name, e.Stocks.First().Price, e.Images.First().Url));
+
+    // var query = _context.Phones
+    //   .Include(e => e.Images.Take(1))
+    //   .Include(e => e.Stocks.Take(1))
+    //   .Skip(skipRecord)
+    //   .Take(recordPerPage)
+    //   .Select(e => new GetListResponse(e.Id, e.Name, e.Stocks.First().Price, e.Images.First().Url))
+    //   .AsNoTracking();
+
     var response = new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công")
-      .WithData(query);
+      .WithData(pagination);
 
     return Task.FromResult(response);
   }
 
-  public IQueryable<Phone> QueryPhone(GetListPhoneRequest request, IQueryable<Phone> source)
+  private IQueryable<Phone> QueryPhone(GetListPhoneRequest request, IQueryable<Phone> source)
   {
-    // if(!string.IsNullOrEmpty(request.Name))
-    //   source = source.Where(e => e.Name.Contains(request.Name));
+    if(!string.IsNullOrEmpty(request.Name))
+      source = source.Where(e => e.Name.Contains(request.Name));
     
-    // if(request.RAM == 0)
-    //   source = source.Where(e => e.Stocks.Any(e => e.RAM == request.RAM));
+    if(request.RAM != 0)
+      source = source.Where(e => e.Detail!.RAM == request.RAM);
 
-    // if(request.Capacity == 0)
-    //   source = source.Where(e => e.Stocks.Any(e => e.Capacity == request.Capacity));
+    if(request.Capacity != 0)
+      source = source.Where(e => e.Stocks.Any(e => e.Capacity == request.Capacity));
+
+    if(!string.IsNullOrEmpty(request.Branch))
+      source = source.Where(e => e.Name.Contains(request.Branch));
 
     return source;
   }

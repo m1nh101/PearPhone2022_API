@@ -14,7 +14,7 @@ public class ImageEntityConfiguration : BaseEntityConfiguration<Image>
       .IsRequired();
 
     builder.Property(e => e.ColorId)
-      .IsRequired(true);
+      .IsRequired(false);
 
     builder.HasOne(e => e.Phone)
       .WithMany(e => e.Images)

@@ -16,10 +16,6 @@ public class StockEntityConfiguration : BaseModifierConfiguration<Stock>
       .WithMany(e => e.Stocks)
       .HasForeignKey(e => e.ColorId);
 
-    builder.HasOne(e => e.Detail)
-      .WithMany(e => e.Stocks)
-      .HasForeignKey(e => e.PhoneDetailId);
-
     builder.HasOne(e => e.Phone)
       .WithMany(e => e.Stocks)
       .HasForeignKey(e => e.PhoneId);

@@ -8,13 +8,16 @@ public partial class Phone : ModifierEntity
 {
   private Phone() {}
 
-  public Phone(string name, string branch)
+  public Phone(string name, string branch, PhoneDetail detail)
   {
     if(string.IsNullOrEmpty(name))
       throw new ArgumentNullException(nameof(name), "Tên điện thoại không được trống");
 
     if(string.IsNullOrEmpty(branch))
       throw new ArgumentNullException(nameof(branch), "Tên hãng điện thoại không được trống");
+
+    if(detail == null)
+      throw new ArgumentNullException(nameof(detail), "Chi tiết sản phẩm không được null");
 
     Name = name;
     Branch = branch;
@@ -42,4 +45,6 @@ public partial class Phone : ModifierEntity
 
   private readonly List<Stock> _stocks = new();
   public IReadOnlyCollection<Stock> Stocks => _stocks.AsReadOnly();
+
+  public virtual PhoneDetail? Detail { get; private set; }
 }

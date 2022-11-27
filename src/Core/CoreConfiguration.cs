@@ -1,6 +1,4 @@
-﻿using Core.Validations;
-using FluentValidation;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -14,9 +12,6 @@ public static class CoreConfiguration
 
     services.AddAutoMapper(currentAssembly);
     services.AddMediatR(currentAssembly);
-    services.AddValidatorsFromAssembly(currentAssembly);
-
-    services.AddScoped(typeof(IPipelineBehavior<,>), typeof(Config<,>));
 
     return services;
   }

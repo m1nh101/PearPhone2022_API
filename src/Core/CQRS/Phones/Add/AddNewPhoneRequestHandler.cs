@@ -18,14 +18,13 @@ public sealed class AddNewPhoneRequestHandler : IRequestHandler<AddNewPhoneReque
     var detail = new PhoneDetail(request.Detail.Battery, request.Detail.Screen, request.Detail.OS, request.Detail.RAM,
         request.Detail.Charger, request.Detail.Camera, request.Detail.Audio, request.Detail.Security, request.Detail.Connection);
 
-    List<Stock> stocks = (from color in request.Colors
+    var stocks = from color in request.Colors
                           let colors = new Color(color.Name, color.Url)
                           from item in color.Stocks
-                          let stock = new Stock(item.Quantity, item.Price, item.Capacity, colors, detail)
-                          select stock)
-                          .ToList();
+                          let stock = new Stock(item.Quantity, item.Price, item.Capacity, colors)
+                          select stock;
 
-    var phone = new Phone(request.Name, request.Branch)
+    var phone = new Phone(request.Name, request.Branch, detail)
           .WithStocks(stocks)
           .WithImages(request.Images);
 
