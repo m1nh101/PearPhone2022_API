@@ -103,6 +103,8 @@ public class CheckoutWithPaypalRequestHandle:IRequestHandler<CheckoutWithPaypalR
                     paypalRedirectUrl = link.Href;
                 }
             }
+
+            return new ActionResponse(HttpStatusCode.OK, paypalRedirectUrl);
         }
         catch (HttpException httpException)
         {
@@ -110,6 +112,6 @@ public class CheckoutWithPaypalRequestHandle:IRequestHandler<CheckoutWithPaypalR
             var debugId = httpException.Headers.GetValues("PayPal-Debug-Id").FirstOrDefault();
         }
 
-        return new ActionResponse(HttpStatusCode.OK, string.Empty, null, null);
+        return new ActionResponse(HttpStatusCode.OK, string.Empty);
     }
 }
