@@ -41,6 +41,19 @@ public class Voucher : ModifierEntity
 
   public void Delete() => Status = Status.None;
 
+  public Voucher Update(Voucher voucher)
+  {
+    ExpiredDate = voucher.ExpiredDate;
+    EffectiveDate = voucher.EffectiveDate;
+    TimesRemain = voucher.TimesRemain;
+    VoucherType = voucher.VoucherType;
+    Name = voucher.Name;
+
+    return this;
+  }
+
+  public void ApplySucceed() => TimesRemain--;
+
   public static void Validate(Voucher voucher)
   {
     if(voucher.TimesRemain == 0)

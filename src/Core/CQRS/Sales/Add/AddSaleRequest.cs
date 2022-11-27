@@ -1,3 +1,4 @@
+using Core.Entities;
 using Core.Interfaces;
 using MediatR;
 
@@ -7,5 +8,5 @@ public sealed record AddSaleRequest(
     IEnumerable<int> Products,
     DateTime Effective,
     DateTime Expired,
-    double Discount
+    int Discount
 ) : IRequest<ActionResponse>;

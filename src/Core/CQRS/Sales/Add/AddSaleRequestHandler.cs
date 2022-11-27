@@ -15,15 +15,11 @@ public class AddSaleRequestHandler : IRequestHandler<AddSaleRequest, ActionRespo
   }
 
   public async Task<ActionResponse> Handle(AddSaleRequest request, CancellationToken cancellationToken)
-  {
-    // var sale = new Sale
-    // {
-    //     Effective = request.Effective,
-    //     Expired = request.Expired,
-    //     Discount = request.Discount
-    // };
-    // await _context.Sales.AddAsync(sale);
-    // await _context.Commit();
+  { 
+    var sale = new Sale(request.Effective, request.Expired, request.Discount);
+
+    await _context.Sales.AddAsync(sale);
+    await _context.Commit();
 
     return new ActionResponse(System.Net.HttpStatusCode.OK, "Thêm thành công");
   }
