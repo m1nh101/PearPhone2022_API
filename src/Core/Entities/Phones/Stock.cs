@@ -9,40 +9,33 @@ public partial class Stock : ModifierEntity
 {
   private Stock() { }
 
-  public Stock(int quantity, double price, int ram, int capacity, int colorId, int detailId)
+  public Stock(int quantity, double price, int capacity, int colorId, int detailId)
   {
     if(quantity < 0)
       throw new InvalidNumberException("Số lượng không thể nhỏ hơn 0");
 
     if(price < 0)
       throw new InvalidNumberException("Giá tiền không thể nhỏ hơn 0");
-    
-    if(ram < 0)
-      throw new InvalidNumberException("Dung lượng ram không thể nhỏ hơn 0");
-    
+
     if(capacity < 0)
       throw new InvalidNumberException("Dung lượng bộ nhớ không thể nhỏ hơn 0");
 
     Quantity = quantity;
     Price = price;
-    RAM = ram;
     Capacity = capacity;
     Status = Status.Active;
     ColorId = colorId;
     PhoneDetailId = detailId;
   }
 
-  public Stock(int quantity, double price, int ram, int capacity, Color color, PhoneDetail detail)
+  public Stock(int quantity, double price, int capacity, Color color, PhoneDetail detail)
   {
     if(quantity < 0)
       throw new InvalidNumberException("Số lượng không thể nhỏ hơn 0");
 
     if(price < 0)
       throw new InvalidNumberException("Giá tiền không thể nhỏ hơn 0");
-    
-    if(ram < 0)
-      throw new InvalidNumberException("Dung lượng ram không thể nhỏ hơn 0");
-    
+
     if(capacity < 0)
       throw new InvalidNumberException("Dung lượng bộ nhớ không thể nhỏ hơn 0");
 
@@ -55,7 +48,6 @@ public partial class Stock : ModifierEntity
     Quantity = quantity;
     Price = price;
     Color = color;
-    RAM = ram;
     Capacity = capacity;
     Status = Status.Active;
     Detail = detail;
@@ -70,7 +62,6 @@ public partial class Stock : ModifierEntity
 
   public Status Status { get; private set; } = Status.None;
 
-  public int RAM { get; private set; }
 
   public int Capacity { get; private set; }
 

@@ -1,4 +1,5 @@
-﻿using Shared.Bases;
+﻿using Core.Exceptions;
+using Shared.Bases;
 
 namespace Core.Entities.Phones;
 
@@ -10,6 +11,7 @@ public class PhoneDetail : Entity
       string battery,
       string screen,
       string os,
+      int ram,
       string charger,
       string camera,
       string audio,
@@ -28,6 +30,9 @@ public class PhoneDetail : Entity
     if(string.IsNullOrEmpty(charger))
       throw new ArgumentNullException(nameof(charger), "Thông tin sạc không được để trống");
 
+    if(ram < 0)
+        throw new InvalidNumberException( "Ram không thể nhỏ hơn không");
+
     if(string.IsNullOrEmpty(camera))
       throw new ArgumentNullException(nameof(camera), "Thông tin camera không được để trống");
 
@@ -43,10 +48,12 @@ public class PhoneDetail : Entity
     Battery = battery;
     Screen = screen;
     OS = os;
+    RAM = ram;
     Charger = charger;
     Camera = camera;
     Audio = audio;
     Security = security;
+    Connection = connection;
   }
   /// <summary>
   /// get or set battery of phone
@@ -76,7 +83,7 @@ public class PhoneDetail : Entity
   /// <summary>
   /// get or set memory of phone
   /// </summary>
-  public string RAM { get; private set; } = string.Empty;
+  public int RAM { get; private set; }
 
   /// <summary>
   /// get or set camera information phone use

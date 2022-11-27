@@ -15,20 +15,29 @@ public sealed class AddNewPhoneRequestHandler : IRequestHandler<AddNewPhoneReque
 
   public async Task<ActionResponse> Handle(AddNewPhoneRequest request, CancellationToken cancellationToken)
   {
-    // var detail = new PhoneDetail(request.Detail.Battery, request.Detail.Screen, request.Detail.OS,
-    //     request.Detail.Charger, request.Detail.Camera, request.Detail.Audio, request.Detail.Security);
-    // var stocks = request.Stocks
-    //     .Select(e => new Stock(e.Quantity, e.Price, e.RAM, e.Capacity, new Color(e.Color.Name, e.Color.RGB), detail));
+        var detail = new PhoneDetail(request.Detail.Battery, request.Detail.Screen, request.Detail.OS, request.Detail.RAM,
+            request.Detail.Charger, request.Detail.Camera, request.Detail.Audio, request.Detail.Security, request.Detail.Connection);
 
-    // var phone = new Phone(request.Name, request.Branch)
-    //   .WithStocks(stocks)
-    //   .WithImages(request.Images);
+        List<Stock> stocks = new List<Stock>();
+        foreach (var color in request.Colors)
+        {
+            var colors = new Color(color.Name, color.Url);
+            foreach (var item in color.Stocks)
+            {
+                var stock = new Stock(item.Quantity, item.Price, item.Capacity, colors, detail);
+                stocks.Add(stock);
+            }
+        }
 
-    // await _context.Phones.AddAsync(phone);
+        var phone = new Phone(request.Name, request.Branch)
+          .WithStocks(stocks)
+          .WithImages(request.Images);
 
-    // await _context.Commit();
+        await _context.Phones.AddAsync(phone);
 
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Thêm thành công")
+        await _context.Commit();
+
+        return new ActionResponse(System.Net.HttpStatusCode.OK, "Thêm thành công")
       .WithData(request);
   }
 }

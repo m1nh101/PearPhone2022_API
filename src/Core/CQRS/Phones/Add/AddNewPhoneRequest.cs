@@ -5,17 +5,17 @@ namespace Core.CQRS.Phones.Add;
 
 public sealed record AddNewPhoneRequest(
     string Name,
-    string CPU,
     string Branch,
-    IEnumerable<StockPayload> Stocks,
+    IEnumerable<ColorPayload> Colors,
     DetailPayload Detail,
     IEnumerable<string> Images
 ) : IRequest<ActionResponse>;
 
 public sealed record ColorPayload(
     int Id,
-    string RGB,
-    string Name
+    string Url,
+    string Name,
+    IEnumerable<StockPayload> Stocks
 );
 
 public sealed record DetailPayload(
@@ -25,11 +25,12 @@ public sealed record DetailPayload(
     string Charger,
     string Camera,
     string Audio,
-    string Security
+    string Security,
+    string CPU,
+    int RAM,
+    string Connection
 );
 public sealed record StockPayload(
-    ColorPayload Color,
-    int RAM,
     int Quantity,
     double Price,
     int Capacity
