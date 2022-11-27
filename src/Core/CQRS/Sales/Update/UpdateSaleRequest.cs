@@ -7,5 +7,5 @@ public sealed record UpdateSaleRequest(
     int saleId,
     DateTime Effective,
     DateTime Expired,
-    double Discount
+    int Discount
 ) : IRequest<ActionResponse>;
