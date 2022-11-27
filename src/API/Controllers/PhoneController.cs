@@ -1,4 +1,6 @@
-﻿using Core.CQRS.Phones.Add;
+﻿using System.Security.Cryptography.X509Certificates;
+using Core.CQRS.Phones.Add;
+using Core.CQRS.Phones.GetDetail;
 using Core.CQRS.Phones.Remove;
 using Core.CQRS.Phones.Update;
 using MediatR;
@@ -23,6 +25,16 @@ public class PhoneController : ControllerBase
   [AllowAnonymous]
   public async Task<IActionResult> GetPhone([FromBody] GetListPhoneRequest request)
   {
+    var response = await _mediator.Send(request);
+    return Ok(response);
+  }
+
+  [HttpGet]
+  [Route("{id:int}")]
+  [AllowAnonymous]
+  public async Task<IActionResult> GetPhoneDetail([FromRoute] int id)
+  {
+    var request = new GetPhoneDetailRequest(id);
     var response = await _mediator.Send(request);
     return Ok(response);
   }

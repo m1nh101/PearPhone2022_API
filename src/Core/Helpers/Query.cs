@@ -39,7 +39,7 @@ public static class Query
     {
         IQueryable<T> data = Source(source, asNoTracking);
 
-        _ = spec.Includes.Aggregate(data, (current, expr) => expr(current));
+        data = spec.Includes.Aggregate(data, (current, expr) => expr(current));
 
         var result = data.FirstOrDefault(spec.Criteria);
         

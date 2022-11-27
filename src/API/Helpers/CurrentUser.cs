@@ -12,5 +12,6 @@ public class CurrentUser : ICurrentUser
     _http = http;
   }
 
-  public string Id => _http.HttpContext!.User!.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+  // this may be take potential bug
+  public string Id => _http.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
 }

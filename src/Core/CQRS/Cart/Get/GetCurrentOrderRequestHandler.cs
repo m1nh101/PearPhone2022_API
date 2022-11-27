@@ -36,9 +36,10 @@ public sealed class GetCurrentOrderRequestHandler
         })))
       .AsNoTracking()
       .FirstOrDefaultAsync();
+
+    if(cart == null)
+      throw new NullReferenceException("cart is not exist");
     
-    var response = new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công", cart, default);
-    
-    return response;
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công").WithData(cart);
   }
 }

@@ -1,4 +1,5 @@
-﻿using Shared.Bases;
+﻿using Core.Exceptions;
+using Shared.Bases;
 
 namespace Core.Entities.Phones;
 
@@ -10,18 +11,49 @@ public class PhoneDetail : Entity
       string battery,
       string screen,
       string os,
+      int ram,
       string charger,
       string camera,
       string audio,
-      string security)
+      string security,
+      string connection)
   {
+    if(string.IsNullOrEmpty(battery))
+      throw new ArgumentNullException(nameof(battery), "Thông tin PIN không được để trống");
+
+    if(string.IsNullOrEmpty(screen))
+      throw new ArgumentNullException(nameof(screen), "Thông tin màn hình không được trống");
+
+    if(string.IsNullOrEmpty(os))
+      throw new ArgumentNullException(nameof(os), "Thông tin hệ điều hành không được trống");
+
+    if(string.IsNullOrEmpty(charger))
+      throw new ArgumentNullException(nameof(charger), "Thông tin sạc không được để trống");
+
+    if(ram < 0)
+        throw new InvalidNumberException( "Ram không thể nhỏ hơn không");
+
+    if(string.IsNullOrEmpty(camera))
+      throw new ArgumentNullException(nameof(camera), "Thông tin camera không được để trống");
+
+    if(string.IsNullOrEmpty(audio))
+      throw new ArgumentNullException(nameof(audio), "Thông tin loa không được để trống");
+
+    if(string.IsNullOrEmpty(security))
+      throw new ArgumentNullException(nameof(security), "Thông tin mở khóa không được để trống");
+
+    if(string.IsNullOrEmpty(connection))
+      throw new ArgumentNullException(nameof(connection), "Thông tin kết nối không được để trống");
+
     Battery = battery;
     Screen = screen;
     OS = os;
+    RAM = ram;
     Charger = charger;
     Camera = camera;
     Audio = audio;
     Security = security;
+    Connection = connection;
   }
   /// <summary>
   /// get or set battery of phone
@@ -51,7 +83,7 @@ public class PhoneDetail : Entity
   /// <summary>
   /// get or set memory of phone
   /// </summary>
-  public string RAM { get; private set; } = string.Empty;
+  public int RAM { get; private set; }
 
   /// <summary>
   /// get or set camera information phone use
@@ -73,8 +105,8 @@ public class PhoneDetail : Entity
   /// </summary>
   public string Connection { get; private set; } = string.Empty;
 
-  //navigation and foreign key
-  public virtual ICollection<Stock> Stocks { get; private set; } = null!;
+  public int PhoneId { get; private set; }
+  public virtual Phone Phone { get; private set; } = null!;
 
   public void Update(PhoneDetail phoneDetail)
   {

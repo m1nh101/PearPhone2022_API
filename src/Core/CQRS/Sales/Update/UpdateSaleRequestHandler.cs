@@ -5,13 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.CQRS.Sales.Update;
 
-public sealed record UpdateSaleRequest(
-    int saleId,
-    DateTime Effective,
-    DateTime Expired,
-    double Discount
-) : IRequest<ActionResponse>;
-
 public class UpdateSaleRequestHandler : IRequestHandler<UpdateSaleRequest, ActionResponse>
 {
     private readonly IAppDbContext _context;
@@ -25,14 +18,11 @@ public class UpdateSaleRequestHandler : IRequestHandler<UpdateSaleRequest, Actio
     {
         var sale = await _context.Sales.FirstOrDefaultAsync(c => c.Id == request.saleId);
         if (sale == null) throw new NullReferenceException();
-        
-        sale.Effective = request.Effective;
-        sale.Expired = request.Expired;
-        sale.Discount = request.Discount;
 
-        _context.Sales.Update(sale);
+        var payload = new Sale(request.Effective, request.Expired, request.Discount);
+        sale.Update(payload);
         await _context.Commit();
-        return new ActionResponse(System.Net.HttpStatusCode.OK, "Sửa thành công", sale,
-            default);
+        
+        return new ActionResponse(System.Net.HttpStatusCode.OK, "Sửa thành công");
     }
 }

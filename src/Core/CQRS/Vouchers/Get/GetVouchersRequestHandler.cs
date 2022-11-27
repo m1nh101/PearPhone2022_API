@@ -1,6 +1,6 @@
-using Core.CQRS.Vouchers.Specs;
 using Core.Helpers;
 using Core.Interfaces;
+using Core.Specifications;
 using MediatR;
 
 namespace Core.CQRS.Vouchers.Get;
@@ -20,7 +20,8 @@ public sealed class GetVouchersRequestHandler
     var data = Query.All(_context.Vouchers, new AllVoucherSpecification())
       .Select(e => new GetVoucheRequestResponse(e.Id, e.Name, e.Code, e.EffectiveDate, e.ExpiredDate, e.TimesRemain));
 
-    var response = new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công", data, null);
+    var response = new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công")
+      .WithData(data);
 
     return Task.FromResult(response);
   }

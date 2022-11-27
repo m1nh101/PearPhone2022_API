@@ -34,6 +34,7 @@ public sealed class RemoveItemFromCartRequestHandler
 
     var response = new RemovedItemFromCartResponse(TotalOrderPrice);
 
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Xóa sản phẩm khỏi giỏ hàng thành công", response, default);
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Xóa sản phẩm khỏi giỏ hàng thành công")
+      .WithData(response);
   }
 }

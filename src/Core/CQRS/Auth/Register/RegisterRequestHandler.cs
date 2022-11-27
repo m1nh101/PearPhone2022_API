@@ -25,9 +25,9 @@ public sealed class RegisterRequestHandler
     {
       user.CreateEmptyOrder();
       await _userManager.AddToRoleAsync(user, "customer");
-      return new(HttpStatusCode.OK, "Đăng ký thành công", default, default);
+      return new(HttpStatusCode.OK, "Đăng ký thành công");
     }
     else
-      return new(HttpStatusCode.BadRequest, "Đăng ký thất bại", default, register.Errors);
+      return new ActionResponse(HttpStatusCode.BadRequest, "Đăng ký thất bại").WithError(register.Errors);
   }
 }

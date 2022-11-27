@@ -3,7 +3,7 @@ using Core.Helpers;
 using Core.Interfaces;
 using Core.Helpers.Extensions;
 using MediatR;
-using Core.CQRS.Cart.Specification;
+using Core.Specifications;
 
 namespace Core.CQRS.Cart.Add;
 
@@ -37,6 +37,7 @@ public sealed class AddItemToCartRequestHandler
 
     var responseData = new AddedItemToCartResponse(request.Quantity, totalOrderPrice, totalItemPrice);
 
-    return new ActionResponse(System.Net.HttpStatusCode.OK, "Thêm sản phẩm vào giỏ thành công", responseData, default);
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Thêm sản phẩm vào giỏ thành công")
+      .WithData(responseData);
   }
 }

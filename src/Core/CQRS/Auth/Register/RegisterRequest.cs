@@ -6,7 +6,6 @@ namespace Core.CQRS.Auth.Register;
 public sealed record RegisterRequest(
 	string Username,
 	string Password,
-	string RepeatPassword,
 	string Email,
 	string FirstName,
 	string LastName,
