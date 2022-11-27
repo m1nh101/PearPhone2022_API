@@ -21,8 +21,6 @@ public sealed class DeleteVoucherRequestHandler
 
     voucher.Delete();
 
-    _context.Vouchers.Update(voucher);
-
     await _context.Commit();
 
     return new ActionResponse(System.Net.HttpStatusCode.NoContent, "Xóa thành công");
