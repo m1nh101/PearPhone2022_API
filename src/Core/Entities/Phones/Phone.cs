@@ -21,6 +21,7 @@ public partial class Phone : ModifierEntity
 
     Name = name;
     Branch = branch;
+    Detail = detail;
     Status = Status.Active;
   }
 

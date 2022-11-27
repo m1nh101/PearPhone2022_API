@@ -41,8 +41,8 @@ public sealed class GetPhoneDetailRequestHandler
     var phone = Query.Get(_context.Phones, new PhoneSpecification(request.Id), false);
 
     var detail = new DetailPayload(phone.Detail!.Battery, phone.Detail.Screen, phone.Detail.OS,
-        phone.Detail.Charger, phone.Detail.Camera, phone.Detail.Audio, phone.Detail.Security!, phone.Detail.CPU, phone.Detail.RAM,
-        phone.Detail.Connection);
+        phone.Detail.Charger, phone.Detail.Camera, phone.Detail.Audio, phone.Detail.Security!,
+        phone.Detail.CPU, phone.Detail.RAM, phone.Detail.Connection);
 
     var colors = phone.Stocks.Select(e => new PhoneColor(e.ColorId, e.Color!.Url, e.Color.Name));
 
