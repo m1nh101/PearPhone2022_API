@@ -10,16 +10,17 @@
     <Compile Remove="Emails\**" />
     <EmbeddedResource Remove="Emails\**" />
     <None Remove="Emails\**" />
+    <None Remove="ClosedXML" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Gmail.v1" Version="1.57.0.2650" />
-    <PackageReference Include="IronXL.Excel" Version="2022.11.10251" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="ClosedXML" Version="0.97.0" />
   </ItemGroup>
 
   <ItemGroup>
