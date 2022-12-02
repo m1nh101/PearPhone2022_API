@@ -7,12 +7,9 @@ public class ExcelWorker
 {
     private readonly ExcelReadOption _option;
 
-    public ExcelWorker(ExcelReadOption option)
+    public ExcelWorker(ExcelReadOption? option = null)
     {
-      if(option == null)
-        throw new ArgumentNullException(nameof(option), "option cannot not null");
-
-      _option = option;
+      _option = option ?? new ExcelReadOption();
     }
 
     public IEnumerable<TDestination> ParseExcelToData<TDestination>(Func<IXLRow, TDestination> parser,
