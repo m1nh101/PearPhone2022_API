@@ -9,7 +9,7 @@ public class Voucher : ModifierEntity
 {
   private Voucher() {}
   public Voucher(string name, DateTime effectiveDate, DateTime expiredDate,
-    int timesRemain, VoucherType type)
+    int timesRemain, VoucherType type, string code = "")
   {
     if(string.IsNullOrEmpty(name))
       throw new ArgumentNullException(nameof(name), "tên không thể để trống");
@@ -25,8 +25,9 @@ public class Voucher : ModifierEntity
     ExpiredDate = expiredDate;
     TimesRemain = timesRemain;
     VoucherType = type;
-    Code = RandomCode.Generate();
+    Code = string.IsNullOrEmpty(code) ? RandomCode.Generate() : code;
   }
+  
   public string Name { get; private set; } = string.Empty;
   public string Code { get; private set; } = string.Empty;
   public DateTime EffectiveDate { get; private set; }
