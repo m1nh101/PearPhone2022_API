@@ -1,8 +1,10 @@
 using API.Configurations;
 using API.Middlewares;
 using Core;
+using Core.Entities.Payments;
 using Core.Interfaces;
 using Infrastructure.Email;
+using Infrastructure.Excel.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,8 @@ builder.Services.ConfigureCoreServices();
 builder.Services.ConfigureAuthentication(builder.Configuration);
 
 builder.Services.AddTransient<IEmailSender, SendEmail>();
+
+builder.Services.AddScoped<IClient<IEnumerable<MemoryStream>, Voucher>, VoucherClient>();
 
 builder.Services.AddControllers();
 

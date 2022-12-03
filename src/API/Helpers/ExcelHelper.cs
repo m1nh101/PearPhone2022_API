@@ -10,10 +10,10 @@ public class ExcelHelper
   public ExcelHelper(IFormFileCollection files)
   {
     _files = files;
-    _extensions = new(new string[] { "xlsx", "xls"});
+    _extensions = new(new string[] { ".xlsx", ".xls"});
   }
 
-  private IDictionary<string, IEnumerable<IFormFile>> CheckFile()
+  public IDictionary<string, IEnumerable<IFormFile>> CheckFile()
   {
     if(_files == null)
       throw new FileNotFoundException("no file attached");
@@ -37,8 +37,19 @@ public class ExcelHelper
     return result;
   }
 
-  // public IEnumerable<TDestination> ParseExcelToData<TDestination>()
-  // {
+  public async Task<IEnumerable<MemoryStream>> ToMemoryStream(IEnumerable<IFormFile> files)
+  {
+    var streams = new List<MemoryStream>();
 
-  // }
+    foreach(var file in files)
+    {
+      var memoryStream = new MemoryStream();
+
+      await file.CopyToAsync(memoryStream);
+
+      streams.Add(memoryStream);
+    }
+
+    return streams;
+  }
 }

@@ -5,11 +5,11 @@ namespace Infrastructure.Excel;
 
 public class ExcelWorker
 {
-    private readonly ExcelReadOption _option;
+    private readonly ExcelReadOption _option = new ExcelReadOption();
 
-    public ExcelWorker(ExcelReadOption? option = null)
+    public ExcelWorker(Action<ExcelReadOption> options)
     {
-      _option = option ?? new ExcelReadOption();
+      options.Invoke(_option);
     }
 
     public IEnumerable<TDestination> ParseExcelToData<TDestination>(Func<IXLRow, TDestination> parser,
