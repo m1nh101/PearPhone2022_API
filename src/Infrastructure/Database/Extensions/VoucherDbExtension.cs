@@ -15,7 +15,7 @@ public static class VoucherDbExtension
       e.RowStart = 3;
     });
 
-    var data = excelWorker.ParseExcelToData(ParserConfig.VoucherParser, streams);
+    var data = excelWorker.ParseToData(ParserConfig.VoucherParser, streams);
 
     //remove duplicate data base on code and voucher type
     data = data.Distinct(new VoucherComparer());

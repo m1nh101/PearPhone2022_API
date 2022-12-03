@@ -7,12 +7,12 @@ public class ExcelWorker
 {
     private readonly ExcelReadOption _option = new ExcelReadOption();
 
-    public ExcelWorker(Action<ExcelReadOption> options)
+    public ExcelWorker(Action<ExcelReadOption>? options)
     {
-      options.Invoke(_option);
+      options?.Invoke(_option);
     }
 
-    public IEnumerable<TDestination> ParseExcelToData<TDestination>(Func<IXLRow, TDestination> parser,
+    public IEnumerable<TDestination> ParseToData<TDestination>(Func<IXLRow, TDestination> parser,
       IEnumerable<MemoryStream> streams)
     {
       var records = new List<TDestination>();
@@ -28,6 +28,9 @@ public class ExcelWorker
         foreach(var row in rows)
         {
           var record = parser(row);
+
+          if(record == null)
+            continue;
 
           records.Add(record);
         }
