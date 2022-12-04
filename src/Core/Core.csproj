@@ -27,6 +27,8 @@
     <Folder Include="CQRS\Sales\Get\" />
     <Folder Include="CQRS\Sales\Remove\" />
     <Folder Include="CQRS\Sales\Update\" />
+    <Folder Include="Model\" />
+    <Folder Include="Service\" />
   </ItemGroup>
 
 </Project>
