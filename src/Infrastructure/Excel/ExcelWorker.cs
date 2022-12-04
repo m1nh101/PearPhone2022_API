@@ -38,4 +38,16 @@ public class ExcelWorker
 
       return records;
     }
+
+    public TDestination ParseToData<TDestination>(Func<IXLRows, TDestination> parser,
+      MemoryStream stream)
+    {
+      using var workbook = new XLWorkbook(stream);
+
+      var worksheet = workbook.Worksheet(_option.WorkSheet);
+      var lastRowUsed = worksheet.LastRowUsed().RowNumber();
+      var rows = worksheet.Rows(_option.RowStart, lastRowUsed);
+
+      return parser(rows);
+    }
 }
