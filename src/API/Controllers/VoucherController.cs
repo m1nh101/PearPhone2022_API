@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
+
 [ApiController]
 [Route("api/voucher")]
 [Authorize(Roles = "admin")]
@@ -33,6 +34,7 @@ public class VoucherController : ControllerBase
     var response = await _mediator.Send(request);
     return Ok(response);
   }
+
   [HttpPost]
   public async Task<IActionResult> AddPhone([FromBody] CreateVoucherRequest request)
   {

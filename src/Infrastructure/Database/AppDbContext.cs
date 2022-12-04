@@ -65,5 +65,6 @@ public class AppDbContext : IdentityDbContext<User>, IAppDbContext
   public DbSet<Phone> Phones => Set<Phone>();
   public DbSet<Voucher> Vouchers => Set<Voucher>();
   public DbSet<Receipt> Receipts => Set<Receipt>();
+  public DbSet<ShippingAddress> ShippingAddress => Set<ShippingAddress>();
   public DbSet<Sale> Sales => Set<Sale>();
 }

@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="PayPal" Version="2.0.0-rc2" />
     <PackageReference Include="ClosedXML" Version="0.97.0" />
   </ItemGroup>
 
@@ -21,11 +22,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CQRS\Cart\Checkout\" />
     <Folder Include="CQRS\Phones\Remove\" />
     <Folder Include="CQRS\Phones\Update\" />
     <Folder Include="CQRS\Sales\Get\" />
     <Folder Include="CQRS\Sales\Remove\" />
     <Folder Include="CQRS\Sales\Update\" />
+    <Folder Include="Model\" />
+    <Folder Include="Service\" />
   </ItemGroup>
 
   <ItemGroup>
