@@ -6,6 +6,7 @@ public sealed record ItemInCart
 	public int Quanttiy { get; init; }
 	public int ProductId { get; init; }
 	public string ProductName { get; init; } = null!;
+    public double Price { get; init; }
 	public double Total { get; init; }
 	public string ProductImage { get; init; } = null!;
 }

@@ -9,9 +9,8 @@ public static class OrderExtension
 	{
 		var order = await orders
       .Include(e => e.Items)
-			.Include(e => e.Receipt)
       .Where(e => e.UserId == userId)
-      .Where(e => e.Status == Shared.Enums.Status.None)
+      .Where(e => e.Status == Shared.Enums.Status.Inprocess)
       .Take(1)
       .FirstAsync();
 
