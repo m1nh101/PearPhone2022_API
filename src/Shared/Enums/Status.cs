@@ -7,4 +7,5 @@ public enum Status
   None = 2,
   Inprocess = 3,
   Done = 4,
+  Sold = 5
 }

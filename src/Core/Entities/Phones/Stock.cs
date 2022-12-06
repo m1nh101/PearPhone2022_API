@@ -73,6 +73,9 @@ public partial class Stock : ModifierEntity
 
   public virtual ICollection<Item> Items { get; private set; } = null!;
 
+  private readonly List<IMEI> _imeis = new();
+  public virtual IReadOnlyCollection<IMEI> IMEIs => _imeis.AsReadOnly();
+
   public int ReduceQuantity(int value)
   {
     if (value <= 0)
@@ -99,6 +102,16 @@ public partial class Stock : ModifierEntity
   public Stock WithId(int id)
   {
     Id = id;
+    return this;
+  }
+
+  public Stock SetImeis(IList<string> imeis)
+  {
+    if(imeis.Count != Quantity)
+      throw new ArgumentOutOfRangeException(nameof(imeis), "imei not equal to quantity");
+
+    _imeis.AddRange(imeis.Select(e => new IMEI(e)));
+
     return this;
   }
 }

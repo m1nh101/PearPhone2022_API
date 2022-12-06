@@ -34,5 +34,6 @@ public sealed record StockPayload(
   int Id,
   int Quantity,
   double Price,
-  int Capacity
+  int Capacity,
+  string[] Imeis
 );

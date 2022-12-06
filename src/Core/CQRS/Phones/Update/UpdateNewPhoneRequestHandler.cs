@@ -7,7 +7,7 @@ using MediatR;
 namespace Core.CQRS.Phones.Update;
 
 public sealed class UpdateNewPhoneRequestHandler :
-      IRequestHandler<UpdateNewPhoneRequest, ActionResponse>
+  IRequestHandler<UpdateNewPhoneRequest, ActionResponse>
 {
   private readonly IAppDbContext _context;
 
@@ -26,7 +26,9 @@ public sealed class UpdateNewPhoneRequestHandler :
     var stocks = from color in request.Colors
                  let colors = new Color(color.Name, color.Url)
                  from item in color.Stocks
-                 let stock = new Stock(item.Quantity, item.Price, item.Capacity, colors).WithId(item.Id)
+                 let stock = new Stock(item.Quantity, item.Price, item.Capacity, colors)
+                  .SetImeis(item.Imeis)
+                  .WithId(item.Id)
                  select stock;
 
     phone.Update(request.Name, request.Branch).UpdateDetail(detail)

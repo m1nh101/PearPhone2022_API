@@ -21,7 +21,7 @@ public sealed class AddNewPhoneRequestHandler : IRequestHandler<AddNewPhoneReque
     var stocks = from color in request.Colors
                           let colors = new Color(color.Name, color.Url)
                           from item in color.Stocks
-                          let stock = new Stock(item.Quantity, item.Price, item.Capacity, colors)
+                          let stock = new Stock(item.Quantity, item.Price, item.Capacity, colors).SetImeis(item.Imeis)
                           select stock;
 
     var phone = new Phone(request.Name, request.Branch, detail)
