@@ -1,6 +1,7 @@
 using Core.CQRS.Cart.Add;
 using Core.CQRS.Cart.ApplyVoucher;
 using Core.CQRS.Cart.Checkout;
+using Core.CQRS.Cart.ExportReceipt;
 using Core.CQRS.Cart.Get;
 using Core.CQRS.Cart.Remove;
 using Core.CQRS.Cart.Update;
@@ -65,12 +66,20 @@ public class OrderController : ControllerBase
     return Ok(response);
   }
 
-  [Authorize, HttpPost]
-  [Route("checkoutPaypal")]
+  [HttpPost]
+  [Route("checkout")]
   public async Task<IActionResult> PaypalCheckOut()
   {
     var request = new CheckoutWithPaypalRequest();
     var response = await _mediator.Send(request);
     return Ok(response);
+  }
+
+  [Route("export")]
+  public async Task<FileStreamResult> ExportToExcel([FromBody] ExportReceiptRequest request)
+  {
+    var response = await _mediator.Send(request);
+
+    return File(response, "application/octet-stream");
   }
 }
