@@ -11,7 +11,7 @@ public class ReceiptForExcel:IReceiptForExcel
     {
         _appDbContext = appDbContext;
     }
-    public List<ExcelModel> GetReciptForExcel(int oderId)
+    public List<ExcelModel> GetReceiptForExcel(int oderId)
     {
         var lstReceipt = _appDbContext.Receipts
             .Join(_appDbContext.Vouchers, x => x.VoucherId,
