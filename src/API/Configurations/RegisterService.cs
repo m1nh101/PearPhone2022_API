@@ -1,6 +1,7 @@
 using Core.Entities.Payments;
 using Core.Interfaces;
 using Infrastructure.Email;
+using Infrastructure.Excel;
 using Infrastructure.Excel.Client;
 using Infrastructure.Palpal;
 
@@ -15,6 +16,7 @@ public static class RegisterService
     services.AddScoped<IClient<IEnumerable<MemoryStream>, Voucher>, VoucherClient>();
 
     services.AddScoped<ICheckout, Checkout>();
+    services.AddScoped<IExcelExtractor, ExcelWorker>();
 
     return services;
   }

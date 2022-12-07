@@ -1,4 +1,3 @@
-using ClosedXML.Excel;
 using Core.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
