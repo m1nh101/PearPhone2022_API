@@ -52,12 +52,12 @@ public class ExcelWorker : IExcelExtractor
     return parser(rows);
   }
 
-  public XLWorkbook ToExcel<TSource>(TSource source, Action<IXLWorksheet, TSource> parser)
+  public XLWorkbook ToExcel(Action<IXLWorksheet> parser)
   {
     var workbook = new XLWorkbook();
     var worksheet = workbook.Worksheets.Add("Hóa đơn");
 
-    parser(worksheet, source);
+    parser(worksheet);
 
     return workbook;
   }
