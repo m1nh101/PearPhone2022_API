@@ -27,7 +27,7 @@ public sealed class ExportReceiptRequestHandler
       .AsNoTracking()
       .FirstOrDefaultAsync(e => e.OrderId == request.OrderId);
 
-    var workbook = _extractor.ToExcel(receipt, (e, d) => {
+    var workbook = _extractor.ToExcel(e => {
       
     });
 

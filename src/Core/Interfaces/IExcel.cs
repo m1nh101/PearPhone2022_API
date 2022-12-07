@@ -4,5 +4,5 @@ namespace Core.Interfaces;
 
 public interface IExcelExtractor
 {
-  XLWorkbook ToExcel<TSource>(TSource source, Action<IXLWorksheet, TSource> parser);
+  XLWorkbook ToExcel(Action<IXLWorksheet> parser);
 }
