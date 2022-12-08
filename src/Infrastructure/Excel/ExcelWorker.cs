@@ -8,6 +8,7 @@ public class ExcelWorker : IExcelExtractor
 {
   private readonly ExcelReadOption _option = new ExcelReadOption();
 
+  public ExcelWorker() { }
   public ExcelWorker(Action<ExcelReadOption>? options)
   {
     options?.Invoke(_option);

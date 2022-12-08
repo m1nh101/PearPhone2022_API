@@ -75,11 +75,11 @@ public class OrderController : ControllerBase
     return Ok(response);
   }
 
-  [Route("export")]
-  public async Task<FileStreamResult> ExportToExcel([FromBody] ExportReceiptRequest request)
-  {
-    var response = await _mediator.Send(request);
+  //[Route("export")]
+  //public async Task<FileStreamResult> ExportToExcel([FromBody] ExportReceiptRequest request)
+  //{
+  //  var response = await _mediator.Send(request);
 
-    return File(response, "application/octet-stream");
-  }
+  //  return File(response, "application/octet-stream");
+  //}
 }
