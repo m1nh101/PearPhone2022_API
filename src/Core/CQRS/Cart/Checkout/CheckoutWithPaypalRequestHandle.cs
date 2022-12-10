@@ -1,15 +1,9 @@
 ﻿using System.Net;
-using BraintreeHttp;
 using Core.Entities.Users;
-using Core.Helpers;
 using Core.Helpers.Extensions;
 using Core.Interfaces;
-using Core.Specifications;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using PayPal.Core;
-using PayPal.v1.Payments;
 
 namespace Core.CQRS.Cart.Checkout;
 
@@ -36,12 +30,12 @@ public sealed class CheckoutWithPaypalRequestHandle
   {
     var cart = await _context.Orders.CurrentOrder(_currentUser.Id);
 
-    var user = Query.Get(_userManager.Users, new UserSpecification(_currentUser.Id));
+    // var user = Query.Get(_userManager.Users, new UserSpecification(_currentUser.Id));
 
-    var shippingAddress = user.GetShippingAddress(request.ShippingAddressId);
+    // var shippingAddress = user.GetShippingAddress(request.ShippingAddressId);
     
     var response = await _checkout.Process(cart);
 
-    return new ActionResponse(HttpStatusCode.OK, string.Empty);
+    return new ActionResponse(HttpStatusCode.OK, "Ok").WithData(new { checkout_url = response});
   }
 }

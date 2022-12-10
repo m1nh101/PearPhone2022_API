@@ -52,9 +52,9 @@ public class Checkout : ICheckout
           Currency = "USD",
           Details = new AmountDetails
           {
-            Tax = "10",
+            Tax = "0",
             Shipping = "0",
-            Subtotal = total.ToString() 
+            Subtotal = total.ToString()
           }
         },
         ItemList = new ItemList
