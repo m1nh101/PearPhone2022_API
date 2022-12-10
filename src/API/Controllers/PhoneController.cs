@@ -21,7 +21,8 @@ public class PhoneController : ControllerBase
     _mediator = mediator;
   }
 
-  [HttpGet]
+  [HttpPost]
+  [Route("filter")]
   [AllowAnonymous]
   public async Task<IActionResult> GetPhone([FromBody] GetListPhoneRequest request)
   {

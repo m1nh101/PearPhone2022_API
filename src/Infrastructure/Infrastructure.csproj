@@ -21,7 +21,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="ClosedXML" Version="0.97.0" />
     <PackageReference Include="PayPal" Version="2.0.0-rc2" />
     <PackageReference Include="PayPal.SDK.NETCore" Version="1.9.1.2" />
   </ItemGroup>
