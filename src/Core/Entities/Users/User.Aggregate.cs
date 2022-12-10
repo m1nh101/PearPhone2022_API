@@ -36,4 +36,10 @@ public partial class User : IAggregateRoot
     if(address != null)
       address.Delete();
   }
+
+  public ShippingAddress GetShippingAddress(int id)
+  {
+    return _addresses.FirstOrDefault(e => e.Id == id)
+      ?? throw new NullReferenceException("no shipping address found");
+  }
 }

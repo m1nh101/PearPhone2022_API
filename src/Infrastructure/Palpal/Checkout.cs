@@ -70,7 +70,7 @@ public class Checkout : ICheckout
           }).ToList()
         },
         Description = $"Invoice #{now}",
-        InvoiceNumber = now.ToString()
+        InvoiceNumber = now.ToString(),
       },
     };
 
@@ -86,7 +86,7 @@ public class Checkout : ICheckout
       Payer = new Payer()
       {
         PaymentMethod = "paypal"
-      }
+      },
     };
   }
 }

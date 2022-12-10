@@ -68,9 +68,8 @@ public class OrderController : ControllerBase
 
   [HttpPost]
   [Route("checkout")]
-  public async Task<IActionResult> PaypalCheckOut()
+  public async Task<IActionResult> PaypalCheckOut([FromBody] CheckoutWithPaypalRequest request)
   {
-    var request = new CheckoutWithPaypalRequest();
     var response = await _mediator.Send(request);
     return Ok(response);
   }

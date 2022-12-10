@@ -3,7 +3,6 @@ using MediatR;
 
 namespace Core.CQRS.Cart.Checkout;
 
-public class CheckoutWithPaypalRequest:IRequest<ActionResponse>
-{
-    
-}
+public sealed record CheckoutWithPaypalRequest(
+  int ShippingAddressId
+) : IRequest<ActionResponse>;
