@@ -7,5 +7,6 @@ public sealed record SuccessLoginResponse(
 	string Username,
 	string Email,
 	string Name,
-	string Token
+	string Token,
+	IEnumerable<string> Roles
 );

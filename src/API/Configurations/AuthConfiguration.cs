@@ -36,18 +36,6 @@ public static class AuthConfiguration
         ValidateAudience = false,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT_SECRET"]))
       };
-      options.Events = new JwtBearerEvents
-      {
-        OnMessageReceived = (context) =>
-        {
-          string token = context.Request.Cookies["token"] ?? string.Empty;
-
-          if (!string.IsNullOrEmpty(token))
-            context.Token = token;
-
-          return Task.CompletedTask;
-        }
-      };
     });
 
     services.AddScoped<ICurrentUser, CurrentUser>();

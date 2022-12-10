@@ -29,8 +29,11 @@ public sealed class LoginRequestHandler
 		if(validUserCrendential && user.Active)
 		{
       _jwt.SetUser(user);
+      
       var token = await _jwt.GenerateJwtToken();
-      var userData = new SuccessLoginResponse(user.UserName, user.Email, user.GetFullName(), token);
+      var roles = await _userManager.GetRolesAsync(user);
+      var userData = new SuccessLoginResponse(user.UserName, user.Email, user.GetFullName(), token, roles);
+
       return new ActionResponse(HttpStatusCode.OK, "Đăng nhập thành công")
         .WithData(userData);
     }

@@ -34,11 +34,7 @@ public class AuthController : ControllerBase
     var response = await _mediator.Send(request);
 
     if(response.StatusCode == System.Net.HttpStatusCode.OK)
-    {
-      var data = (SuccessLoginResponse) response.Data!;
-      Response.Cookies.Append("token", data.Token);
       return Ok(response);
-    }
 
     return Unauthorized(response);
   }
