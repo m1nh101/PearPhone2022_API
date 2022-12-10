@@ -19,14 +19,14 @@ public sealed record GetShippingAddressRequestHandler
     _user = user;
   }
 
-  public Task<ActionResponse> Handle(GetShippingAddressRequest request, CancellationToken cancellationToken)
+  public async Task<ActionResponse> Handle(GetShippingAddressRequest request, CancellationToken cancellationToken)
   {
-    var user = Query.Get(_userManager.Users, new UserSpecification(_user.Id));
+    var user = await Query.Find(_userManager.Users, new UserSpecification(_user.Id), QueryState.NoTracking);
 
     var data = user.Addresses
             .Where(e => e.Status == Shared.Enums.Status.Active)
             .Select(e => new ShippingAddressResponse(e.Id, e.Address, e.Type));
 
-    return Task.FromResult(new ActionResponse(System.Net.HttpStatusCode.OK, "Ok").WithData(data));
+    return new ActionResponse(System.Net.HttpStatusCode.OK, "Ok").WithData(data);
   }
 }

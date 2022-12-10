@@ -18,7 +18,7 @@ public sealed class UpdateNewPhoneRequestHandler :
 
   public async Task<ActionResponse> Handle(UpdateNewPhoneRequest request, CancellationToken cancellationToken)
   {
-    var phone = Query.Get(_context.Phones, new PhoneSpecification(request.Id), false);
+    var phone = await Query.Find(_context.Phones, new PhoneSpecification(request.Id), QueryState.NoTracking);
     
     var detail = new PhoneDetail(request.Detail.Battery, request.Detail.Screen, request.Detail.OS, request.Detail.RAM,
         request.Detail.Charger, request.Detail.Camera, request.Detail.Audio, request.Detail.Security, request.Detail.Connection);
@@ -31,7 +31,8 @@ public sealed class UpdateNewPhoneRequestHandler :
                   .WithId(item.Id)
                  select stock;
 
-    phone.Update(request.Name, request.Branch).UpdateDetail(detail)
+    phone.Update(request.Name, request.Branch)
+      .UpdateDetail(detail)
       .UpdateStock(stocks);
     
     await _context.Commit();

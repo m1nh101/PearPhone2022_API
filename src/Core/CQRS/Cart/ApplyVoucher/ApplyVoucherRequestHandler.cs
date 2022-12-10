@@ -28,7 +28,7 @@ public sealed class ApplyVoucherRequestHandler
     if(receipt == null)
       receipt = order.MakeReceipt();
 
-    var voucher = Query.Get(_context.Vouchers, new VoucherDetailSpecification(request.Code), false);
+    var voucher = await Query.Find(_context.Vouchers, new VoucherDetailSpecification(request.Code), QueryState.NoTracking);
 
     var discount = receipt.ApplyVoucher(voucher);
 

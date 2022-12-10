@@ -24,7 +24,7 @@ public sealed class UpdatePasswordRequestHandler
     if(request.NewPassword != request.ConfirmPassword)
       throw new Exception("mật khẩu mới và xác nhận mật khẩu không giống nhau");
 
-    var user = Query.Get(_userManager.Users, new UserSpecification(_user.Id), false);
+    var user = await Query.Find(_userManager.Users, new UserSpecification(_user.Id), QueryState.NoTracking);
 
     var result = await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
 

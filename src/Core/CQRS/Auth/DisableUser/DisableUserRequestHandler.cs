@@ -21,7 +21,7 @@ public sealed class DisableUserRequestHandler
 
   public async Task<ActionResponse> Handle(DisableUserRequest request, CancellationToken cancellationToken)
   {
-    var user = Query.Get(_userManager.Users, new UserSpecification(_user.Id), false);
+    var user = await Query.Find(_userManager.Users, new UserSpecification(_user.Id), QueryState.NoTracking);
 
     user.SetStatus(false);
 

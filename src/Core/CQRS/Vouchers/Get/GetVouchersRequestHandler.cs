@@ -17,7 +17,7 @@ public sealed class GetVouchersRequestHandler
 
   public Task<ActionResponse> Handle(GetVouchersRequest request, CancellationToken cancellationToken)
   {
-    var data = Query.All(_context.Vouchers, new AllVoucherSpecification())
+    var data = Query.All(_context.Vouchers, new AllVoucherSpecification(), QueryState.NoTracking)
       .Select(e => new GetVoucheRequestResponse(e.Id, e.Name, e.Code, e.EffectiveDate, e.ExpiredDate, e.TimesRemain));
 
     var response = new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công")

@@ -23,7 +23,7 @@ public sealed class AddShippingAddressRequestHandler
 
   public async Task<ActionResponse> Handle(AddShippingAddressRequest request, CancellationToken cancellationToken)
   {
-    var user = Query.Get(_userManager.Users, new UserSpecification(_user.Id), false);
+    var user = await Query.Find(_userManager.Users, new UserSpecification(_user.Id), QueryState.NoTracking);
 
     var address = new ShippingAddress(request.Address, request.Type);
 

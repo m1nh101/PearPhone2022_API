@@ -22,7 +22,7 @@ public sealed class UpdateVoucherRequestHandler
 
   public async Task<ActionResponse> Handle(UpdateVoucherRequest request, CancellationToken cancellationToken)
   {
-    var voucher = Query.Get(_context.Vouchers, new VoucherDetailSpecification(request.Id), false);
+    var voucher = await Query.Find(_context.Vouchers, new VoucherDetailSpecification(request.Id), QueryState.Tracking);
 
     var payload = new Voucher(request.Name, request.EffectiveDate, request.ExpiredDate, request.TimesUse, request.Type);
 

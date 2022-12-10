@@ -22,7 +22,7 @@ public sealed class UpdateItemQuantityRequestHandler
   {
     var order = await _context.Orders.CurrentOrder(_user.Id);
 
-    var phoneStock = Query.Get(_context.Stocks, new PhoneStockSpecification(request.ProductId));
+    var phoneStock = await Query.Find(_context.Stocks, new PhoneStockSpecification(request.ProductId), QueryState.NoTracking);
 
     double totalItemPrice = Calculator.TotalPrice(request.Quantity, phoneStock.Price);
     double totalOrderPrice = order.UpdateItemInCart(request.ItemId, request.Quantity, phoneStock.Price);

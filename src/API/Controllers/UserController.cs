@@ -43,8 +43,7 @@ public class UserController : ControllerBase
 
   [HttpPatch]
   [Route("addresses/{id:int}")]
-  public async Task<IActionResult> UpdateShippingAddress([FromQuery] int id,
-    [FromBody] UpdateShippingAddressRequest request)
+  public async Task<IActionResult> UpdateShippingAddress([FromBody] UpdateShippingAddressRequest request)
   {
     var response = await _mediator.Send(request);
     return Ok(response);

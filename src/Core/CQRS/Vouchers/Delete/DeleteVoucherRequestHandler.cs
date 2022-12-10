@@ -17,7 +17,9 @@ public sealed class DeleteVoucherRequestHandler
 
   public async Task<ActionResponse> Handle(DeleteVoucherRequest request, CancellationToken cancellationToken)
   {
-    var voucher = Query.Get(_context.Vouchers, new VoucherDetailSpecification(request.Id), false);
+    var specification = new VoucherDetailSpecification(request.Id);
+
+    var voucher = await Query.Find(_context.Vouchers, specification, QueryState.NoTracking);
 
     voucher.Delete();
 
