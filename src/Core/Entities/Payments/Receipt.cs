@@ -28,7 +28,7 @@ public class Receipt : ModifierEntity
 
   public Receipt WithSeller(string id)
   {
-    Seller = id;
+    Seller = id ?? "Hệ thống";
     return this;
   }
 
@@ -47,7 +47,7 @@ public class Receipt : ModifierEntity
   /// <summary>
   /// get or set of receipt
   /// </summary>
-  public Status Status { get; set; } = Status.Inprocess;
+  public Status Status { get; private set; } = Status.Inprocess;
 
   /// <summary>
   /// get or set description for receipt
@@ -61,11 +61,11 @@ public class Receipt : ModifierEntity
   /// <summary>
   /// get or set shipping address id
   /// </summary>
-  public int AddressId { get; set; }
-  public virtual ShippingAddress? Address { get; set; }
+  public int AddressId { get; private set; }
+  public virtual ShippingAddress Address { get; private set; } = null!;
 
   public int VoucherId { get; private set; }
-  public virtual Voucher? Voucher { get; private set; }
+  public virtual Voucher Voucher { get; private set; } = null!;
 
   public double ApplyVoucher(Voucher voucher)
   {
@@ -92,4 +92,6 @@ public class Receipt : ModifierEntity
     
     return voucher.MaxDiscount;
   }
+
+  public void CheckoutSucceed() => Status = Status.Done;
 }

@@ -25,7 +25,7 @@ public sealed class AddShippingAddressRequestHandler
   {
     var user = await Query.Find(_userManager.Users, new UserSpecification(_user.Id), QueryState.NoTracking);
 
-    var address = new ShippingAddress(request.Address, request.Type);
+    var address = new ShippingAddress(request.Address, request.City, request.Type);
 
     user.AddShippingAddress(address);
 

@@ -14,8 +14,7 @@ public partial class Order : IAggregateRoot
     Status = Shared.Enums.Status.Inprocess;
   }
 
-  
-  public double AddItem(int quantity, Stock phoneStock)
+  public double AddItem(int quantity, Stock phoneStock, double price)
   {
     double totalItemPrice = 0;
     Item? itemInOrder = _items.FirstOrDefault(e => e.StockId == phoneStock.Id);
@@ -23,23 +22,28 @@ public partial class Order : IAggregateRoot
     if(itemInOrder == null)
     {
       Item item = new(phoneStock);
+      item.Price = price;
+      _items.Add(item);
       totalItemPrice = item.UpdateQuantity(quantity);
     } else
+    {
+      itemInOrder.Price = price;
       totalItemPrice = itemInOrder.UpdateQuantity(quantity);
+    }
 
     Total += totalItemPrice;
 
     return Total;
   }
 
-  public double RemoveItem(int id, double price)
+  public double RemoveItem(int id)
   {
     Item? item = _items.FirstOrDefault(e => e.Id == id);
 
     if(item == null)
       throw new NullReferenceException();
 
-    double totalItemPrice = TotalPriceCalculate(item.Quantity, price);
+    double totalItemPrice = TotalPriceCalculate(item.Quantity, item.Price);
 
     Total -= totalItemPrice;
 
@@ -53,11 +57,11 @@ public partial class Order : IAggregateRoot
     if(item == null)
       throw new NullReferenceException();
 
-    double totalItemPriceBeforeUpdateQuantity = TotalPriceCalculate(item.Quantity, price);
+    double totalItemPriceBeforeUpdatedQuantity = TotalPriceCalculate(item.Quantity, price);
     double totalItemPriceAfterUpdatedQuantity = item.UpdateQuantity(quantiy);
-    double differentPriceAfterQuantityChanged = totalItemPriceAfterUpdatedQuantity - totalItemPriceBeforeUpdateQuantity;
+    double differentPriceAfterQuantityChanged = totalItemPriceAfterUpdatedQuantity - totalItemPriceBeforeUpdatedQuantity;
 
-    bool isIncreasingQuantity = totalItemPriceBeforeUpdateQuantity < totalItemPriceAfterUpdatedQuantity;
+    bool isIncreasingQuantity = totalItemPriceBeforeUpdatedQuantity < totalItemPriceAfterUpdatedQuantity;
     
     if(isIncreasingQuantity)
       Total -= differentPriceAfterQuantityChanged;

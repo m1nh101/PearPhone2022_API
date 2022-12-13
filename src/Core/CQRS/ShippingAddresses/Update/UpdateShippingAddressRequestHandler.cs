@@ -23,7 +23,7 @@ public class UpdateShippingAddressRequestHandler
   {
     var user = await Query.Find(_userManager.Users, new UserSpecification(_user.Id), QueryState.Tracking);
 
-    var address = new ShippingAddress(request.Address, request.Type);
+    var address = new ShippingAddress(request.Address, request.City, request.Type);
 
     user.UpdateShippingAddress(request.Id, address);
 

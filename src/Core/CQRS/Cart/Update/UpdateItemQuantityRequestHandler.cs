@@ -22,8 +22,11 @@ public sealed class UpdateItemQuantityRequestHandler
   {
     var order = await _context.Orders.CurrentOrder(_user.Id);
 
-    var phoneStock = await Query.Find(_context.Stocks, new PhoneStockSpecification(request.ProductId), QueryState.NoTracking);
+    var phoneStock = await Query.Find(_context.Stocks, new PhoneStockSpecification(request.ItemId), QueryState.NoTracking);
 
+    if(phoneStock.Quantity < request.Quantity)
+      throw new ArgumentOutOfRangeException("quantity is greater than product have in stock");
+    
     double totalItemPrice = Calculator.TotalPrice(request.Quantity, phoneStock.Price);
     double totalOrderPrice = order.UpdateItemInCart(request.ItemId, request.Quantity, phoneStock.Price);
 

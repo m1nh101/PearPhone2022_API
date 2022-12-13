@@ -4,6 +4,7 @@ using Core.Interfaces;
 using Core.Helpers.Extensions;
 using MediatR;
 using Core.Specifications;
+using Core.Entities;
 
 namespace Core.CQRS.Cart.Add;
 
@@ -23,13 +24,21 @@ public sealed class AddItemToCartRequestHandler
   {
     var order = await _context.Orders.CurrentOrder(_user.Id);
 
-    var phoneStock = await Query.Find(_context.Stocks, new PhoneStockSpecification(request.ProductId), QueryState.NoTracking);
+    var phoneStock = await Query.Find(_context.Stocks, new PhoneStockSpecification(request.StockId), QueryState.NoTracking);
+
+    if(phoneStock.Quantity < request.Quantity)
+      throw new ArgumentOutOfRangeException("quantity is greater than product have in stock");
 
     Item item = new(phoneStock!);
 
-    double totalItemPrice = Calculator.TotalPrice(request.Quantity, phoneStock!.Price);
+    var sale = phoneStock.Phone!.Sale;
 
-    double totalOrderPrice = order!.AddItem(request.Quantity, phoneStock!);
+    if(sale != null && sale.Status == Shared.Enums.Status.Active)
+      item.Price = Calculator.DiscountPrice(phoneStock.Price, sale.Discount);
+
+    double totalItemPrice = Calculator.TotalPrice(request.Quantity, item.Price);
+
+    double totalOrderPrice = order!.AddItem(request.Quantity, phoneStock!, item.Price);
 
     _context.Orders.Update(order);
 

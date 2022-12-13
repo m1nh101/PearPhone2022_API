@@ -8,12 +8,16 @@ public class ShippingAddress : ModifierEntity
 {
   private ShippingAddress() {}
 
-  public ShippingAddress(string address, AddressType type)
+  public ShippingAddress(string address, string city, AddressType type)
   {
     if(string.IsNullOrEmpty(address))
       throw new ArgumentNullException(nameof(address), "Địa chỉ không được trống");
 
+    if(string.IsNullOrEmpty(city))
+      throw new ArgumentNullException(nameof(city), "Thành phố không được để trống");
+
     Address = address;
+    City = city;
     Type = type;
   }
 
@@ -21,6 +25,8 @@ public class ShippingAddress : ModifierEntity
   /// get or set address
   /// </summary>
   public string Address { get; private set; } = string.Empty;
+
+  public string City { get; private set; } = string.Empty;
 
   /// <summary>
   /// get or set type of address

@@ -33,7 +33,7 @@ public class Item : ModifierEntity
   /// </summary>
   public int Quantity { get; private set; }
 
-  public double Price { get; private set; }
+  public double Price { get; set; }
 
   public double UpdateQuantity(int quantity)
   {

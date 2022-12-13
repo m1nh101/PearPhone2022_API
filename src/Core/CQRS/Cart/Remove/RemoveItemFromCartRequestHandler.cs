@@ -21,12 +21,7 @@ public sealed class RemoveItemFromCartRequestHandler
   {
     var order = await _context.Orders.CurrentOrder(_user.Id);
 
-    var phoneStock = await _context.Stocks.AsNoTracking().FirstOrDefaultAsync(e => e.Id == request.ProductId);
-
-    if(phoneStock == null)
-      throw new NullReferenceException();
-
-    double TotalOrderPrice = order.RemoveItem(request.ItemId, phoneStock.Price);
+    double TotalOrderPrice = order.RemoveItem(request.ItemId);
 
     _context.Orders.Update(order);
 

@@ -10,15 +10,16 @@ public sealed record GetPhoneDetailRequest(
 
 public sealed record PhoneResponse(
   string Name,
-  double Price,
   string Branch,
-  IEnumerable<PhoneColor> Colors,
-  IEnumerable<int> Capacities,
-  DetailPayload Detail
+  IEnumerable<PhoneStock> Stocks,
+  DetailPayload Detail,
+  IEnumerable<string> Images
 );
 
-public sealed record PhoneColor(
+public sealed record PhoneStock(
   int Id,
-  string Url,
-  string Name
+  double Price,
+  int Capacity,
+  string ColorName,
+  string Thumbnail
 );

@@ -16,11 +16,11 @@ public class Checkout : ICheckout
     _env = new(configuration["PaypalSettings:clientId"], configuration["PaypalSettings:secretKey"]);
   }
 
-  public async Task<string> Process(Core.Entities.Orders.Order order)
+  public async Task<string> Process(Core.Entities.Orders.Order order, Core.Entities.Users.ShippingAddress address)
   {
     var client = new PayPalHttpClient(_env);
 
-    var payload = MakePayment(order);
+    var payload = MakePayment(order, address);
 
     var request = new PaymentCreateRequest()
       .RequestBody(payload);
@@ -36,7 +36,7 @@ public class Checkout : ICheckout
     return string.Empty;
   }
 
-  private static Payment MakePayment(Core.Entities.Orders.Order order)
+  private static Payment MakePayment(Core.Entities.Orders.Order order, Core.Entities.Users.ShippingAddress address)
   {
     long now = DateTime.Now.Ticks;
 
@@ -67,7 +67,13 @@ public class Checkout : ICheckout
             Quantity = e.Quantity.ToString(),
             Sku = "sku",
             Tax = "0"
-          }).ToList()
+          }).ToList(),
+          ShippingAddress = new ShippingAddress
+          {
+            Line1 = address.Address,
+            CountryCode = "VN",
+            City = address.City
+          }
         },
         Description = $"Invoice #{now}",
         InvoiceNumber = now.ToString(),

@@ -47,13 +47,10 @@ public class Sale : ModifierEntity
 
   public void Update(Sale sale)
   {
-      Effective = sale.Effective;
-      Expired = sale.Expired;
-      Discount = sale.Discount;
+    Effective = sale.Effective;
+    Expired = sale.Expired;
+    Discount = sale.Discount;
   }
 
-  public void Delete()
-  {
-      Status = Status.Inactive;
-  }
+  public void Delete() => Status = Status.Inactive;
 }

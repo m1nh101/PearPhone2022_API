@@ -24,13 +24,11 @@ public sealed class GetPhoneDetailRequestHandler
         phone.Detail.Charger, phone.Detail.Camera, phone.Detail.Audio, phone.Detail.Security!,
         phone.Detail.CPU, phone.Detail.RAM, phone.Detail.Connection);
 
-    var colors = phone.Stocks.Select(e => new PhoneColor(e.ColorId, e.Color!.Url, e.Color.Name));
+    var stocks = phone.Stocks.Select(e => new PhoneStock(e.Id, e.Price, e.Capacity, e.Color!.Name, e.Color.Url));
 
-    var capacitities = phone.Stocks.Select(e => e.Capacity);
-
-    var price = phone.Stocks.First().Price;
-
-    var data = new PhoneResponse(phone.Name, price, phone.Branch, colors, capacitities, detail);
+    var images = phone.Images.Select(e => e.Url);
+    
+    var data = new PhoneResponse(phone.Name, phone.Branch, stocks, detail, images);
 
     return new ActionResponse(System.Net.HttpStatusCode.OK, "Ok").WithData(data);
   }

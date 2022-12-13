@@ -1,7 +1,9 @@
 ﻿using System.Net;
 using Core.Entities.Users;
+using Core.Helpers;
 using Core.Helpers.Extensions;
 using Core.Interfaces;
+using Core.Specifications;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -30,11 +32,11 @@ public sealed class CheckoutWithPaypalRequestHandle
   {
     var cart = await _context.Orders.CurrentOrder(_currentUser.Id);
 
-    // var user = Query.Get(_userManager.Users, new UserSpecification(_currentUser.Id));
+    var user = await Query.Find(_userManager.Users, new UserSpecification(_currentUser.Id), QueryState.NoTracking);
 
-    // var shippingAddress = user.GetShippingAddress(request.ShippingAddressId);
+    var shippingAddress = user.GetShippingAddress(request.ShippingAddressId);
     
-    var response = await _checkout.Process(cart);
+    var response = await _checkout.Process(cart, shippingAddress);
 
     return new ActionResponse(HttpStatusCode.OK, "Ok").WithData(new { checkout_url = response});
   }
