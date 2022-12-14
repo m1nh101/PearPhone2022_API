@@ -45,6 +45,8 @@ public class Item : ModifierEntity
 		return TotalItemPriceCalculate(quantity, Stock.Price);
   }
 
+  public double Total() => TotalItemPriceCalculate(Quantity, Stock.Price);
+
   /// <summary>
   /// get or set order id
   /// </summary>

@@ -17,7 +17,7 @@ public partial class Order : IAggregateRoot
   public double AddItem(int quantity, Stock phoneStock, double price)
   {
     double totalItemPrice = 0;
-    Item? itemInOrder = _items.FirstOrDefault(e => e.StockId == phoneStock.Id);
+    var itemInOrder = _items.FirstOrDefault(e => e.StockId == phoneStock.Id);
 
     if(itemInOrder == null)
     {
@@ -27,6 +27,8 @@ public partial class Order : IAggregateRoot
       totalItemPrice = item.UpdateQuantity(quantity);
     } else
     {
+      Total -= itemInOrder.Total();
+
       itemInOrder.Price = price;
       totalItemPrice = itemInOrder.UpdateQuantity(quantity);
     }
@@ -52,10 +54,13 @@ public partial class Order : IAggregateRoot
 
   public double UpdateItemInCart(int id, int quantiy, double price)
   {
-    Item? item = _items.FirstOrDefault(e => e.Id == id);
+    var item = _items.FirstOrDefault(e => e.Id == id);
 
     if(item == null)
       throw new NullReferenceException();
+
+    if(item.Price != price)
+      item.Price = price;
 
     double totalItemPriceBeforeUpdatedQuantity = TotalPriceCalculate(item.Quantity, price);
     double totalItemPriceAfterUpdatedQuantity = item.UpdateQuantity(quantiy);
