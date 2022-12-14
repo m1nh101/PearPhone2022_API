@@ -5,6 +5,5 @@ public sealed record GetListPhoneRequest(
   string? Name,
   string? Branch,
   int RAM,
-  int Capacity,
-  int pageIndex = 1
+  int Capacity
 ) : IRequest<ActionResponse>;

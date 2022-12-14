@@ -13,34 +13,18 @@ public sealed class GetListPhoneRequestHandler
     _context = context;
   }
 
-  private static readonly int recordPerPage = 20;
-
   public Task<ActionResponse> Handle(GetListPhoneRequest request, CancellationToken cancellationToken)
   {
-    int skipRecord = recordPerPage * (request.pageIndex - 1);
-
     var rawQuery = _context.Phones
       .Include(e => e.Images.Take(1))
       .Include(e => e.Stocks.Take(1))
       .AsNoTracking();
-
-    var filter = QueryPhone(request, rawQuery);
-
-    var pagination = filter
-      .Skip(skipRecord)
-      .Take(recordPerPage)
-      .Select(e => new GetListResponse(e.Id, e.Name, e.Stocks.First().Price, e.Images.First().Url));
-
-    // var query = _context.Phones
-    //   .Include(e => e.Images.Take(1))
-    //   .Include(e => e.Stocks.Take(1))
-    //   .Skip(skipRecord)
-    //   .Take(recordPerPage)
-    //   .Select(e => new GetListResponse(e.Id, e.Name, e.Stocks.First().Price, e.Images.First().Url))
-    //   .AsNoTracking();
+      
+    var filter = QueryPhone(request, rawQuery)
+      .Select(e => new GetListResponse(e.Id, e.Name, e.Stocks.First().Price, e.Images.First().Url));;
 
     var response = new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công")
-      .WithData(pagination);
+      .WithData(filter);
 
     return Task.FromResult(response);
   }
