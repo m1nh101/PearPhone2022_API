@@ -4,8 +4,10 @@ using MediatR;
 namespace Core.CQRS.Sales.Update;
 
 public sealed record UpdateSaleRequest(
-    int saleId,
+    int Id,
     DateTime Effective,
     DateTime Expired,
-    int Discount
+    int Discount,
+    IEnumerable<int>? AddProducts,
+    IEnumerable<int>? RemoveProducts
 ) : IRequest<ActionResponse>;

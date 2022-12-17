@@ -1,0 +1,78 @@
+{
+  "name": "Iphone 14 Pro",
+  "branch": "Apple",
+  "colors": [
+    {
+      "id": 0,
+      "url": "preview1.jpg",
+      "name": "Trang",
+      "stocks": [
+        {
+          "id": 0,
+          "quantity": 2,
+          "price": 15000000,
+          "capacity": 128,
+          "imeis": [
+            "14092389123",
+            "14092389124"
+          ]
+        },
+        {
+          "id": 0,
+          "quantity": 2,
+          "price": 18000000,
+          "capacity": 256,
+          "imeis": [
+            "14092389124",
+            "14092389125"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "url": "preview2.jpg",
+      "name": "Vang",
+      "stocks": [
+        {
+          "id": 0,
+          "quantity": 2,
+          "price": 15000000,
+          "capacity": 128,
+          "imeis": [
+            "14092389112",
+            "14092389123"
+          ]
+        },
+        {
+          "id": 0,
+          "quantity": 2,
+          "price": 18000000,
+          "capacity": 256,
+          "imeis": [
+            "14092389119",
+            "14092389131"
+          ]
+        }
+      ]
+    }
+  ],
+  "detail": {
+    "battery": "4312 mAh",
+    "screen": "6.1 inch Retina",
+    "os": "iOS 15",
+    "charger": "Sac nhanh",
+    "camera": "12 MP",
+    "audio": "Loa kep",
+    "security": "Face Id",
+    "cpu": "Apple Bionic A15",
+    "ram": 6,
+    "connection": "Wi-Fi, Bluetooth, 5G"
+  },
+  "images": [
+    "image1",
+    "image2",
+    "image3",
+    "image4"
+  ]
+}

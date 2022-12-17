@@ -19,6 +19,7 @@ public class AddSaleRequestHandler : IRequestHandler<AddSaleRequest, ActionRespo
     var sale = new Sale(request.Effective, request.Expired, request.Discount);
 
     await _context.Sales.AddAsync(sale);
+    
     await _context.Commit();
 
     return new ActionResponse(System.Net.HttpStatusCode.OK, "Thêm thành công");

@@ -19,31 +19,34 @@ public class SaleController : ControllerBase
   {
     _mediator = mediator;
   }
+
   [HttpGet]
-    public async Task<IActionResult> GetSale([FromBody] GetListSaleRequest request)
-    {
-        var response = await _mediator.Send(request);
-        return Ok(response);
-    }
+  public async Task<IActionResult> GetSale()
+  {
+		var request = new GetListSaleRequest();
+    var response = await _mediator.Send(request);
+    return Ok(response);
+  }
 
-    [HttpPost]
-    public async Task<IActionResult> AddSale([FromBody] AddSaleRequest request)
-    {
-        var response = await _mediator.Send(request);
-        return Ok(response);
-    }
+  [HttpPost]
+  public async Task<IActionResult> AddSale([FromBody] AddSaleRequest request)
+  {
+    var response = await _mediator.Send(request);
+    return Ok(response);
+  }
 
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> UpdateSale([FromBody] UpdateSaleRequest request, int id)
-    {
-        var response = await _mediator.Send(request);
-        return Ok(response);
-    }
+  [HttpPut("{id:int}")]
+  public async Task<IActionResult> UpdateSale([FromBody] UpdateSaleRequest request, int id)
+  {
+    var response = await _mediator.Send(request);
+    return Ok(response);
+  }
 
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> DeleteSale([FromBody] RemoveSaleRequest request, int id)
-    {
-        var response = await _mediator.Send(request);
-        return Ok(response);
-    }
+  [HttpDelete("{id:int}")]
+  public async Task<IActionResult> DeleteSale([FromRoute] int id)
+  {
+		var request = new RemoveSaleRequest(id);
+    var response = await _mediator.Send(request);
+    return Ok(response);
+  }
 }

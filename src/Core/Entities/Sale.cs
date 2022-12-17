@@ -11,7 +11,7 @@ public class Sale : ModifierEntity
   
   public Sale(DateTime effective, DateTime expired, int discount)
   {
-    if(effective <= expired)
+    if(effective >= expired) // check effective date is later than expired date
       throw new InvalidTimeExeption("ngày hiệu lực không thể sau ngày kết thúc");
   
     if(discount > 100 || discount <= 0)
