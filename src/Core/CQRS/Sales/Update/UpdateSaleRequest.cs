@@ -8,6 +8,6 @@ public sealed record UpdateSaleRequest(
     DateTime Effective,
     DateTime Expired,
     int Discount,
-    IEnumerable<int>? AddProducts,
-    IEnumerable<int>? RemoveProducts
+    int[]? AddProducts,
+    int[]? RemoveProducts
 ) : IRequest<ActionResponse>;

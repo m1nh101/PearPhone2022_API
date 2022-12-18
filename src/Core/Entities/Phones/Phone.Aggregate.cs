@@ -61,4 +61,12 @@ public partial class Phone : IAggregateRoot
     _images.AddRange(images.Select(c => new Image(c)));
     return this;
   }
+
+  public void SetSaleValue(Sale? sale = null)
+  {
+    Sale = sale;
+
+    if(sale == null)
+      SaleId = null;
+  }
 }

@@ -27,3 +27,11 @@ public class PhoneSpecification : Specification<Phone>
     AddInclude(e => e.Include(d => d.Images));
   }
 }
+
+public class PhoneWithSaleSpecification : Specification<Phone>
+{
+  public PhoneWithSaleSpecification(IEnumerable<int> ids)
+    :base(e => ids.Any(d => d == e.Id))
+  {
+  }
+}

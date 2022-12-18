@@ -24,6 +24,22 @@ public class UpdateSaleRequestHandler :
 
     sale.Update(payload);
 
+    if(request.AddProducts != null && request.AddProducts.Length > 0)
+    {
+      var phones = Query.All(_context.Phones, new PhoneWithSaleSpecification(request.AddProducts!), QueryState.Tracking);
+
+      foreach(var phone in phones)
+        phone.SetSaleValue(sale);
+    }
+
+    if(request.RemoveProducts != null && request.RemoveProducts.Length > 0)
+    {
+      var phones = Query.All(_context.Phones, new PhoneWithSaleSpecification(request.RemoveProducts!), QueryState.Tracking);
+
+      foreach(var phone in phones)
+        phone.SetSaleValue();
+    }
+
     await _context.Commit();
 
     return new ActionResponse(System.Net.HttpStatusCode.OK, "Sửa thành công")

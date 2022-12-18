@@ -4,7 +4,7 @@ using MediatR;
 namespace Core.CQRS.Sales.Add;
 
 public sealed record AddSaleRequest(
-    IEnumerable<int> Products,
+    int[]? Phones,
     DateTime Effective,
     DateTime Expired,
     int Discount
