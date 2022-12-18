@@ -14,17 +14,10 @@ public class Item : ModifierEntity
 		TotalItemPriceCalculate = Calculator.TotalPrice;
 	}
 
-  public Item(Stock stock, int quantity)
-  {
-    StockId = stock.Id;
-    Quantity = quantity;
-    Price = stock.Price;
-    TotalItemPriceCalculate = Calculator.TotalPrice;
-  }
-
   public Item(Stock stock)
   {
 		Stock = stock;
+    Price = stock.Price;
 		TotalItemPriceCalculate = Calculator.TotalPrice;
   }
 
@@ -42,10 +35,10 @@ public class Item : ModifierEntity
 
     Quantity = quantity;
 
-		return TotalItemPriceCalculate(quantity, Stock.Price);
+		return TotalItemPriceCalculate(quantity, Price);
   }
 
-  public double Total() => TotalItemPriceCalculate(Quantity, Stock.Price);
+  public double Total() => TotalItemPriceCalculate(Quantity, Price);
 
   /// <summary>
   /// get or set order id

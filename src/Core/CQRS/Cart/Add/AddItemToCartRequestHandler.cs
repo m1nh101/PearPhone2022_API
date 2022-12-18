@@ -4,7 +4,6 @@ using Core.Interfaces;
 using Core.Helpers.Extensions;
 using MediatR;
 using Core.Specifications;
-using Core.Entities;
 
 namespace Core.CQRS.Cart.Add;
 
