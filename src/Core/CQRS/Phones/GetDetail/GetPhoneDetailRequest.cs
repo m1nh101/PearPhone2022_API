@@ -21,5 +21,6 @@ public sealed record PhoneStock(
   double Price,
   int Capacity,
   string ColorName,
-  string Thumbnail
+  string Thumbnail,
+  int Stock
 );

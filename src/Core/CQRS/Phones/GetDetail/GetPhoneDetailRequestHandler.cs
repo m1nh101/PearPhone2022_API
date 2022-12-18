@@ -24,7 +24,7 @@ public sealed class GetPhoneDetailRequestHandler
         phone.Detail.Charger, phone.Detail.Camera, phone.Detail.Audio, phone.Detail.Security!,
         phone.Detail.CPU, phone.Detail.RAM, phone.Detail.Connection);
 
-    var stocks = phone.Stocks.Select(e => new PhoneStock(e.Id, e.Price, e.Capacity, e.Color!.Name, e.Color.Url));
+    var stocks = phone.Stocks.Select(e => new PhoneStock(e.Id, e.Price, e.Capacity, e.Color!.Name, e.Color.Url, e.Quantity));
 
     var images = phone.Images.Select(e => e.Url);
     
