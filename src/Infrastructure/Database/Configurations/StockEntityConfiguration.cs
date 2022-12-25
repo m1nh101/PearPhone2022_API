@@ -9,6 +9,8 @@ public class StockEntityConfiguration : BaseModifierConfiguration<Stock>
 {
   public override void Configure(EntityTypeBuilder<Stock> builder)
   {
+    builder.Ignore(e => e.SalePrice);
+
     builder.Property(e => e.Quantity)
       .HasColumnType("bigint");
 

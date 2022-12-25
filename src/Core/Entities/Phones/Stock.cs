@@ -59,6 +59,19 @@ public partial class Stock : ModifierEntity
 
   public int Capacity { get; private set; }
 
+  public double SalePrice
+  {
+    get
+    {
+      if(Phone.Sale != null && Phone.Sale.Status == Status.Active)
+      {
+        return Price - (Phone.Sale.Discount * Price);
+      }
+
+      return Price;
+    }
+  }
+
   /// <summary>
   /// get or set phone id
   /// </summary>

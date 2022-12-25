@@ -21,7 +21,7 @@ public sealed class GetListPhoneRequestHandler
       .AsNoTracking();
       
     var filter = QueryPhone(request, rawQuery)
-      .Select(e => new GetListResponse(e.Id, e.Name, e.Stocks.First().Price, e.Images.First().Url));;
+      .Select(e => new GetListResponse(e.Id, e.Name, e.Stocks.First().Price, e.Stocks.First().SalePrice, e.Images.First().Url));;
 
     var response = new ActionResponse(System.Net.HttpStatusCode.OK, "Thành công")
       .WithData(filter);
