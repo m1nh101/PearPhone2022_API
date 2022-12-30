@@ -36,21 +36,21 @@ public class VoucherController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<IActionResult> AddPhone([FromBody] CreateVoucherRequest request)
+  public async Task<IActionResult> AddVoucher([FromBody] CreateVoucherRequest request)
   {
     var response = await _mediator.Send(request);
     return Ok(response);
   }
 
   [HttpPut("{id:int}")]
-  public async Task<IActionResult> UpdatePhone([FromBody] UpdateVoucherRequest request, int id)
+  public async Task<IActionResult> UpdateVoucher([FromBody] UpdateVoucherRequest request, int id)
   {
     var response = await _mediator.Send(request);
     return Ok(response);
   }
 
   [HttpDelete("{id:int}")]
-  public async Task<IActionResult> DeletePhone([FromRoute] int id)
+  public async Task<IActionResult> DeleteVoucher([FromRoute] int id)
   {
     var request = new DeleteVoucherRequest(id);
     var response = await _mediator.Send(request);
